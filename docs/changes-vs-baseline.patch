@@ -31,7 +31,7 @@ index 0000000..b34c05b
 +# Regenerable in ~2 s with `npm run motion:export` (duplicates the 29 MB avatar)
 +motion/*/*.animation.glb
 diff --git a/README.md b/README.md
-index 8d5d54c..b539016 100644
+index 8d5d54c..58825fe 100644
 --- a/README.md
 +++ b/README.md
 @@ -1,55 +1,197 @@
@@ -55,7 +55,7 @@ index 8d5d54c..b539016 100644
 -npm run build
 +npm install          # Node >= 20.19
 +npm run dev          # http://localhost:5173
-+npm test             # 32 unit tests (Node test runner)
++npm test             # 33 unit tests (Node test runner)
 +npm run build        # vue-tsc + tsc (tools) + vite build
  npm run preview
  ```
@@ -265,9 +265,41 @@ index 8d5d54c..b539016 100644
 +## Privacy
 +
 +All processing happens locally: Python/Node offline, and the browser for live mode. No video, frame or landmark leaves the machine, and no paid or external APIs are used.
+diff --git a/docs/APPLY_UPDATE.md b/docs/APPLY_UPDATE.md
+new file mode 100644
+index 0000000..00bd1c1
+--- /dev/null
++++ b/docs/APPLY_UPDATE.md
+@@ -0,0 +1,26 @@
++# Applying motion engine v2 to your project folder
++
++These archives contain every file that is new or changed relative to the project as you uploaded it. Your large assets are unchanged and are not included: `public/mediapipe/`, `public/models/deafference-avatar.glb`, `public/samples/`, `references/`, `PREVIEW.png`.
++
++1. Extract `deafference-motion-v2-update.zip` over your project folder (the archive's top folder is `deafference-avatar-motion-studio/`). Allow it to overwrite files.
++2. Extract `deafference-motion-v2-landmark-caches.zip` the same way. It adds:
++   - `motion/qassem-story/raw-landmarks.json.gz`, the offline tracker cache;
++   - `evidence/inputs/raw-landmarks.live-smoothed.json.gz`, the input for the before and live replays.
++3. Delete `src/lib/AvatarRetargeter.ts`. It was replaced; an unchanged copy lives at `tools/evidence/legacy/AvatarRetargeter.legacy.ts`.
++4. Copy your original video to `media/source/qassem-story.original.mp4`. This is only needed to re-run landmark extraction; it is never modified.
++5. Run:
++
++```bash
++npm install
++npm test               # 33 tests
++npm run build
++npm run motion:export  # rebuilds motion/qassem-story/qassem-story.animation.glb (original GLB + animation clip) in ~2 s
++npm run dev
++```
++
++Expected hashes:
++
++- avatar GLB: 18df37e0d48b7c7a619fbe1f356fa61186153b8ff2bbaefcba1f6fc0a77bece4
++- original video: 08a276adf5c774ff531a81241805a0e987498b675e43d71460e08d1013c4d431
++
++The motion files record these hashes, and `motion:export` refuses to bake onto a different GLB.
 diff --git a/docs/ENGINEERING_SUMMARY.md b/docs/ENGINEERING_SUMMARY.md
 new file mode 100644
-index 0000000..7b6737b
+index 0000000..68c39a7
 --- /dev/null
 +++ b/docs/ENGINEERING_SUMMARY.md
 @@ -0,0 +1,90 @@
@@ -313,7 +345,7 @@ index 0000000..7b6737b
 +
 +## Verification
 +
-+- **Unit tests** (`npm test`): 32 tests, all passing. They cover:
++- **Unit tests** (`npm test`): 33 tests, all passing. They cover:
 +  - filters (zero-phase, rate limits, Hampel, PCHIP, One Euro), swing-twist;
 +  - rig validation;
 +  - hand FK→fit round trip (exact on clean data; median 5° under 1.5 px noise);
@@ -7789,28 +7821,33 @@ index 0000000..de75b30
 +})
 diff --git a/tests/glbExport.test.ts b/tests/glbExport.test.ts
 new file mode 100644
-index 0000000..0c76fb0
+index 0000000..d437496
 --- /dev/null
 +++ b/tests/glbExport.test.ts
-@@ -0,0 +1,40 @@
+@@ -0,0 +1,57 @@
 +import { test } from 'node:test'
 +import assert from 'node:assert/strict'
-+import { readFileSync } from 'node:fs'
-+import { parseGlb } from '../tools/export-glb'
++import { existsSync, readFileSync } from 'node:fs'
++import { bakeAnimation, parseGlb, writeGlb } from '../tools/export-glb'
 +import { readJson, repoPath } from '../tools/lib/cli'
 +import type { AvatarMotionFile } from '../src/motion/clip/format'
 +import { GLB } from './helpers'
 +
 +const EXPORT = 'motion/qassem-story/qassem-story.animation.glb'
 +
-+test('animated GLB: original asset untouched, one animation with every motion track', () => {
++function exportInMemory() {
++  const motion = readJson<AvatarMotionFile>('motion/qassem-story/avatar-motion.json.gz')
 +  const original = parseGlb(readFileSync(repoPath(GLB)))
-+  const exported = parseGlb(readFileSync(repoPath(EXPORT)))
++  const baked = bakeAnimation(original, motion, motion.clipId, { test: true })
++  return { motion, original, exported: parseGlb(writeGlb(baked.json, baked.bin)) }
++}
++
++test('animated GLB export: original asset untouched, one animation carrying every motion track', () => {
++  const { motion, original, exported } = exportInMemory()
 +  assert.ok(exported.bin.subarray(0, original.bin.length).equals(original.bin), 'original binary data is a byte-identical prefix')
 +  for (const key of ['nodes', 'meshes', 'materials', 'textures', 'images', 'skins', 'extensionsUsed']) {
 +    assert.deepEqual(exported.json[key], original.json[key], key)
 +  }
-+  const motion = readJson<AvatarMotionFile>('motion/qassem-story/avatar-motion.json.gz')
 +  const animations = exported.json.animations as { channels: { sampler: number; target: { node: number; path: string } }[]; samplers: { input: number; output: number; interpolation: string }[] }[]
 +  assert.equal(animations.length, 1)
 +  assert.equal(animations[0].channels.length, motion.tracks.length)
@@ -7824,6 +7861,7 @@ index 0000000..0c76fb0
 +    const node = (exported.json.nodes as { name: string }[])[channel.target.node]
 +    assert.equal(node.name, track.bone)
 +    assert.equal(channel.target.path, track.path)
++    assert.equal(animations[0].samplers[channel.sampler].interpolation, 'LINEAR')
 +    const accessor = accessors[animations[0].samplers[channel.sampler].output]
 +    const view = views[accessor.bufferView]
 +    const data = new Float32Array(exported.bin.buffer.slice(exported.bin.byteOffset + view.byteOffset, exported.bin.byteOffset + view.byteOffset + view.byteLength))
@@ -7832,6 +7870,17 @@ index 0000000..0c76fb0
 +      for (let c = 0; c < width; c += 1) assert.ok(Math.abs(data[k * width + c] - track.values[k * width + c]) < 1e-5)
 +    }
 +  })
++})
++
++test('on-disk export (when present) matches a fresh in-memory export of the same motion', (t) => {
++  if (!existsSync(repoPath(EXPORT))) {
++    t.skip('run `npm run motion:export` to produce the animated GLB')
++    return
++  }
++  const onDisk = parseGlb(readFileSync(repoPath(EXPORT)))
++  const { exported, original } = exportInMemory()
++  assert.ok(onDisk.bin.equals(exported.bin), 'animation data and original data identical')
++  assert.ok(onDisk.bin.subarray(0, original.bin.length).equals(original.bin))
 +})
 diff --git a/tests/handModel.test.ts b/tests/handModel.test.ts
 new file mode 100644

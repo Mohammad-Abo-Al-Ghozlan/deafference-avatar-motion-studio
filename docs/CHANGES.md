@@ -1,12 +1,16 @@
 # Changes vs. baseline (commit 1d50650, the project as uploaded)
 
-Branch `motion-engine-v2`. Commits:
+Branch `motion-engine-v2`. Commits (newest first):
 
+- bf3d672 Export test independent of generated artifacts; update instructions
+- 927b67f evidence: index of visual/numerical evidence
+- e7c5c2e docs: change list and code patch vs baseline
 - b21e0a7 Engineering summary: dependency changes
 - 6d7fe6a Bump vite 7.0.6 -> 7.3.6 (dev-server security fixes)
 - 324134b Refresh E2E and QA reports from the clean-install verification run
 - 028593b Evidence review selection, tsx 4.23.15
 - 0e0a9f2 Motion engine v2: anatomical hand/arm solver, offline pipeline, causal live mode
+- (this file) docs: refresh change list
 
 Code diff (text files only): `docs/changes-vs-baseline.patch`. Generated data and binary assets are listed below but not diffed.
 
@@ -15,7 +19,11 @@ Code diff (text files only): `docs/changes-vs-baseline.patch`. Generated data an
 ```
 A	.gitignore
 M	README.md
+A	docs/APPLY_UPDATE.md
+A	docs/CHANGES.md
 A	docs/ENGINEERING_SUMMARY.md
+A	docs/changes-vs-baseline.patch
+A	evidence/README_EVIDENCE.md
 A	evidence/e2e/e2e-report.json
 A	evidence/inputs/raw-landmarks.live-smoothed.json.gz
 A	evidence/legacy-motion.json.gz
@@ -120,5 +128,5 @@ A	tsconfig.node.json
 ## Diffstat
 
 ```
- 102 files changed, 31422 insertions(+), 194 deletions(-)
+ 106 files changed, 44196 insertions(+), 194 deletions(-)
 ```
