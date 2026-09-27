@@ -38,7 +38,7 @@ def sidebyside(args: argparse.Namespace) -> int:
               (args.after, "AFTER: offline pipeline"), (args.live, "AFTER: live causal pipeline")]
     inputs = [(Path(p), t) for p, t in inputs if p]
     bar = 34
-    stamp = ":drawtext=fontfile=" + FONT + ":text='k=%{frame_num}  t=%{pts\\:hms}':x=10:y=h-th-8:fontsize=15:fontcolor=white:box=1:boxcolor=0x000000AA"
+    stamp = ",drawtext=fontfile=" + FONT + ":text='k=%{frame_num}  t=%{pts\\:hms}':x=10:y=h-th-8:fontsize=15:fontcolor=white:box=1:boxcolor=0x000000AA"
     filters = [label_filter(i, t, args.size, bar, stamp if i == 0 else "") for i, (_, t) in enumerate(inputs)]
     filters.append("".join(f"[p{i}]" for i in range(len(inputs))) + f"hstack=inputs={len(inputs)}[out]")
     cmd = ["ffmpeg", "-v", "error", "-y"]
@@ -53,7 +53,7 @@ def sidebyside(args: argparse.Namespace) -> int:
 def hands(args: argparse.Namespace) -> int:
     inputs = [(Path(args.source), "SOURCE right hand"), (Path(args.before), "BEFORE: original solver"), (Path(args.after), "AFTER: offline pipeline")]
     bar = 30
-    stamp = ":drawtext=fontfile=" + FONT + ":text='k=%{frame_num}':x=8:y=h-th-6:fontsize=13:fontcolor=white:box=1:boxcolor=0x000000AA"
+    stamp = ",drawtext=fontfile=" + FONT + ":text='k=%{frame_num}':x=8:y=h-th-6:fontsize=13:fontcolor=white:box=1:boxcolor=0x000000AA"
     filters = [label_filter(i, t, args.size, bar, stamp if i == 0 else "") for i, (_, t) in enumerate(inputs)]
     filters.append("[p0][p1][p2]hstack=inputs=3[out]")
     cmd = ["ffmpeg", "-v", "error", "-y"]
@@ -197,11 +197,24 @@ def select_review_frames(clean_path: Path, motion_qa: Path) -> list[tuple[str, i
     leave = np.zeros(n, dtype=bool)
     enter[1:] = (state["right"][1:] == "tracked") & np.isin(state["right"][:-1], ["absent", "fallback"])
     leave[1:] = np.isin(state["right"][1:], ["held"]) & (state["right"][:-1] == "tracked")
-    pick("right hand entering frame", np.arange(n, dtype=float), enter)
-    pick("right hand leaving frame (hold)", np.arange(n, dtype=float), leave)
-    pick("low confidence: easing to relaxed hand", np.arange(n, dtype=float), state["right"] == "fallback")
+    def central(mask: np.ndarray) -> np.ndarray:
+        # Prefer the occurrence nearest the middle of all eligible frames, so
+        # event examples are spread over the clip rather than bunched at an end.
+        eligible = np.flatnonzero(mask)
+        centre = float(np.median(eligible)) if len(eligible) else 0.0
+        return -np.abs(np.arange(n, dtype=float) - centre)
+
+    pick("right hand entering frame", central(enter), enter)
+    pick("right hand leaving frame (hold)", central(leave), leave)
+    pick("low confidence: easing to relaxed hand", central(state["right"] == "fallback"), state["right"] == "fallback")
     left_in = state["left"] == "tracked"
-    pick("left hand tracked (mostly out of frame)", np.arange(n, dtype=float), left_in)
+    pick("left hand tracked (mostly out of frame)", central(left_in), left_in)
+    # Fast signing: highest source wrist speeds (clean body stream), 3 examples.
+    wrist = np.array([f["body"]["wrist"]["right"][:2] for f in frames])
+    speed_src = np.zeros(n)
+    speed_src[1:] = np.linalg.norm(np.diff(wrist, axis=0), axis=1)
+    for _ in range(3):
+        pick("fast signing (source wrist speed)", speed_src, tracked_r)
     return sorted(chosen, key=lambda item: item[1])
 
 
