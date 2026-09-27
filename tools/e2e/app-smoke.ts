@@ -30,6 +30,8 @@ import { loadGltfRig } from '../lib/gltfRig'
 import { buildThreeHierarchy } from '../lib/threeRig'
 
 const args = parseArgs(process.argv.slice(2), {
+  /** Test an already running server instead of starting `vite preview` (e.g. the Windows launcher). */
+  url: '',
   port: 4179,
   videoOverride: '',
   camera: '',
@@ -67,7 +69,7 @@ async function startPreview(): Promise<ChildProcess> {
 }
 
 async function main() {
-  if (!existsSync(repoPath('dist/index.html'))) throw new Error('Run `npm run build` first (dist/ missing)')
+  if (!args.url && !existsSync(repoPath('dist/index.html'))) throw new Error('Run `npm run build` first (dist/ missing)')
   const out = repoPath(args.out)
   mkdirSync(out, { recursive: true })
   const report: Record<string, unknown> = { startedAt: new Date().toISOString(), checks: {} as Record<string, unknown> }
@@ -101,7 +103,7 @@ async function main() {
     return 2 * Math.atan2(Math.hypot(x, y, z), Math.abs(w))
   }
 
-  const preview = await startPreview()
+  const preview = args.url ? null : await startPreview()
   const { chromium } = await import('playwright')
   const launchArgs = ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist', '--autoplay-policy=no-user-gesture-required', '--use-fake-ui-for-media-stream']
   if (args.camera) launchArgs.push('--use-fake-device-for-media-stream', `--use-file-for-fake-video-capture=${args.camera}`)
@@ -129,7 +131,7 @@ async function main() {
   }
 
   try {
-    const url = `http://127.0.0.1:${args.port}/?debug=1`
+    const url = `${args.url ? args.url.replace(/\/$/, '') : `http://127.0.0.1:${args.port}`}/?debug=1`
     await page.goto(url)
     await page.waitForFunction(() => Boolean((window as unknown as { __deafferenceStage?: unknown }).__deafferenceStage), null, { timeout: 180_000 })
     await page.waitForFunction(() => document.querySelector('video')!.readyState >= 2, null, { timeout: 60_000 })
@@ -228,7 +230,7 @@ async function main() {
     expect('no page errors', relevantErrors.length === 0, relevantErrors.slice(0, 10))
   } finally {
     await browser.close()
-    preview.kill()
+    preview?.kill()
   }
   report.failures = failures
   report.verdict = failures.length ? 'FAIL' : 'PASS'
