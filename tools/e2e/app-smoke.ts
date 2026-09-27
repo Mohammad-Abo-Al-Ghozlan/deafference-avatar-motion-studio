@@ -1,0 +1,243 @@
+/**
+ * End-to-end smoke test of the BUILT app in a real (headless) browser.
+ *
+ *   npm run build && npm run e2e -- --video-override <vp9.webm> --camera <clip.y4m>
+ *
+ * Checks, against the production bundle served by `vite preview`:
+ *   1. the page, avatar and precomputed motion load without errors;
+ *   2. OFFLINE engine: the avatar pose equals the motion file sampled at the
+ *      media time of the presented video frame (lockstep sync), at several
+ *      seek positions, and advances during playback;
+ *   3. LIVE engine on the sample clip: in-browser Holistic runs, metric world
+ *      landmarks are received, the causal solver drives the avatar;
+ *   4. CAMERA mode with a fake camera device streaming a real signing clip;
+ *   5. UPLOAD mode through the file input.
+ * Screenshots and a JSON report go to evidence/e2e/.
+ *
+ * Environment notes: Playwright's bundled Chromium has no proprietary H.264
+ * decoder, so `--video-override` swaps the sample MP4 for a VP9 transcode of
+ * the same frames (network interception, test-only). Headless SwiftShader
+ * runs Holistic at a few seconds per frame, so live checks wait for a handful
+ * of results rather than real-time rates.
+ */
+import { spawn, type ChildProcess } from 'node:child_process'
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { join } from 'node:path'
+import { MotionClip } from '../../src/motion/clip/MotionClip'
+import type { AvatarMotionFile } from '../../src/motion/clip/format'
+import { parseArgs, readJson, repoPath } from '../lib/cli'
+import { loadGltfRig } from '../lib/gltfRig'
+import { buildThreeHierarchy } from '../lib/threeRig'
+
+const args = parseArgs(process.argv.slice(2), {
+  port: 4179,
+  videoOverride: '',
+  camera: '',
+  out: 'evidence/e2e',
+  liveTimeoutSec: 240,
+  chromium: ''
+})
+
+type Stage = {
+  bone: (name: string) => number[] | null
+  status: () => { engine: string; handState: { left: string; right: string }; frameIndex: number | null; solveMs: number | null; channels: number } | null
+  engine: () => string
+  offlineTime: () => number | null
+  lastFrameHasWorld: () => boolean
+}
+
+const CHECK_BONES = ['upperarm_r', 'lowerarm_r', 'hand_r', 'index_02_r', 'thumb_02_r', 'middle_03_l', 'head', 'jaw']
+
+function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
+
+async function startPreview(): Promise<ChildProcess> {
+  // Run vite's CLI directly (not through npx) so killing the child stops the server.
+  const child = spawn(process.execPath, [repoPath('node_modules/vite/bin/vite.js'), 'preview', '--port', String(args.port), '--strictPort', '--host', '127.0.0.1'], { cwd: repoPath('.'), stdio: ['ignore', 'pipe', 'pipe'] })
+  let output = ''
+  child.stdout!.on('data', (d) => { output += String(d) })
+  child.stderr!.on('data', (d) => { output += String(d) })
+  for (let i = 0; i < 100; i += 1) {
+    if (output.includes(`127.0.0.1:${args.port}`)) return child
+    await sleep(200)
+  }
+  child.kill()
+  throw new Error(`vite preview did not start:\n${output}`)
+}
+
+async function main() {
+  if (!existsSync(repoPath('dist/index.html'))) throw new Error('Run `npm run build` first (dist/ missing)')
+  const out = repoPath(args.out)
+  mkdirSync(out, { recursive: true })
+  const report: Record<string, unknown> = { startedAt: new Date().toISOString(), checks: {} as Record<string, unknown> }
+  const checks = report.checks as Record<string, unknown>
+  const failures: string[] = []
+  const expect = (name: string, ok: boolean, detail: unknown) => {
+    checks[name] = { ok, detail }
+    console.log(`${ok ? 'PASS' : 'FAIL'} ${name} ${typeof detail === 'string' ? detail : JSON.stringify(detail)}`)
+    if (!ok) failures.push(name)
+  }
+
+  // Reference pose computation in Node (same MotionClip code as the app).
+  const motion = readJson<AvatarMotionFile>('motion/qassem-story/avatar-motion.json.gz')
+  const clip = new MotionClip(motion)
+  const loaded = await loadGltfRig(repoPath('public/models/deafference-avatar.glb'))
+  const { root, byName } = buildThreeHierarchy(loaded)
+  const binding = clip.bind(root)
+  const rest = new Map(CHECK_BONES.map((b) => [b, byName.get(b)!.quaternion.toArray() as number[]]))
+  const expected = (time: number) => {
+    clip.applyTo(binding, time)
+    return new Map(CHECK_BONES.map((b) => [b, byName.get(b)!.quaternion.toArray() as number[]]))
+  }
+  // Relative rotation angle via atan2 (accurate near zero, unlike acos of the dot product).
+  const angle = (a: number[], b: number[]) => {
+    const [ax, ay, az, aw] = a
+    const [bx, by, bz, bw] = b
+    const w = aw * bw + ax * bx + ay * by + az * bz
+    const x = aw * bx - ax * bw - ay * bz + az * by
+    const y = aw * by + ax * bz - ay * bw - az * bx
+    const z = aw * bz - ax * by + ay * bx - az * bw
+    return 2 * Math.atan2(Math.hypot(x, y, z), Math.abs(w))
+  }
+
+  const preview = await startPreview()
+  const { chromium } = await import('playwright')
+  const launchArgs = ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist', '--autoplay-policy=no-user-gesture-required', '--use-fake-ui-for-media-stream']
+  if (args.camera) launchArgs.push('--use-fake-device-for-media-stream', `--use-file-for-fake-video-capture=${args.camera}`)
+  const browser = await chromium.launch({ executablePath: args.chromium || undefined, args: launchArgs })
+  const context = await browser.newContext({ viewport: { width: 1440, height: 1100 }, permissions: ['camera'] })
+  const page = await context.newPage()
+  const errors: string[] = []
+  page.on('pageerror', (e) => errors.push(`pageerror: ${e.message}`))
+  page.on('console', (m) => { if (m.type() === 'error') errors.push(`console: ${m.text()}`) })
+  if (args.videoOverride) {
+    const bytes = readFileSync(args.videoOverride)
+    // Serve byte ranges like a real static server so the media element can seek.
+    await page.route('**/samples/qassem-story.mp4', (route) => {
+      const range = /bytes=(\d+)-(\d*)/.exec(route.request().headers().range ?? '')
+      if (!range) return route.fulfill({ status: 200, contentType: 'video/webm', headers: { 'accept-ranges': 'bytes' }, body: bytes })
+      const start = Number(range[1])
+      const end = range[2] ? Math.min(Number(range[2]), bytes.length - 1) : bytes.length - 1
+      return route.fulfill({
+        status: 206,
+        contentType: 'video/webm',
+        headers: { 'accept-ranges': 'bytes', 'content-range': `bytes ${start}-${end}/${bytes.length}` },
+        body: bytes.subarray(start, end + 1)
+      })
+    })
+  }
+
+  try {
+    const url = `http://127.0.0.1:${args.port}/?debug=1`
+    await page.goto(url)
+    await page.waitForFunction(() => Boolean((window as unknown as { __deafferenceStage?: unknown }).__deafferenceStage), null, { timeout: 180_000 })
+    await page.waitForFunction(() => document.querySelector('video')!.readyState >= 2, null, { timeout: 60_000 })
+    expect('app loads avatar + motion engine', true, await page.locator('.system-status').innerText())
+
+    // ---- 2. Offline engine lockstep sync.
+    await page.evaluate(() => document.querySelector('video')!.pause())
+    const engine = await page.evaluate(() => (window as unknown as { __deafferenceStage: Stage }).__deafferenceStage.engine())
+    expect('sample clip uses the precomputed (offline) engine by default', engine === 'offline', engine)
+    const syncErrors: { frame: number; mediaTime: number | null; maxErrorDeg: number }[] = []
+    for (const frame of [100, 2500, 4869]) {
+      await page.evaluate((t) => { document.querySelector('video')!.currentTime = t }, frame / 30 + 0.001)
+      await page.waitForFunction((t) => Math.abs(document.querySelector('video')!.currentTime - t) < 0.02 && !document.querySelector('video')!.seeking, frame / 30 + 0.001)
+      await sleep(600)
+      const sample = await page.evaluate((bones) => {
+        const s = (window as unknown as { __deafferenceStage: Stage }).__deafferenceStage
+        return { time: s.offlineTime(), bones: bones.map((b) => s.bone(b)) }
+      }, CHECK_BONES)
+      const reference = expected(sample.time ?? 0)
+      const maxError = Math.max(...CHECK_BONES.map((b, i) => angle(sample.bones[i]!, reference.get(b)!))) * 180 / Math.PI
+      syncErrors.push({ frame, mediaTime: sample.time, maxErrorDeg: Math.round(maxError * 1e5) / 1e5 })
+      await page.screenshot({ path: join(out, `offline-frame-${frame}.png`) })
+    }
+    expect('offline: avatar pose == motion file at the presented media time', syncErrors.every((e) => e.maxErrorDeg < 0.01 && e.mediaTime !== null && Math.abs(e.mediaTime - e.frame / 30) < 0.02), syncErrors)
+
+    await page.evaluate(() => document.querySelector('video')!.play())
+    const before = await page.evaluate(() => (window as unknown as { __deafferenceStage: Stage }).__deafferenceStage.offlineTime())
+    await sleep(3000)
+    const after = await page.evaluate(() => (window as unknown as { __deafferenceStage: Stage }).__deafferenceStage.offlineTime())
+    expect('offline: motion advances with playback', (after ?? 0) > (before ?? 0) + 0.5, { before, after })
+    await page.screenshot({ path: join(out, 'offline-playing.png') })
+
+    // ---- 3. Live engine on the sample clip (in-browser Holistic).
+    await page.getByRole('radio', { name: /Live tracker/ }).click()
+    await page.evaluate(() => { const v = document.querySelector('video')!; v.currentTime = 25; return v.play() })
+    const liveStart = Date.now()
+    let liveStatus: ReturnType<Stage['status']> = null
+    let moved = false
+    let world = false
+    while (Date.now() - liveStart < args.liveTimeoutSec * 1000) {
+      await sleep(2000)
+      const probe = await page.evaluate((bones) => {
+        const s = (window as unknown as { __deafferenceStage: Stage }).__deafferenceStage
+        return { status: s.status(), world: s.lastFrameHasWorld(), bones: bones.map((b) => s.bone(b)) }
+      }, CHECK_BONES)
+      liveStatus = probe.status
+      world ||= probe.world
+      moved = CHECK_BONES.some((b, i) => angle(probe.bones[i]!, rest.get(b)!) > 5 * Math.PI / 180)
+      if (liveStatus?.engine === 'live' && moved && world && (liveStatus.handState.right === 'T' || liveStatus.handState.left === 'T')) break
+    }
+    await page.screenshot({ path: join(out, 'live-sample.png') })
+    expect('live: Holistic runs in-browser and the causal solver drives the avatar', liveStatus?.engine === 'live' && moved, { status: liveStatus, seconds: Math.round((Date.now() - liveStart) / 1000) })
+    expect('live: metric world landmarks received from the Holistic bundle', world, world ? 'poseWorldLandmarks present' : 'missing (depth falls back to flat)')
+
+    // ---- 4. Camera mode with a fake device.
+    if (args.camera) {
+      await page.getByRole('button', { name: /Live camera/ }).click()
+      const camStart = Date.now()
+      let camStatus: ReturnType<Stage['status']> = null
+      let camMoved = false
+      while (Date.now() - camStart < args.liveTimeoutSec * 1000) {
+        await sleep(2000)
+        const probe = await page.evaluate((bones) => {
+          const s = (window as unknown as { __deafferenceStage: Stage }).__deafferenceStage
+          return { status: s.status(), bones: bones.map((b) => s.bone(b)), camera: Boolean((document.querySelector('video') as HTMLVideoElement).srcObject) }
+        }, CHECK_BONES)
+        camStatus = probe.status
+        camMoved = probe.camera && CHECK_BONES.some((b, i) => angle(probe.bones[i]!, rest.get(b)!) > 5 * Math.PI / 180)
+        if (camMoved && (camStatus?.handState.right === 'T' || camStatus?.handState.left === 'T')) break
+      }
+      await page.screenshot({ path: join(out, 'live-camera.png') })
+      expect('camera: fake webcam stream is tracked and retargeted live', camMoved, { status: camStatus, seconds: Math.round((Date.now() - camStart) / 1000) })
+    }
+
+    // ---- 5. Upload mode.
+    if (args.videoOverride) {
+      await page.locator('input[type=file]').setInputFiles(args.videoOverride)
+      const upStart = Date.now()
+      let upStatus: ReturnType<Stage['status']> = null
+      let upMoved = false
+      while (Date.now() - upStart < args.liveTimeoutSec * 1000) {
+        await sleep(2000)
+        const probe = await page.evaluate((bones) => {
+          const s = (window as unknown as { __deafferenceStage: Stage }).__deafferenceStage
+          return { status: s.status(), bones: bones.map((b) => s.bone(b)), src: document.querySelector('video')!.currentSrc }
+        }, CHECK_BONES)
+        upStatus = probe.status
+        upMoved = probe.src.startsWith('blob:') && CHECK_BONES.some((b, i) => angle(probe.bones[i]!, rest.get(b)!) > 5 * Math.PI / 180)
+        if (upMoved) break
+      }
+      await page.screenshot({ path: join(out, 'live-upload.png') })
+      expect('upload: an uploaded video is tracked and retargeted live', upMoved, { status: upStatus, seconds: Math.round((Date.now() - upStart) / 1000) })
+    }
+
+    const relevantErrors = errors.filter((e) => !/favicon/i.test(e))
+    expect('no page errors', relevantErrors.length === 0, relevantErrors.slice(0, 10))
+  } finally {
+    await browser.close()
+    preview.kill()
+  }
+  report.failures = failures
+  report.verdict = failures.length ? 'FAIL' : 'PASS'
+  writeFileSync(join(out, 'e2e-report.json'), JSON.stringify(report, null, 2))
+  console.log(`E2E ${report.verdict} -> ${args.out}/e2e-report.json`)
+  if (failures.length) process.exit(1)
+}
+
+main().catch((error) => {
+  console.error(error)
+  process.exit(1)
+})

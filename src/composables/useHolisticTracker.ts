@@ -1,8 +1,20 @@
 import { computed, readonly, ref } from 'vue'
 import { Holistic, type Results } from '@mediapipe/holistic'
-import type { TrackingFrame } from '../types/tracking'
+import type { Landmark, TrackingFrame } from '../types/tracking'
 
 const LOCAL_ASSET_ROOT = '/mediapipe/'
+
+/**
+ * The legacy Holistic JS bundle (pinned 0.5.1675471629) exposes the metric
+ * pose world landmarks under a minified property ("za") instead of a
+ * documented name. Read it defensively; the live solver degrades to flat
+ * depth when it is missing.
+ */
+function worldLandmarks(results: Results): Landmark[] | undefined {
+  const record = results as unknown as Record<string, unknown>
+  const candidate = record.poseWorldLandmarks ?? record.za
+  return Array.isArray(candidate) && candidate.length >= 33 ? (candidate as Landmark[]) : undefined
+}
 
 export function useHolisticTracker() {
   const frame = ref<TrackingFrame | null>(null)
@@ -16,6 +28,7 @@ export function useHolisticTracker() {
   let holistic: Holistic | null = null
   let lastResultAt = 0
   let smoothedFps = 0
+  let sourceSize = { width: 0, height: 0 }
 
   const initialize = async () => {
     if (ready.value || loading.value) return
@@ -47,10 +60,13 @@ export function useHolisticTracker() {
 
         frame.value = {
           poseLandmarks: results.poseLandmarks,
+          poseWorldLandmarks: worldLandmarks(results),
           leftHandLandmarks: results.leftHandLandmarks,
           rightHandLandmarks: results.rightHandLandmarks,
           faceLandmarks: results.faceLandmarks,
-          timestamp: now
+          timestamp: now,
+          imageWidth: sourceSize.width || undefined,
+          imageHeight: sourceSize.height || undefined
         }
         processing.value = false
       })
@@ -71,6 +87,11 @@ export function useHolisticTracker() {
     if (source instanceof HTMLVideoElement && source.readyState < 2) return false
 
     processing.value = true
+    sourceSize = source instanceof HTMLVideoElement
+      ? { width: source.videoWidth, height: source.videoHeight }
+      : source instanceof HTMLImageElement
+        ? { width: source.naturalWidth, height: source.naturalHeight }
+        : { width: source.width, height: source.height }
     const startedAt = performance.now()
     try {
       await holistic.send({ image: source })

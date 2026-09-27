@@ -1,0 +1,46 @@
+{
+  "schema": "deafference.glb-export-report",
+  "schemaVersion": 1,
+  "output": "motion/qassem-story/qassem-story.animation.glb",
+  "outputSha256": "0ff47e7967da90abb54bb01faa2754e8c62d2300786abb1b0bf2c2f5f11710e3",
+  "outputBytes": 34162936,
+  "animation": "qassem-story",
+  "channels": 54,
+  "frames": 5794,
+  "fps": 30,
+  "bytesAdded": 4936488,
+  "originalBinChunkIsBytePrefix": true,
+  "originalJsonObjectsUnchanged": true,
+  "maxSampleErrorVsMotionFile": 6.071701049714662e-7,
+  "khronosValidator": {
+    "version": "2.0.0-dev.3.10",
+    "input": {
+      "errors": 0,
+      "warnings": 1,
+      "infos": 0,
+      "codes": [
+        "W:NODE_SKINNED_MESH_NON_ROOT"
+      ],
+      "animationCount": 0
+    },
+    "output": {
+      "errors": 0,
+      "warnings": 1,
+      "infos": 0,
+      "codes": [
+        "W:NODE_SKINNED_MESH_NON_ROOT"
+      ],
+      "animationCount": 1
+    },
+    "newIssueCodes": []
+  },
+  "rig": {
+    "file": "public/models/deafference-avatar.glb",
+    "sha256": "18df37e0d48b7c7a619fbe1f356fa61186153b8ff2bbaefcba1f6fc0a77bece4"
+  },
+  "motion": {
+    "file": "motion/qassem-story/avatar-motion.json.gz",
+    "sha256": "a391337a5b699ce5b257a42908310484513599ef54abc2303dfcebcf2538ae05",
+    "generator": "tools/solve-motion.ts"
+  }
+}

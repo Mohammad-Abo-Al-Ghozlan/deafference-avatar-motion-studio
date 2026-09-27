@@ -391,6 +391,10 @@ button {
   text-transform: uppercase;
 }
 
+.live-badge.offline {
+  color: var(--green);
+}
+
 .live-badge i {
   width: 6px;
   height: 6px;
@@ -548,6 +552,56 @@ button {
 
 .avatar-hud span.detected {
   color: var(--cyan);
+}
+
+.avatar-hud span.uncertain {
+  color: var(--orange);
+}
+
+.engine-switch {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  padding: 10px 19px 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.engine-switch button {
+  display: grid;
+  gap: 3px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  color: var(--muted);
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+.engine-switch button strong {
+  color: #c4cfd2;
+  font-size: 10px;
+  font-weight: 650;
+}
+
+.engine-switch button small {
+  font-size: 8.5px;
+  letter-spacing: 0.02em;
+}
+
+.engine-switch button.active {
+  border-color: rgba(127, 233, 255, 0.45);
+  box-shadow: inset 3px 0 0 var(--cyan);
+  background: rgba(127, 233, 255, 0.05);
+}
+
+.engine-switch button.active strong {
+  color: var(--cyan);
+}
+
+.engine-switch button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
 }
 
 .privacy-toggle {
@@ -915,6 +969,14 @@ button {
 .tuning output {
   color: var(--cyan);
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.tuning label.inactive {
+  opacity: 0.5;
+}
+
+.tuning input:disabled {
+  cursor: not-allowed;
 }
 
 .error-banner {

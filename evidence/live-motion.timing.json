@@ -1,0 +1,12 @@
+{
+  "raw": "motion/qassem-story/raw-landmarks.live-smoothed.json.gz",
+  "stride": 1,
+  "smoothing": 1,
+  "easing": true,
+  "solve": {
+    "frames": 5761,
+    "meanMs": 4.36,
+    "p95Ms": 9.3,
+    "maxMs": 53.62
+  }
+}

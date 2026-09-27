@@ -18,6 +18,7 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import {
+  type Object3D,
   ACESFilmicToneMapping,
   AmbientLight,
   Box3,
@@ -39,15 +40,35 @@ import {
 } from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import { AvatarRetargeter } from '../lib/AvatarRetargeter'
-import type { TrackingFrame } from '../types/tracking'
+import type { MotionBinding, MotionClip } from '../motion/clip/MotionClip'
+import type { HandStateCode } from '../motion/clip/format'
+import { LiveMotionPipeline } from '../motion/live/LiveMotionPipeline'
+import { PoseApplier } from '../motion/retarget/PoseApplier'
+import { Rig } from '../motion/rig/Rig'
+import type { MotionEngine, TrackingFrame } from '../types/tracking'
+
+export interface StageStatus {
+  engine: MotionEngine
+  handState: { left: HandStateCode; right: HandStateCode }
+  /** Offline: frame index being shown. Live: main-thread solve cost (ms). */
+  frameIndex: number | null
+  solveMs: number | null
+  channels: number
+}
 
 const props = withDefaults(defineProps<{
   frame: TrackingFrame | null
+  /** 'offline' plays `clip` in lockstep with `media`; 'live' solves `frame`s causally. */
+  engine?: MotionEngine
+  clip?: MotionClip | null
+  media?: HTMLVideoElement | null
   smoothing?: number
   strength?: number
   trackingActive?: boolean
 }>(), {
+  engine: 'live',
+  clip: null,
+  media: null,
   smoothing: 15,
   strength: 1,
   trackingActive: false
@@ -56,6 +77,7 @@ const props = withDefaults(defineProps<{
 const emit = defineEmits<{
   ready: []
   error: [message: string]
+  status: [status: StageStatus]
 }>()
 
 const host = ref<HTMLDivElement | null>(null)
@@ -66,22 +88,146 @@ let scene: Scene | null = null
 let camera: PerspectiveCamera | null = null
 let renderer: WebGLRenderer | null = null
 let controls: OrbitControls | null = null
-let retargeter: AvatarRetargeter | null = null
+let avatarRoot: Object3D | null = null
+let pipeline: LiveMotionPipeline | null = null
+let applier: PoseApplier | null = null
+let binding: MotionBinding | null = null
 let resizeObserver: ResizeObserver | null = null
 let animationFrame = 0
 let disposed = false
+let lastStatusKey = ''
+let lastStatusAt = 0
+let liveHandState: StageStatus['handState'] = { left: 'A', right: 'A' }
+let liveSolveMs: number | null = null
+let lastLiveFrameAt = 0
+let lastStatus: StageStatus | null = null
+let lastFrameHasWorld = false
+let lastOfflineTime: number | null = null
+// While tracking is active, a live pose older than this eases back to rest
+// (tracker stalled); while paused the last pose is held.
+const LIVE_STALE_MS = 1500
 
-const resetPose = () => retargeter?.reset()
-const resetCalibration = () => retargeter?.resetCalibration()
+// Offline engine clock: the media time of the frame the browser actually
+// presented (requestVideoFrameCallback), so the avatar shows the motion of
+// exactly the video frame on screen. Falls back to currentTime.
+let presentedMediaTime: number | null = null
+let frameCallbackHandle = 0
+let frameCallbackVideo: HTMLVideoElement | null = null
+
+const SMOOTHING_DEFAULT = 15
+
+function resetPose() {
+  pipeline?.reset()
+  applier?.reset()
+  binding?.reset()
+  presentedMediaTime = null
+  lastLiveFrameAt = 0
+  liveHandState = { left: 'A', right: 'A' }
+}
+
+/** Restart temporal state; the live path also recalibrates (face neutral, scale). */
+function resetCalibration() {
+  pipeline?.reset()
+}
 
 defineExpose({ resetPose, resetCalibration })
 
 watch(() => props.frame, (value) => {
-  if (value && retargeter) retargeter.update(value)
+  if (!value || !pipeline || !applier || props.engine !== 'live') return
+  lastFrameHasWorld = Boolean(value.poseWorldLandmarks?.length)
+  try {
+    const result = pipeline.update({
+      pose: value.poseLandmarks,
+      poseWorld: value.poseWorldLandmarks,
+      leftHand: value.leftHandLandmarks,
+      rightHand: value.rightHandLandmarks,
+      face: value.faceLandmarks,
+      timestampMs: value.timestamp,
+      image: { width: value.imageWidth ?? props.media?.videoWidth ?? 640, height: value.imageHeight ?? props.media?.videoHeight ?? 480 }
+    })
+    applier.setTarget(result.pose)
+    liveHandState = result.handState
+    liveSolveMs = result.solveMs
+    lastLiveFrameAt = performance.now()
+  } catch (cause) {
+    emit('error', cause instanceof Error ? cause.message : String(cause))
+  }
 })
 
-watch(() => props.smoothing, (value) => retargeter?.setSmoothing(value), { immediate: true })
-watch(() => props.strength, (value) => retargeter?.setStrength(value), { immediate: true })
+watch(() => props.smoothing, (value) => pipeline?.setSmoothing(value / SMOOTHING_DEFAULT), { immediate: true })
+
+watch(() => props.engine, (engine) => {
+  // Switching engines never blends two drivers: start from rest.
+  applier?.reset()
+  binding?.reset()
+  if (engine === 'live') pipeline?.reset()
+  bindClip()
+})
+
+watch(() => props.clip, () => bindClip())
+
+watch(() => props.media, (video) => attachFrameClock(video ?? null), { immediate: true })
+
+function bindClip() {
+  binding = null
+  if (!avatarRoot || !props.clip || props.engine !== 'offline') return
+  try {
+    binding = props.clip.bind(avatarRoot)
+  } catch (cause) {
+    emit('error', cause instanceof Error ? cause.message : String(cause))
+  }
+}
+
+function attachFrameClock(video: HTMLVideoElement | null) {
+  if (frameCallbackVideo?.cancelVideoFrameCallback && frameCallbackHandle) frameCallbackVideo.cancelVideoFrameCallback(frameCallbackHandle)
+  frameCallbackHandle = 0
+  frameCallbackVideo = video
+  presentedMediaTime = null
+  if (!video?.requestVideoFrameCallback) return
+  const onFrame = (_now: DOMHighResTimeStamp, metadata: VideoFrameCallbackMetadata) => {
+    if (disposed || frameCallbackVideo !== video) return
+    presentedMediaTime = metadata.mediaTime
+    frameCallbackHandle = video.requestVideoFrameCallback!(onFrame)
+  }
+  frameCallbackHandle = video.requestVideoFrameCallback(onFrame)
+}
+
+function offlineTime() {
+  const video = props.media
+  if (!video) return 0
+  // After a seek while paused, rVFC reports the newly presented frame; if it
+  // has not fired yet, currentTime is the best available estimate.
+  if (presentedMediaTime !== null && Math.abs(presentedMediaTime - video.currentTime) < 0.25) return presentedMediaTime
+  return video.currentTime
+}
+
+/**
+ * Read-only inspection hook for automated end-to-end tests, installed only
+ * when the page URL has ?debug=1. Exposes bone LOCAL rotations and the last
+ * status; it cannot change the pose.
+ */
+function installDebugHook() {
+  if (typeof window === 'undefined' || !new URLSearchParams(window.location.search).has('debug') || !avatarRoot) return
+  const nodes = new Map<string, Object3D>()
+  avatarRoot.traverse((node) => { if (node.name && !nodes.has(node.name)) nodes.set(node.name, node) })
+  ;(window as unknown as Record<string, unknown>).__deafferenceStage = {
+    bone: (name: string) => nodes.get(name)?.quaternion.toArray() ?? null,
+    status: () => lastStatus,
+    engine: () => props.engine,
+    offlineTime: () => lastOfflineTime,
+    lastFrameHasWorld: () => lastFrameHasWorld
+  }
+}
+
+function publishStatus(status: StageStatus) {
+  lastStatus = status
+  const key = `${status.engine}|${status.handState.left}|${status.handState.right}|${status.channels}`
+  const now = performance.now()
+  if (key === lastStatusKey && now - lastStatusAt < 250) return
+  lastStatusKey = key
+  lastStatusAt = now
+  emit('status', status)
+}
 
 function resize() {
   if (!host.value || !renderer || !camera) return
@@ -174,9 +320,15 @@ onMounted(async () => {
     controls.target.set(0, focusY, 0)
     controls.update()
 
-    retargeter = new AvatarRetargeter(avatar)
-    retargeter.setSmoothing(props.smoothing)
-    retargeter.setStrength(props.strength)
+    avatarRoot = avatar
+    // Same rig model the offline tools build from the GLB (model space =
+    // GLB scene root; the placement transform above is excluded).
+    const rig = Rig.fromObject3D(avatar)
+    pipeline = new LiveMotionPipeline(rig)
+    pipeline.setSmoothing(props.smoothing / SMOOTHING_DEFAULT)
+    applier = new PoseApplier(avatar, pipeline.solver.controlled, pipeline.solver.translated)
+    bindClip()
+    installDebugHook()
 
     resizeObserver = new ResizeObserver(resize)
     resizeObserver.observe(host.value)
@@ -186,7 +338,22 @@ onMounted(async () => {
     const animate = () => {
       if (disposed || !renderer || !scene || !camera) return
       animationFrame = requestAnimationFrame(animate)
-      retargeter?.tick(clock.getDelta(), performance.now(), props.trackingActive)
+      const dt = clock.getDelta()
+      if (props.engine === 'offline' && binding && props.clip) {
+        const time = offlineTime()
+        lastOfflineTime = time
+        props.clip.applyTo(binding, time)
+        binding.applyStrength(props.strength)
+        publishStatus({ engine: 'offline', handState: props.clip.handStateAt(time), frameIndex: props.clip.sampleAt(time).index0, solveMs: null, channels: props.clip.file.tracks.length })
+      } else if (props.engine === 'live' && applier) {
+        const stale = props.trackingActive && lastLiveFrameAt > 0 && performance.now() - lastLiveFrameAt > LIVE_STALE_MS
+        if (stale) {
+          applier.setRestTarget()
+          liveHandState = { left: 'A', right: 'A' }
+        }
+        applier.update(dt, props.strength, stale ? 0.25 : 0.035)
+        publishStatus({ engine: 'live', handState: liveHandState, frameIndex: null, solveMs: liveSolveMs, channels: (pipeline?.solver.controlled.length ?? 0) + (pipeline?.solver.translated.length ?? 0) })
+      }
       controls?.update()
       renderer.render(scene, camera)
     }
@@ -202,6 +369,7 @@ onMounted(async () => {
 
 onBeforeUnmount(() => {
   disposed = true
+  attachFrameClock(null)
   cancelAnimationFrame(animationFrame)
   resizeObserver?.disconnect()
   controls?.dispose()

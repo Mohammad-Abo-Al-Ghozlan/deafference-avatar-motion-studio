@@ -1,0 +1,26 @@
+# Dependencies and build output
+node_modules/
+dist/
+
+# Python environments and caches
+.venv*/
+__pycache__/
+*.pyc
+
+# Extraction per-chunk caches (resumable runs); the merged raw cache is kept
+motion/*/.extract-chunks*/
+
+# Local scratch / debugging
+.scratch/
+
+# Heavy regenerable evidence media (see README "Visual evidence"); reports stay tracked
+evidence/video/
+evidence/sheets/
+evidence/e2e/*.png
+
+# Editor / OS
+.DS_Store
+*.log
+
+# Regenerable in ~2 s with `npm run motion:export` (duplicates the 29 MB avatar)
+motion/*/*.animation.glb

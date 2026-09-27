@@ -1,0 +1,5 @@
+# Offline landmark extraction environment (Python 3.9-3.12).
+# mediapipe 0.10.14 is the last line that still ships the legacy
+# `solutions.holistic` graph used by the browser tracker (@mediapipe/holistic).
+mediapipe==0.10.14
+numpy>=1.24,<2

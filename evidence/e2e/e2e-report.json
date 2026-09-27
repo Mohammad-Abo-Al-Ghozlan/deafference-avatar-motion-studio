@@ -1,0 +1,98 @@
+{
+  "startedAt": "2026-09-27T00:43:30.290Z",
+  "checks": {
+    "app loads avatar + motion engine": {
+      "ok": true,
+      "detail": "Playing precomputed motion"
+    },
+    "sample clip uses the precomputed (offline) engine by default": {
+      "ok": true,
+      "detail": "offline"
+    },
+    "offline: avatar pose == motion file at the presented media time": {
+      "ok": true,
+      "detail": [
+        {
+          "frame": 100,
+          "mediaTime": 3.333,
+          "maxErrorDeg": 0
+        },
+        {
+          "frame": 2500,
+          "mediaTime": 83.333,
+          "maxErrorDeg": 0
+        },
+        {
+          "frame": 4869,
+          "mediaTime": 162.3,
+          "maxErrorDeg": 0
+        }
+      ]
+    },
+    "offline: motion advances with playback": {
+      "ok": true,
+      "detail": {
+        "before": 162.3,
+        "after": 164.9
+      }
+    },
+    "live: Holistic runs in-browser and the causal solver drives the avatar": {
+      "ok": true,
+      "detail": {
+        "status": {
+          "engine": "live",
+          "handState": {
+            "left": "T",
+            "right": "T"
+          },
+          "frameIndex": null,
+          "solveMs": 33.60000000009313,
+          "channels": 54
+        },
+        "seconds": 33
+      }
+    },
+    "live: metric world landmarks received from the Holistic bundle": {
+      "ok": true,
+      "detail": "poseWorldLandmarks present"
+    },
+    "camera: fake webcam stream is tracked and retargeted live": {
+      "ok": true,
+      "detail": {
+        "status": {
+          "engine": "live",
+          "handState": {
+            "left": "A",
+            "right": "T"
+          },
+          "frameIndex": null,
+          "solveMs": 7.900000000139698,
+          "channels": 54
+        },
+        "seconds": 21
+      }
+    },
+    "upload: an uploaded video is tracked and retargeted live": {
+      "ok": true,
+      "detail": {
+        "status": {
+          "engine": "live",
+          "handState": {
+            "left": "A",
+            "right": "A"
+          },
+          "frameIndex": null,
+          "solveMs": 1.5999999998603016,
+          "channels": 54
+        },
+        "seconds": 21
+      }
+    },
+    "no page errors": {
+      "ok": true,
+      "detail": []
+    }
+  },
+  "failures": [],
+  "verdict": "PASS"
+}

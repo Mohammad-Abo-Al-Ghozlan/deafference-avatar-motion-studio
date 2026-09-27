@@ -18,7 +18,7 @@
     <main id="top">
       <section class="intro" aria-labelledby="page-title">
         <div>
-          <p class="eyebrow"><span>ASL</span> Privacy-first motion transfer</p>
+          <p class="eyebrow"><span>Sign</span> Privacy-first motion transfer</p>
           <h1 id="page-title">The signer disappears.<br /><em>The motion stays.</em></h1>
         </div>
         <p class="intro-copy">
@@ -64,25 +64,29 @@
         />
       </section>
 
-      <section class="motion-workspace" aria-label="ASL avatar motion workspace">
+      <section class="motion-workspace" aria-label="Signing avatar motion workspace">
         <article class="panel avatar-panel">
           <header class="panel-header">
             <div>
               <p>Avatar output</p>
               <h2>Deafference character</h2>
             </div>
-            <span class="live-badge"><i></i> Live retarget</span>
+            <span class="live-badge" :class="{ offline: usingOffline }"><i></i> {{ usingOffline ? 'Precomputed motion' : 'Live retarget' }}</span>
           </header>
 
           <div class="avatar-wrap">
             <AvatarStage
               ref="avatarStage"
-              :frame="tracker.frame.value"
+              :frame="usingOffline ? null : tracker.frame.value"
+              :engine="usingOffline ? 'offline' : 'live'"
+              :clip="sampleClip"
+              :media="videoElement"
               :smoothing="smoothing"
               :strength="trackingStrength"
               :tracking-active="isPlaying"
               @ready="modelReady = true"
               @error="handleAvatarError"
+              @status="stageStatus = $event"
             />
 
             <div class="avatar-corner-label">
@@ -90,11 +94,11 @@
               <strong>{{ activeSourceName }}</strong>
             </div>
 
-            <div class="avatar-hud" aria-label="Detected tracking channels">
-              <span :class="{ detected: tracker.detections.value.body }"><i></i> Body</span>
-              <span :class="{ detected: tracker.detections.value.leftHand }"><i></i> L hand</span>
-              <span :class="{ detected: tracker.detections.value.rightHand }"><i></i> R hand</span>
-              <span :class="{ detected: tracker.detections.value.face }"><i></i> Face</span>
+            <div class="avatar-hud" aria-label="Tracking channels">
+              <span :class="{ detected: hud.body }"><i></i> Body</span>
+              <span :class="handClass('left')" :title="handTitle('left')"><i></i> L hand</span>
+              <span :class="handClass('right')" :title="handTitle('right')"><i></i> R hand</span>
+              <span :class="{ detected: hud.face }"><i></i> Face</span>
             </div>
           </div>
         </article>
@@ -115,6 +119,28 @@
               {{ showSource ? 'Hide person' : 'Reveal source' }}
             </button>
           </header>
+
+          <div v-if="sourceMode === 'sample'" class="engine-switch" role="radiogroup" aria-label="Motion engine">
+            <button
+              type="button"
+              role="radio"
+              :aria-checked="motionEngine === 'offline'"
+              :class="{ active: motionEngine === 'offline' }"
+              :disabled="!sampleClip"
+              @click="setMotionEngine('offline')"
+            >
+              <strong>Precomputed</strong><small>Offline · zero-phase · QA-checked</small>
+            </button>
+            <button
+              type="button"
+              role="radio"
+              :aria-checked="motionEngine === 'live'"
+              :class="{ active: motionEngine === 'live' }"
+              @click="setMotionEngine('live')"
+            >
+              <strong>Live tracker</strong><small>Causal · in-browser</small>
+            </button>
+          </div>
 
           <div class="source-viewport" :class="{ protected: !showSource, mirrored: sourceMode === 'camera' }">
             <video
@@ -144,7 +170,7 @@
               <button type="button" @click="activateCamera">Enable camera</button>
             </div>
 
-            <span class="fps-readout">{{ tracker.fps.value || '—' }} FPS</span>
+            <span class="fps-readout">{{ usingOffline ? 'Baked' : `${tracker.fps.value || '—'} FPS` }}</span>
           </div>
 
           <div v-if="sourceMode !== 'camera'" class="timeline">
@@ -180,12 +206,13 @@
 
           <div class="tracking-readout">
             <div>
-              <span class="metric-label">Inference</span>
-              <strong>{{ tracker.inferenceMs.value || '—' }}<small> ms</small></strong>
+              <span class="metric-label">{{ usingOffline ? 'Frame' : 'Inference' }}</span>
+              <strong v-if="usingOffline">{{ stageStatus?.frameIndex ?? '—' }}<small> / {{ sampleClip?.file.frameCount ?? '—' }}</small></strong>
+              <strong v-else>{{ tracker.inferenceMs.value || '—' }}<small> ms</small></strong>
             </div>
             <div>
               <span class="metric-label">Rig channels</span>
-              <strong>45<small> live</small></strong>
+              <strong>{{ stageStatus?.channels || '—' }}<small> {{ usingOffline ? 'baked' : 'live' }}</small></strong>
             </div>
             <div>
               <span class="metric-label">Privacy</span>
@@ -194,9 +221,9 @@
           </div>
 
           <div class="tuning">
-            <label>
-              <span><b>Smoothing</b><output>{{ smoothing }}</output></span>
-              <input v-model.number="smoothing" type="range" min="6" max="24" step="1" />
+            <label :class="{ inactive: usingOffline }" :title="usingOffline ? 'Precomputed motion is smoothed offline (zero-phase); this control applies to the live tracker.' : undefined">
+              <span><b>Smoothing</b><output>{{ usingOffline ? 'baked' : smoothing }}</output></span>
+              <input v-model.number="smoothing" type="range" min="6" max="24" step="1" :disabled="usingOffline" />
             </label>
             <label>
               <span><b>Motion strength</b><output>{{ Math.round(trackingStrength * 100) }}%</output></span>
@@ -214,7 +241,7 @@
       <section class="truth-strip" aria-label="Prototype scope">
         <div>
           <span class="truth-number">01</span>
-          <p><strong>Motion transfer</strong> reproduces an existing signed performance; it does not invent ASL from text.</p>
+          <p><strong>Motion transfer</strong> reproduces an existing signed performance; it does not translate or invent signing from text.</p>
         </div>
         <div>
           <span class="truth-number">02</span>
@@ -222,23 +249,27 @@
         </div>
         <div>
           <span class="truth-number">03</span>
-          <p><strong>Human review remains required</strong> before any animation is accepted as linguistically accurate ASL.</p>
+          <p><strong>Human review remains required</strong>: a fluent Deaf signer must review any animation before it is accepted as linguistically accurate signing.</p>
         </div>
       </section>
     </main>
 
     <footer class="footer">
       <span>Deafference Motion Studio · Technical prototype</span>
-      <span>MediaPipe Holistic → geometric rig retargeting → Three.js</span>
+      <span>MediaPipe Holistic → anatomical hand model + constrained IK → Three.js</span>
     </footer>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
-import AvatarStage from './components/AvatarStage.vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, shallowRef, watch } from 'vue'
+import AvatarStage, { type StageStatus } from './components/AvatarStage.vue'
 import { useHolisticTracker } from './composables/useHolisticTracker'
-import type { Landmark, SourceMode, TrackingFrame } from './types/tracking'
+import { MotionClip } from './motion/clip/MotionClip'
+import type { HandStateCode } from './motion/clip/format'
+import type { Landmark, MotionEngine, SourceMode, TrackingFrame } from './types/tracking'
+
+const SAMPLE_MOTION_URL = '/motion/qassem-story/avatar-motion.json.gz'
 
 const tracker = useHolisticTracker()
 
@@ -260,6 +291,60 @@ const playbackRate = ref(1)
 const smoothing = ref(15)
 const trackingStrength = ref(1)
 const errorMessage = ref<string | null>(null)
+const motionEngine = ref<MotionEngine>('offline')
+const sampleClip = shallowRef<MotionClip | null>(null)
+const stageStatus = shallowRef<StageStatus | null>(null)
+
+/** The sample clip plays its precomputed motion unless the live tracker is chosen. */
+const usingOffline = computed(() => sourceMode.value === 'sample' && motionEngine.value === 'offline' && sampleClip.value !== null)
+
+const HAND_STATE_TEXT: Record<HandStateCode, string> = {
+  T: 'tracked',
+  I: 'interpolated (short gap)',
+  H: 'holding last reliable pose',
+  F: 'uncertain: easing to relaxed hand',
+  A: 'not observed'
+}
+
+const hud = computed(() => {
+  const status = stageStatus.value
+  if (usingOffline.value) {
+    return { body: true, face: true, left: status?.handState.left ?? 'A', right: status?.handState.right ?? 'A' }
+  }
+  return {
+    body: tracker.detections.value.body,
+    face: tracker.detections.value.face,
+    left: status?.engine === 'live' ? status.handState.left : (tracker.detections.value.leftHand ? 'T' : 'A'),
+    right: status?.engine === 'live' ? status.handState.right : (tracker.detections.value.rightHand ? 'T' : 'A')
+  } as { body: boolean; face: boolean; left: HandStateCode; right: HandStateCode }
+})
+
+function handClass(side: 'left' | 'right') {
+  const state = hud.value[side]
+  return { detected: state === 'T' || state === 'I', uncertain: state === 'H' || state === 'F' }
+}
+
+function handTitle(side: 'left' | 'right') {
+  return `${side === 'left' ? 'Left' : 'Right'} hand: ${HAND_STATE_TEXT[hud.value[side]]}`
+}
+
+async function loadSampleClip() {
+  try {
+    sampleClip.value = await MotionClip.load(SAMPLE_MOTION_URL)
+  } catch (cause) {
+    motionEngine.value = 'live'
+    errorMessage.value = `Precomputed motion unavailable, using the live tracker instead. ${cause instanceof Error ? cause.message : String(cause)}`
+  }
+}
+
+async function setMotionEngine(engine: MotionEngine) {
+  if (engine === motionEngine.value) return
+  motionEngine.value = engine
+  stopProcessingLoop()
+  tracker.clear()
+  drawTracking(null)
+  if (engine === 'live' && isPlaying.value) await startProcessingLoop()
+}
 
 let cameraStream: MediaStream | null = null
 let objectUrl: string | null = null
@@ -279,6 +364,10 @@ const sourcePanelTitle = computed(() => {
 })
 
 const statusText = computed(() => {
+  if (usingOffline.value) {
+    if (!modelReady.value) return 'Preparing motion engine'
+    return isPlaying.value ? 'Playing precomputed motion' : 'Ready'
+  }
   if (tracker.error.value) return 'Tracker unavailable'
   if (!modelReady.value || tracker.loading.value) return 'Preparing motion engine'
   if (tracker.processing.value || isPlaying.value) return 'Retargeting live'
@@ -286,9 +375,9 @@ const statusText = computed(() => {
 })
 
 const statusClass = computed(() => ({
-  ready: modelReady.value && tracker.ready.value && !isPlaying.value,
-  live: isPlaying.value && tracker.ready.value,
-  error: Boolean(tracker.error.value)
+  ready: modelReady.value && (usingOffline.value || tracker.ready.value) && !isPlaying.value,
+  live: isPlaying.value && (usingOffline.value || tracker.ready.value),
+  error: !usingOffline.value && Boolean(tracker.error.value)
 }))
 
 async function ensureTracker() {
@@ -408,14 +497,19 @@ async function handleMediaReady() {
   duration.value = Number.isFinite(video.duration) ? video.duration : 0
   video.playbackRate = playbackRate.value
 
-  const trackerReady = await ensureTracker()
-  if (!trackerReady) return
+  if (!usingOffline.value) {
+    const trackerReady = await ensureTracker()
+    if (!trackerReady) return
+  }
 
   try {
     await video.play()
   } catch {
     // Browser autoplay policies may require the visible play button.
   }
+  // Camera streams fire 'play' before 'loadedmetadata': the play handler ran
+  // while the media was not ready yet, so start the loop here if playing.
+  if (!video.paused) void startProcessingLoop()
 }
 
 function handlePlay() {
@@ -436,6 +530,8 @@ function handleMediaError() {
 async function startProcessingLoop() {
   const video = videoElement.value
   if (!video || !mediaReady.value) return
+  // Precomputed playback needs no landmark inference.
+  if (usingOffline.value) return
   if (!(await ensureTracker())) return
 
   const generation = ++processingGeneration
@@ -610,8 +706,11 @@ watch(tracker.frame, (value) => drawTracking(value))
 
 onMounted(async () => {
   await nextTick()
+  await loadSampleClip()
   await activateSample()
-  void ensureTracker()
+  // Warm the tracker in the background for the live modes; failures surface
+  // (with a message) only when a live mode actually needs it.
+  void tracker.initialize().catch(() => undefined)
 })
 
 onBeforeUnmount(() => {

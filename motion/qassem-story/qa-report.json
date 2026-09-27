@@ -1,0 +1,2550 @@
+{
+  "schema": "deafference.qa-report",
+  "schemaVersion": 1,
+  "clipId": "qassem-story",
+  "motion": "motion/qassem-story/avatar-motion.json.gz",
+  "thresholds": {
+    "quaternionNormTolerance": 0.001,
+    "hingeOffAxisDeg": 1,
+    "fingerTwistDeg": 3,
+    "pipRangeDeg": [
+      -5,
+      110
+    ],
+    "dipRangeDeg": [
+      -10,
+      85
+    ],
+    "mcpFlexRangeDeg": [
+      -25,
+      95
+    ],
+    "thumbHingeRangeDeg": [
+      -20,
+      88
+    ],
+    "elbowRangeDeg": [
+      0,
+      150
+    ],
+    "wristFlexDeg": 80,
+    "wristExtDeg": 70,
+    "wristRadialDeg": 28,
+    "wristUlnarDeg": 40,
+    "wristTwistDeg": 100,
+    "limitToleranceDeg": 0.5,
+    "spikeDeg": {
+      "finger": 20,
+      "wrist": 20,
+      "arm": 15,
+      "trunk": 8,
+      "face": 12
+    },
+    "crossingToleranceDeg": 30,
+    "palmPenetrationM": 0.004,
+    "wristFastSpeedMs": 3.6,
+    "wristMaxSpeedMs": 7.5,
+    "wristImpulseRatio": 2.5
+  },
+  "verdict": "PASS",
+  "structural": {
+    "frameCount": 5794,
+    "fps": 30,
+    "durationSec": 193.1,
+    "expectedFrames": 5794,
+    "missingFrames": 0,
+    "rotationTracks": 50,
+    "translationTracks": 4,
+    "tracksWithUnknownBones": [],
+    "tracksWithWrongLength": [],
+    "timelineMappingComplete": true,
+    "timestampsMonotonic": true,
+    "gridTimestampsMonotonic": true
+  },
+  "numeric": {
+    "nonFiniteValues": 0,
+    "maxQuaternionNormError": 8.82090888998377e-7,
+    "quaternionHemisphereFlips": 0,
+    "maxFaceTranslationOffsetM": 0.004000150791999928
+  },
+  "anatomical": {
+    "hingeOffAxis": {
+      "pip": {
+        "frames": 0,
+        "maxExcessDeg": 0,
+        "firstFrames": []
+      },
+      "dip": {
+        "frames": 0,
+        "maxExcessDeg": 0,
+        "firstFrames": []
+      },
+      "thumbMcp": {
+        "frames": 0,
+        "maxExcessDeg": 0,
+        "firstFrames": []
+      },
+      "thumbIp": {
+        "frames": 0,
+        "maxExcessDeg": 0,
+        "firstFrames": []
+      },
+      "elbow": {
+        "frames": 0,
+        "maxExcessDeg": 0,
+        "firstFrames": []
+      }
+    },
+    "hingeAxes": {
+      "left.elbow": {
+        "axisVsAnatomicalDeg": 0,
+        "maxOffAxisDeg": 0
+      },
+      "left.index.pip": {
+        "axisVsAnatomicalDeg": 0,
+        "maxOffAxisDeg": 0
+      },
+      "left.index.dip": {
+        "axisVsAnatomicalDeg": 0,
+        "maxOffAxisDeg": 0
+      },
+      "left.middle.pip": {
+        "axisVsAnatomicalDeg": 0,
+        "maxOffAxisDeg": 0
+      },
+      "left.middle.dip": {
+        "axisVsAnatomicalDeg": 0,
+        "maxOffAxisDeg": 0
+      },
+      "left.ring.pip": {
+        "axisVsAnatomicalDeg": 0,
+        "maxOffAxisDeg": 0
+      },
+      "left.ring.dip": {
+        "axisVsAnatomicalDeg": 0,
+        "maxOffAxisDeg": 0
+      },
+      "left.pinky.pip": {
+        "axisVsAnatomicalDeg": 0,
+        "maxOffAxisDeg": 0
+      },
+      "left.pinky.dip": {
+        "axisVsAnatomicalDeg": 0,
+        "maxOffAxisDeg": 0
+      },
+      "left.thumb.thumbMcp": {
+        "axisVsAnatomicalDeg": 0,
+        "maxOffAxisDeg": 0
+      },
+      "left.thumb.thumbIp": {
+        "axisVsAnatomicalDeg": 0,
+        "maxOffAxisDeg": 0
+      },
+      "right.elbow": {
+        "axisVsAnatomicalDeg": 0,
+        "maxOffAxisDeg": 0
+      },
+      "right.index.pip": {
+        "axisVsAnatomicalDeg": 0,
+        "maxOffAxisDeg": 0
+      },
+      "right.index.dip": {
+        "axisVsAnatomicalDeg": 0,
+        "maxOffAxisDeg": 0
+      },
+      "right.middle.pip": {
+        "axisVsAnatomicalDeg": 0,
+        "maxOffAxisDeg": 0
+      },
+      "right.middle.dip": {
+        "axisVsAnatomicalDeg": 0,
+        "maxOffAxisDeg": 0
+      },
+      "right.ring.pip": {
+        "axisVsAnatomicalDeg": 0,
+        "maxOffAxisDeg": 0
+      },
+      "right.ring.dip": {
+        "axisVsAnatomicalDeg": 0,
+        "maxOffAxisDeg": 0
+      },
+      "right.pinky.pip": {
+        "axisVsAnatomicalDeg": 0,
+        "maxOffAxisDeg": 0
+      },
+      "right.pinky.dip": {
+        "axisVsAnatomicalDeg": 0,
+        "maxOffAxisDeg": 0
+      },
+      "right.thumb.thumbMcp": {
+        "axisVsAnatomicalDeg": 0,
+        "maxOffAxisDeg": 0
+      },
+      "right.thumb.thumbIp": {
+        "axisVsAnatomicalDeg": 0,
+        "maxOffAxisDeg": 0
+      }
+    },
+    "rangeViolations": {
+      "pip": {
+        "frames": 0,
+        "maxExcessDeg": 0,
+        "firstFrames": []
+      },
+      "dip": {
+        "frames": 0,
+        "maxExcessDeg": 0,
+        "firstFrames": []
+      },
+      "mcp": {
+        "frames": 0,
+        "maxExcessDeg": 0,
+        "firstFrames": []
+      },
+      "thumb": {
+        "frames": 0,
+        "maxExcessDeg": 0,
+        "firstFrames": []
+      },
+      "elbowHyperextension": {
+        "frames": 0,
+        "maxExcessDeg": 0,
+        "firstFrames": []
+      },
+      "elbowOverflex": {
+        "frames": 0,
+        "maxExcessDeg": 0,
+        "firstFrames": []
+      }
+    },
+    "reverseBending": {
+      "pip": {
+        "frames": 0,
+        "maxExcessDeg": 0,
+        "firstFrames": []
+      },
+      "dip": {
+        "frames": 0,
+        "maxExcessDeg": 0,
+        "firstFrames": []
+      }
+    },
+    "fingerTwist": {
+      "frames": 0,
+      "maxExcessDeg": 0,
+      "firstFrames": []
+    },
+    "wristLimitViolations": {
+      "flex": {
+        "frames": 0,
+        "maxExcessDeg": 0,
+        "firstFrames": []
+      },
+      "dev": {
+        "frames": 0,
+        "maxExcessDeg": 0,
+        "firstFrames": []
+      },
+      "twist": {
+        "frames": 0,
+        "maxExcessDeg": 0,
+        "firstFrames": []
+      }
+    },
+    "fingerOrderReversals": {
+      "frames": 0,
+      "maxExcessDeg": 0,
+      "firstFrames": []
+    },
+    "fingertipPalmPenetration": {
+      "frames": 0,
+      "maxDepthM": 0,
+      "firstFrames": []
+    },
+    "restPoseResetsWhileTracked": 0,
+    "wristTeleports": {
+      "frames": 0,
+      "maxJumpM": 0,
+      "firstFrames": []
+    },
+    "wristFastMotion": {
+      "frames": 1,
+      "maxStepM": 0.123,
+      "firstFrames": [
+        4869
+      ],
+      "events": [
+        {
+          "frame": 4869,
+          "side": "right",
+          "jumpM": 0.1226
+        }
+      ]
+    },
+    "maxWristSpeedMs": 3.68,
+    "maxBoneLengthErrorM": 8.881784197001252e-16,
+    "extremesDeg": {
+      "pip": [
+        -5,
+        110
+      ],
+      "dip": [
+        -10,
+        85
+      ],
+      "mcp": [
+        -25,
+        90
+      ],
+      "elbow": [
+        11.9,
+        141.3
+      ],
+      "wristFlex": [
+        -70,
+        78.1
+      ],
+      "wristDev": [
+        -39.9,
+        28
+      ],
+      "wristTwist": [
+        -99.9,
+        99.2
+      ],
+      "fingerTwist": 0,
+      "hingeOffAxis": 0
+    }
+  },
+  "temporal": {
+    "trunk": {
+      "maxStepDeg": 2.87,
+      "worstBone": "head",
+      "p999StepDeg": 2.51,
+      "maxAngularVelocityDegS": 86,
+      "p999AngularAccelerationDegS2": 961,
+      "oneFrameSpikes": 0,
+      "spikeFrames": []
+    },
+    "face": {
+      "maxStepDeg": 24.45,
+      "worstBone": "eyelid_r",
+      "p999StepDeg": 16.87,
+      "maxAngularVelocityDegS": 734,
+      "p999AngularAccelerationDegS2": 13366,
+      "oneFrameSpikes": 0,
+      "spikeFrames": []
+    },
+    "arm": {
+      "maxStepDeg": 25.85,
+      "worstBone": "upperarm_r",
+      "p999StepDeg": 22.55,
+      "maxAngularVelocityDegS": 775,
+      "p999AngularAccelerationDegS2": 10390,
+      "oneFrameSpikes": 0,
+      "spikeFrames": []
+    },
+    "wrist": {
+      "maxStepDeg": 35.31,
+      "worstBone": "hand_r",
+      "p999StepDeg": 27.88,
+      "maxAngularVelocityDegS": 1059,
+      "p999AngularAccelerationDegS2": 14745,
+      "oneFrameSpikes": 0,
+      "spikeFrames": []
+    },
+    "finger": {
+      "maxStepDeg": 29.68,
+      "worstBone": "thumb_01_l",
+      "p999StepDeg": 25.6,
+      "maxAngularVelocityDegS": 890,
+      "p999AngularAccelerationDegS2": 16407,
+      "oneFrameSpikes": 0,
+      "spikeFrames": []
+    }
+  },
+  "failures": [],
+  "tracking": {
+    "processedFrames": 5794,
+    "decodedSourceFrames": 5761,
+    "droppedSourceSlots": 33,
+    "duplicateTrackerFrames": 0,
+    "identityCorrections": {
+      "swaps": 1,
+      "duplicatesDropped": 13,
+      "relabelled": 0
+    },
+    "left": {
+      "detectedSlots": 1615,
+      "acceptedFits": 1534,
+      "rejectedFits": 81,
+      "rejectReasons": {
+        "palmError": 0,
+        "digitError": 0,
+        "outOfFrame": 6,
+        "fitFailed": 0,
+        "orientationVote": 75
+      },
+      "rejectedOutliers": {
+        "palmOrientationSpikes": 0,
+        "scaleOutliers": 53,
+        "jointChannelOutliers": 944
+      },
+      "states": {
+        "tracked": 1481,
+        "interpolated": 241,
+        "held": 458,
+        "fallback": 1117,
+        "absent": 2497
+      },
+      "missingHandIntervals": 219,
+      "interpolatedIntervals": 88,
+      "uncertainIntervals": [
+        [
+          4.033,
+          4.233
+        ],
+        [
+          5.3,
+          5.467
+        ],
+        [
+          5.5,
+          5.933
+        ],
+        [
+          6.967,
+          7.167
+        ],
+        [
+          7.6,
+          7.767
+        ],
+        [
+          7.8,
+          8.233
+        ],
+        [
+          9.367,
+          9.567
+        ],
+        [
+          10.067,
+          10.233
+        ],
+        [
+          10.267,
+          10.7
+        ],
+        [
+          11.2,
+          11.4
+        ],
+        [
+          11.533,
+          11.7
+        ],
+        [
+          11.733,
+          12.367
+        ],
+        [
+          12.433,
+          12.6
+        ],
+        [
+          12.633,
+          13.067
+        ],
+        [
+          13.5,
+          13.7
+        ],
+        [
+          13.967,
+          14.133
+        ],
+        [
+          14.167,
+          14.6
+        ],
+        [
+          15.4,
+          15.6
+        ],
+        [
+          16.1,
+          16.267
+        ],
+        [
+          16.3,
+          16.733
+        ],
+        [
+          17.067,
+          17.267
+        ],
+        [
+          17.4,
+          17.567
+        ],
+        [
+          17.6,
+          18.033
+        ],
+        [
+          18.367,
+          18.567
+        ],
+        [
+          18.633,
+          19.033
+        ],
+        [
+          19.233,
+          19.4
+        ],
+        [
+          19.433,
+          20.067
+        ],
+        [
+          20.8,
+          20.967
+        ],
+        [
+          21,
+          21.433
+        ],
+        [
+          21.633,
+          21.833
+        ],
+        [
+          22.133,
+          22.3
+        ],
+        [
+          22.333,
+          22.767
+        ],
+        [
+          23.333,
+          23.533
+        ],
+        [
+          23.6,
+          23.767
+        ],
+        [
+          23.8,
+          24.233
+        ],
+        [
+          24.933,
+          25.133
+        ],
+        [
+          25.567,
+          25.733
+        ],
+        [
+          25.767,
+          26.433
+        ],
+        [
+          28.6,
+          28.767
+        ],
+        [
+          28.8,
+          29.233
+        ],
+        [
+          30.267,
+          30.467
+        ],
+        [
+          30.867,
+          31.033
+        ],
+        [
+          31.067,
+          31.5
+        ],
+        [
+          33.1,
+          33.3
+        ],
+        [
+          33.8,
+          33.967
+        ],
+        [
+          34,
+          34.433
+        ],
+        [
+          37.267,
+          37.467
+        ],
+        [
+          39.8,
+          39.967
+        ],
+        [
+          40,
+          40.6
+        ],
+        [
+          41.333,
+          41.5
+        ],
+        [
+          41.533,
+          41.633
+        ],
+        [
+          41.667,
+          41.8
+        ],
+        [
+          43.933,
+          44.1
+        ],
+        [
+          44.133,
+          44.167
+        ],
+        [
+          44.2,
+          44.367
+        ],
+        [
+          49.7,
+          49.867
+        ],
+        [
+          49.9,
+          50.333
+        ],
+        [
+          50.7,
+          50.9
+        ],
+        [
+          52.1,
+          52.267
+        ],
+        [
+          52.3,
+          52.667
+        ],
+        [
+          52.7,
+          52.7
+        ],
+        [
+          54.3,
+          54.467
+        ],
+        [
+          54.5,
+          54.933
+        ],
+        [
+          56.5,
+          56.7
+        ],
+        [
+          57.267,
+          57.433
+        ],
+        [
+          57.467,
+          57.767
+        ],
+        [
+          57.8,
+          57.833
+        ],
+        [
+          61.167,
+          61.333
+        ],
+        [
+          61.367,
+          61.9
+        ],
+        [
+          66.133,
+          66.3
+        ],
+        [
+          66.333,
+          66.767
+        ],
+        [
+          68.167,
+          68.333
+        ],
+        [
+          68.367,
+          68.8
+        ],
+        [
+          70.433,
+          70.633
+        ],
+        [
+          71.567,
+          71.733
+        ],
+        [
+          71.767,
+          72.267
+        ],
+        [
+          72.6,
+          72.767
+        ],
+        [
+          72.8,
+          73.233
+        ],
+        [
+          75.867,
+          76.067
+        ],
+        [
+          76.533,
+          76.7
+        ],
+        [
+          76.733,
+          77.167
+        ],
+        [
+          77.467,
+          77.667
+        ],
+        [
+          78.267,
+          78.433
+        ],
+        [
+          78.467,
+          78.9
+        ],
+        [
+          81.033,
+          81.233
+        ],
+        [
+          82.1,
+          82.267
+        ],
+        [
+          82.3,
+          82.733
+        ],
+        [
+          84.167,
+          84.367
+        ],
+        [
+          85,
+          85.167
+        ],
+        [
+          85.2,
+          85.633
+        ],
+        [
+          88.767,
+          88.967
+        ],
+        [
+          90.233,
+          90.4
+        ],
+        [
+          90.433,
+          90.867
+        ],
+        [
+          91.1,
+          91.3
+        ],
+        [
+          91.867,
+          92.033
+        ],
+        [
+          92.067,
+          92.733
+        ],
+        [
+          92.833,
+          93
+        ],
+        [
+          93.033,
+          93.467
+        ],
+        [
+          94.2,
+          94.4
+        ],
+        [
+          95.6,
+          95.767
+        ],
+        [
+          95.8,
+          96.233
+        ],
+        [
+          96.467,
+          96.667
+        ],
+        [
+          97.2,
+          97.367
+        ],
+        [
+          97.4,
+          97.833
+        ],
+        [
+          98.9,
+          99.067
+        ],
+        [
+          99.1,
+          99.533
+        ],
+        [
+          108.3,
+          108.5
+        ],
+        [
+          109.567,
+          109.733
+        ],
+        [
+          109.767,
+          110.067
+        ],
+        [
+          110.1,
+          110.133
+        ],
+        [
+          111.267,
+          111.433
+        ],
+        [
+          111.467,
+          111.9
+        ],
+        [
+          116.133,
+          116.333
+        ],
+        [
+          116.533,
+          116.7
+        ],
+        [
+          116.733,
+          117.167
+        ],
+        [
+          120.467,
+          120.667
+        ],
+        [
+          121.333,
+          121.5
+        ],
+        [
+          121.533,
+          121.967
+        ],
+        [
+          123.1,
+          123.3
+        ],
+        [
+          123.933,
+          124.1
+        ],
+        [
+          124.133,
+          124.567
+        ],
+        [
+          125,
+          125.2
+        ],
+        [
+          126.8,
+          126.967
+        ],
+        [
+          127,
+          127.433
+        ],
+        [
+          128.233,
+          128.433
+        ],
+        [
+          129.8,
+          129.967
+        ],
+        [
+          130,
+          130.1
+        ],
+        [
+          130.133,
+          130.267
+        ],
+        [
+          130.933,
+          131.2
+        ],
+        [
+          132.733,
+          133.1
+        ],
+        [
+          133.933,
+          134.233
+        ],
+        [
+          134.433,
+          134.833
+        ],
+        [
+          136.233,
+          136.4
+        ],
+        [
+          136.433,
+          136.867
+        ],
+        [
+          139.867,
+          140.067
+        ],
+        [
+          140.467,
+          140.633
+        ],
+        [
+          140.667,
+          141.1
+        ],
+        [
+          143.1,
+          143.3
+        ],
+        [
+          144.1,
+          144.267
+        ],
+        [
+          144.3,
+          144.6
+        ],
+        [
+          144.633,
+          144.667
+        ],
+        [
+          145.1,
+          145.267
+        ],
+        [
+          145.3,
+          145.733
+        ],
+        [
+          158,
+          158.2
+        ],
+        [
+          158.6,
+          158.767
+        ],
+        [
+          158.8,
+          159.233
+        ],
+        [
+          162.4,
+          162.6
+        ],
+        [
+          162.7,
+          162.867
+        ],
+        [
+          162.9,
+          163.333
+        ],
+        [
+          163.433,
+          163.633
+        ],
+        [
+          163.7,
+          163.867
+        ],
+        [
+          163.9,
+          164.333
+        ],
+        [
+          164.433,
+          164.633
+        ],
+        [
+          164.767,
+          164.933
+        ],
+        [
+          164.967,
+          165.4
+        ],
+        [
+          167.067,
+          167.267
+        ],
+        [
+          167.767,
+          167.933
+        ],
+        [
+          167.967,
+          168.4
+        ],
+        [
+          170.133,
+          170.333
+        ],
+        [
+          171.267,
+          171.433
+        ],
+        [
+          171.467,
+          171.9
+        ],
+        [
+          172.533,
+          172.733
+        ],
+        [
+          173.133,
+          173.3
+        ],
+        [
+          173.333,
+          173.767
+        ],
+        [
+          179.6,
+          179.8
+        ],
+        [
+          180.267,
+          180.433
+        ],
+        [
+          180.467,
+          180.9
+        ],
+        [
+          182.2,
+          182.4
+        ],
+        [
+          182.933,
+          183.3
+        ],
+        [
+          183.9,
+          184.067
+        ],
+        [
+          184.1,
+          184.533
+        ],
+        [
+          188.6,
+          188.8
+        ],
+        [
+          190.267,
+          190.633
+        ],
+        [
+          192.3,
+          192.467
+        ],
+        [
+          192.5,
+          192.933
+        ]
+      ]
+    },
+    "right": {
+      "detectedSlots": 4805,
+      "acceptedFits": 4646,
+      "rejectedFits": 159,
+      "rejectReasons": {
+        "palmError": 2,
+        "digitError": 1,
+        "outOfFrame": 52,
+        "fitFailed": 0,
+        "orientationVote": 104
+      },
+      "rejectedOutliers": {
+        "palmOrientationSpikes": 3,
+        "scaleOutliers": 80,
+        "jointChannelOutliers": 2306
+      },
+      "states": {
+        "tracked": 4563,
+        "interpolated": 586,
+        "held": 338,
+        "fallback": 266,
+        "absent": 41
+      },
+      "missingHandIntervals": 80,
+      "interpolatedIntervals": 209,
+      "uncertainIntervals": [
+        [
+          0.333,
+          0.533
+        ],
+        [
+          6.7,
+          6.967
+        ],
+        [
+          7.833,
+          8
+        ],
+        [
+          8.033,
+          8.467
+        ],
+        [
+          8.7,
+          8.9
+        ],
+        [
+          10.3,
+          10.467
+        ],
+        [
+          10.5,
+          10.967
+        ],
+        [
+          14.733,
+          14.9
+        ],
+        [
+          14.933,
+          15.033
+        ],
+        [
+          15.067,
+          15.2
+        ],
+        [
+          17.933,
+          18.1
+        ],
+        [
+          18.133,
+          18.367
+        ],
+        [
+          18.4,
+          18.467
+        ],
+        [
+          19.233,
+          19.4
+        ],
+        [
+          19.433,
+          19.667
+        ],
+        [
+          19.7,
+          19.767
+        ],
+        [
+          22.333,
+          22.5
+        ],
+        [
+          22.533,
+          22.7
+        ],
+        [
+          22.733,
+          22.833
+        ],
+        [
+          31.3,
+          31.467
+        ],
+        [
+          31.5,
+          32.1
+        ],
+        [
+          41.267,
+          41.433
+        ],
+        [
+          41.467,
+          41.567
+        ],
+        [
+          41.6,
+          41.733
+        ],
+        [
+          44.567,
+          44.833
+        ],
+        [
+          52.1,
+          52.4
+        ],
+        [
+          55.1,
+          55.267
+        ],
+        [
+          55.3,
+          55.833
+        ],
+        [
+          73.567,
+          73.9
+        ],
+        [
+          82.6,
+          82.933
+        ],
+        [
+          85.867,
+          86.033
+        ],
+        [
+          86.067,
+          86.233
+        ],
+        [
+          86.267,
+          86.367
+        ],
+        [
+          90.633,
+          90.967
+        ],
+        [
+          92.967,
+          93.133
+        ],
+        [
+          93.167,
+          93.667
+        ],
+        [
+          94.8,
+          94.967
+        ],
+        [
+          95,
+          95.033
+        ],
+        [
+          95.067,
+          95.233
+        ],
+        [
+          106.567,
+          106.733
+        ],
+        [
+          106.767,
+          106.867
+        ],
+        [
+          106.9,
+          107.033
+        ],
+        [
+          109.233,
+          109.6
+        ],
+        [
+          110.967,
+          111.233
+        ],
+        [
+          118.3,
+          118.467
+        ],
+        [
+          118.5,
+          119.167
+        ],
+        [
+          123.7,
+          124.1
+        ],
+        [
+          133.867,
+          134.033
+        ],
+        [
+          134.067,
+          134.3
+        ],
+        [
+          134.333,
+          134.4
+        ],
+        [
+          140.467,
+          140.633
+        ],
+        [
+          140.667,
+          141.3
+        ],
+        [
+          147.467,
+          147.8
+        ],
+        [
+          148.333,
+          148.7
+        ],
+        [
+          152.333,
+          152.5
+        ],
+        [
+          152.533,
+          152.833
+        ],
+        [
+          152.867,
+          152.9
+        ],
+        [
+          152.967,
+          153.133
+        ],
+        [
+          153.167,
+          153.333
+        ],
+        [
+          153.367,
+          153.467
+        ],
+        [
+          171.133,
+          171.3
+        ],
+        [
+          171.333,
+          171.767
+        ],
+        [
+          172.467,
+          172.667
+        ],
+        [
+          172.933,
+          173.233
+        ],
+        [
+          179.3,
+          179.6
+        ],
+        [
+          180.033,
+          180.367
+        ],
+        [
+          180.8,
+          180.967
+        ],
+        [
+          181,
+          181.233
+        ],
+        [
+          181.267,
+          181.333
+        ],
+        [
+          184.033,
+          184.2
+        ],
+        [
+          184.233,
+          184.667
+        ],
+        [
+          184.8,
+          185
+        ],
+        [
+          192.033,
+          192.333
+        ],
+        [
+          192.4,
+          192.567
+        ],
+        [
+          192.6,
+          193.033
+        ]
+      ]
+    },
+    "face": {
+      "validSlots": 5754,
+      "headSpikesRejected": 0,
+      "featureOutliersRejected": 77
+    }
+  },
+  "fastMotionSourceCrossCheck": {
+    "maxRatio": 2.5,
+    "events": 1,
+    "explained": 1,
+    "unexplained": 0,
+    "rows": [
+      {
+        "frame": 4869,
+        "side": "right",
+        "jumpM": 0.1226,
+        "timeSec": 162.3,
+        "handState": "tracked",
+        "sourceWristStepM": 0.0808,
+        "sourceHandCentreStepM": 0.1004,
+        "sourceImagePlaneStepM": 0.0731,
+        "avatarToSourceRatio": 1.22
+      }
+    ]
+  },
+  "legacyComparison": {
+    "motion": "evidence/legacy-motion.json.gz",
+    "verdict": "FAIL",
+    "failures": [
+      "elbow rotates off its hinge axis",
+      "fingers reverse-bend beyond anatomical hyperextension",
+      "finger joint angles outside anatomical ranges",
+      "wrist outside anatomical limits",
+      "wrist teleports: impulsive / implausible wrist jumps (identity swap or pose pop signature)",
+      "8 one-frame wrist spikes (> 20 deg)"
+    ],
+    "anatomical": {
+      "hingeOffAxis": {
+        "pip": {
+          "frames": 0,
+          "maxExcessDeg": 0,
+          "firstFrames": []
+        },
+        "dip": {
+          "frames": 0,
+          "maxExcessDeg": 0,
+          "firstFrames": []
+        },
+        "thumbMcp": {
+          "frames": 0,
+          "maxExcessDeg": 0,
+          "firstFrames": []
+        },
+        "thumbIp": {
+          "frames": 0,
+          "maxExcessDeg": 0,
+          "firstFrames": []
+        },
+        "elbow": {
+          "frames": 10263,
+          "maxExcessDeg": 70.59,
+          "firstFrames": [
+            43,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49,
+            50,
+            51,
+            52,
+            53,
+            54
+          ]
+        }
+      },
+      "hingeAxes": {
+        "left.elbow": {
+          "axisVsAnatomicalDeg": 26.53,
+          "maxOffAxisDeg": 70.588
+        },
+        "left.index.pip": {
+          "axisVsAnatomicalDeg": 0.32,
+          "maxOffAxisDeg": 0
+        },
+        "left.index.dip": {
+          "axisVsAnatomicalDeg": 0.69,
+          "maxOffAxisDeg": 0
+        },
+        "left.middle.pip": {
+          "axisVsAnatomicalDeg": 0.48,
+          "maxOffAxisDeg": 0
+        },
+        "left.middle.dip": {
+          "axisVsAnatomicalDeg": 1.05,
+          "maxOffAxisDeg": 0
+        },
+        "left.ring.pip": {
+          "axisVsAnatomicalDeg": 0.64,
+          "maxOffAxisDeg": 0
+        },
+        "left.ring.dip": {
+          "axisVsAnatomicalDeg": 1.4,
+          "maxOffAxisDeg": 0
+        },
+        "left.pinky.pip": {
+          "axisVsAnatomicalDeg": 0.8,
+          "maxOffAxisDeg": 0
+        },
+        "left.pinky.dip": {
+          "axisVsAnatomicalDeg": 1.74,
+          "maxOffAxisDeg": 0
+        },
+        "left.thumb.thumbMcp": {
+          "axisVsAnatomicalDeg": 85,
+          "maxOffAxisDeg": 0
+        },
+        "left.thumb.thumbIp": {
+          "axisVsAnatomicalDeg": 79.92,
+          "maxOffAxisDeg": 0
+        },
+        "right.elbow": {
+          "axisVsAnatomicalDeg": 35.22,
+          "maxOffAxisDeg": 57.696
+        },
+        "right.index.pip": {
+          "axisVsAnatomicalDeg": 0.55,
+          "maxOffAxisDeg": 0
+        },
+        "right.index.dip": {
+          "axisVsAnatomicalDeg": 1.24,
+          "maxOffAxisDeg": 0
+        },
+        "right.middle.pip": {
+          "axisVsAnatomicalDeg": 0.79,
+          "maxOffAxisDeg": 0
+        },
+        "right.middle.dip": {
+          "axisVsAnatomicalDeg": 1.76,
+          "maxOffAxisDeg": 0
+        },
+        "right.ring.pip": {
+          "axisVsAnatomicalDeg": 1.01,
+          "maxOffAxisDeg": 0
+        },
+        "right.ring.dip": {
+          "axisVsAnatomicalDeg": 2.26,
+          "maxOffAxisDeg": 0
+        },
+        "right.pinky.pip": {
+          "axisVsAnatomicalDeg": 1.24,
+          "maxOffAxisDeg": 0
+        },
+        "right.pinky.dip": {
+          "axisVsAnatomicalDeg": 2.75,
+          "maxOffAxisDeg": 0
+        },
+        "right.thumb.thumbMcp": {
+          "axisVsAnatomicalDeg": 84.6,
+          "maxOffAxisDeg": 0
+        },
+        "right.thumb.thumbIp": {
+          "axisVsAnatomicalDeg": 78.3,
+          "maxOffAxisDeg": 0
+        }
+      },
+      "rangeViolations": {
+        "pip": {
+          "frames": 2229,
+          "maxExcessDeg": 92.7,
+          "firstFrames": [
+            30,
+            30,
+            53,
+            53,
+            54,
+            54,
+            55,
+            55,
+            55,
+            56,
+            56,
+            56
+          ]
+        },
+        "dip": {
+          "frames": 124,
+          "maxExcessDeg": 25.15,
+          "firstFrames": [
+            779,
+            780,
+            780,
+            781,
+            781,
+            782,
+            782,
+            783,
+            783,
+            784,
+            784,
+            785
+          ]
+        },
+        "mcp": {
+          "frames": 0,
+          "maxExcessDeg": 0,
+          "firstFrames": []
+        },
+        "thumb": {
+          "frames": 0,
+          "maxExcessDeg": 0,
+          "firstFrames": []
+        },
+        "elbowHyperextension": {
+          "frames": 0,
+          "maxExcessDeg": 0,
+          "firstFrames": []
+        },
+        "elbowOverflex": {
+          "frames": 0,
+          "maxExcessDeg": 0,
+          "firstFrames": []
+        }
+      },
+      "reverseBending": {
+        "pip": {
+          "frames": 354,
+          "maxExcessDeg": 92.7,
+          "firstFrames": [
+            128,
+            129,
+            130,
+            131,
+            132,
+            133,
+            134,
+            135,
+            136,
+            137,
+            411,
+            411
+          ]
+        },
+        "dip": {
+          "frames": 124,
+          "maxExcessDeg": 25.15,
+          "firstFrames": [
+            779,
+            780,
+            780,
+            781,
+            781,
+            782,
+            782,
+            783,
+            783,
+            784,
+            784,
+            785
+          ]
+        }
+      },
+      "fingerTwist": {
+        "frames": 0,
+        "maxExcessDeg": 0,
+        "firstFrames": []
+      },
+      "wristLimitViolations": {
+        "flex": {
+          "frames": 567,
+          "maxExcessDeg": 38.17,
+          "firstFrames": [
+            152,
+            153,
+            154,
+            155,
+            155,
+            156,
+            157,
+            158,
+            159,
+            160,
+            161,
+            162
+          ]
+        },
+        "dev": {
+          "frames": 651,
+          "maxExcessDeg": 93.18,
+          "firstFrames": [
+            59,
+            223,
+            224,
+            227,
+            228,
+            229,
+            230,
+            232,
+            233,
+            234,
+            235,
+            236
+          ]
+        },
+        "twist": {
+          "frames": 621,
+          "maxExcessDeg": 79.71,
+          "firstFrames": [
+            415,
+            416,
+            417,
+            418,
+            419,
+            440,
+            441,
+            442,
+            443,
+            444,
+            445,
+            446
+          ]
+        }
+      },
+      "fingerOrderReversals": {
+        "frames": 0,
+        "maxExcessDeg": 0,
+        "firstFrames": []
+      },
+      "fingertipPalmPenetration": {
+        "frames": 0,
+        "maxDepthM": 0,
+        "firstFrames": []
+      },
+      "restPoseResetsWhileTracked": 0,
+      "wristTeleports": {
+        "frames": 8,
+        "maxJumpM": 0.403,
+        "firstFrames": [
+          267,
+          686,
+          4671,
+          1240,
+          3712,
+          3718,
+          4019,
+          5497
+        ]
+      },
+      "wristFastMotion": {
+        "frames": 131,
+        "maxStepM": 0.246,
+        "firstFrames": [
+          17,
+          128,
+          268,
+          290,
+          292,
+          295,
+          483,
+          574,
+          627,
+          794,
+          795,
+          807
+        ],
+        "events": [
+          {
+            "frame": 17,
+            "side": "left",
+            "jumpM": 0.1206
+          },
+          {
+            "frame": 128,
+            "side": "left",
+            "jumpM": 0.1552
+          },
+          {
+            "frame": 268,
+            "side": "left",
+            "jumpM": 0.1344
+          },
+          {
+            "frame": 290,
+            "side": "left",
+            "jumpM": 0.1341
+          },
+          {
+            "frame": 292,
+            "side": "left",
+            "jumpM": 0.1288
+          },
+          {
+            "frame": 295,
+            "side": "left",
+            "jumpM": 0.1383
+          },
+          {
+            "frame": 483,
+            "side": "left",
+            "jumpM": 0.1356
+          },
+          {
+            "frame": 574,
+            "side": "left",
+            "jumpM": 0.1306
+          },
+          {
+            "frame": 627,
+            "side": "left",
+            "jumpM": 0.1432
+          },
+          {
+            "frame": 794,
+            "side": "left",
+            "jumpM": 0.133
+          },
+          {
+            "frame": 795,
+            "side": "left",
+            "jumpM": 0.1283
+          },
+          {
+            "frame": 807,
+            "side": "left",
+            "jumpM": 0.156
+          },
+          {
+            "frame": 858,
+            "side": "left",
+            "jumpM": 0.1251
+          },
+          {
+            "frame": 859,
+            "side": "left",
+            "jumpM": 0.1321
+          },
+          {
+            "frame": 1001,
+            "side": "left",
+            "jumpM": 0.1874
+          },
+          {
+            "frame": 1002,
+            "side": "left",
+            "jumpM": 0.1243
+          },
+          {
+            "frame": 1016,
+            "side": "left",
+            "jumpM": 0.1297
+          },
+          {
+            "frame": 1124,
+            "side": "left",
+            "jumpM": 0.1207
+          },
+          {
+            "frame": 1125,
+            "side": "left",
+            "jumpM": 0.125
+          },
+          {
+            "frame": 1126,
+            "side": "left",
+            "jumpM": 0.1805
+          },
+          {
+            "frame": 1181,
+            "side": "left",
+            "jumpM": 0.2066
+          },
+          {
+            "frame": 1182,
+            "side": "left",
+            "jumpM": 0.1489
+          },
+          {
+            "frame": 1195,
+            "side": "left",
+            "jumpM": 0.1286
+          },
+          {
+            "frame": 1396,
+            "side": "left",
+            "jumpM": 0.1843
+          },
+          {
+            "frame": 1459,
+            "side": "left",
+            "jumpM": 0.2113
+          },
+          {
+            "frame": 1460,
+            "side": "left",
+            "jumpM": 0.1296
+          },
+          {
+            "frame": 1491,
+            "side": "left",
+            "jumpM": 0.1278
+          },
+          {
+            "frame": 1565,
+            "side": "left",
+            "jumpM": 0.1548
+          },
+          {
+            "frame": 1566,
+            "side": "left",
+            "jumpM": 0.1348
+          },
+          {
+            "frame": 1614,
+            "side": "left",
+            "jumpM": 0.1295
+          },
+          {
+            "frame": 1615,
+            "side": "left",
+            "jumpM": 0.1402
+          },
+          {
+            "frame": 1646,
+            "side": "left",
+            "jumpM": 0.128
+          },
+          {
+            "frame": 1653,
+            "side": "left",
+            "jumpM": 0.1235
+          },
+          {
+            "frame": 1676,
+            "side": "left",
+            "jumpM": 0.1708
+          },
+          {
+            "frame": 1703,
+            "side": "left",
+            "jumpM": 0.1379
+          },
+          {
+            "frame": 1858,
+            "side": "left",
+            "jumpM": 0.1458
+          },
+          {
+            "frame": 2119,
+            "side": "left",
+            "jumpM": 0.1365
+          },
+          {
+            "frame": 2147,
+            "side": "left",
+            "jumpM": 0.126
+          },
+          {
+            "frame": 2183,
+            "side": "left",
+            "jumpM": 0.1252
+          },
+          {
+            "frame": 2282,
+            "side": "left",
+            "jumpM": 0.1331
+          },
+          {
+            "frame": 2437,
+            "side": "left",
+            "jumpM": 0.1364
+          },
+          {
+            "frame": 2463,
+            "side": "left",
+            "jumpM": 0.1289
+          },
+          {
+            "frame": 2551,
+            "side": "left",
+            "jumpM": 0.135
+          },
+          {
+            "frame": 2783,
+            "side": "left",
+            "jumpM": 0.1381
+          },
+          {
+            "frame": 3257,
+            "side": "left",
+            "jumpM": 0.1275
+          },
+          {
+            "frame": 3287,
+            "side": "left",
+            "jumpM": 0.1666
+          },
+          {
+            "frame": 3396,
+            "side": "left",
+            "jumpM": 0.1591
+          },
+          {
+            "frame": 3489,
+            "side": "left",
+            "jumpM": 0.1489
+          },
+          {
+            "frame": 3490,
+            "side": "left",
+            "jumpM": 0.1593
+          },
+          {
+            "frame": 3622,
+            "side": "left",
+            "jumpM": 0.1523
+          },
+          {
+            "frame": 3641,
+            "side": "left",
+            "jumpM": 0.1508
+          },
+          {
+            "frame": 3701,
+            "side": "left",
+            "jumpM": 0.1489
+          },
+          {
+            "frame": 3722,
+            "side": "left",
+            "jumpM": 0.1225
+          },
+          {
+            "frame": 3854,
+            "side": "left",
+            "jumpM": 0.1525
+          },
+          {
+            "frame": 3862,
+            "side": "left",
+            "jumpM": 0.1261
+          },
+          {
+            "frame": 3863,
+            "side": "left",
+            "jumpM": 0.1214
+          },
+          {
+            "frame": 3929,
+            "side": "left",
+            "jumpM": 0.1218
+          },
+          {
+            "frame": 3936,
+            "side": "left",
+            "jumpM": 0.1274
+          },
+          {
+            "frame": 4027,
+            "side": "left",
+            "jumpM": 0.1554
+          },
+          {
+            "frame": 4028,
+            "side": "left",
+            "jumpM": 0.1239
+          },
+          {
+            "frame": 4203,
+            "side": "left",
+            "jumpM": 0.1416
+          },
+          {
+            "frame": 4299,
+            "side": "left",
+            "jumpM": 0.1373
+          },
+          {
+            "frame": 4324,
+            "side": "left",
+            "jumpM": 0.1304
+          },
+          {
+            "frame": 4355,
+            "side": "left",
+            "jumpM": 0.1247
+          },
+          {
+            "frame": 4745,
+            "side": "left",
+            "jumpM": 0.2132
+          },
+          {
+            "frame": 4746,
+            "side": "left",
+            "jumpM": 0.2027
+          },
+          {
+            "frame": 4747,
+            "side": "left",
+            "jumpM": 0.1253
+          },
+          {
+            "frame": 4876,
+            "side": "left",
+            "jumpM": 0.1221
+          },
+          {
+            "frame": 5017,
+            "side": "left",
+            "jumpM": 0.1608
+          },
+          {
+            "frame": 5018,
+            "side": "left",
+            "jumpM": 0.1364
+          },
+          {
+            "frame": 5110,
+            "side": "left",
+            "jumpM": 0.122
+          },
+          {
+            "frame": 5182,
+            "side": "left",
+            "jumpM": 0.1436
+          },
+          {
+            "frame": 5183,
+            "side": "left",
+            "jumpM": 0.1279
+          },
+          {
+            "frame": 5194,
+            "side": "left",
+            "jumpM": 0.1231
+          },
+          {
+            "frame": 5195,
+            "side": "left",
+            "jumpM": 0.1407
+          },
+          {
+            "frame": 5471,
+            "side": "left",
+            "jumpM": 0.1304
+          },
+          {
+            "frame": 5719,
+            "side": "left",
+            "jumpM": 0.1505
+          },
+          {
+            "frame": 5750,
+            "side": "left",
+            "jumpM": 0.1424
+          },
+          {
+            "frame": 17,
+            "side": "right",
+            "jumpM": 0.2045
+          },
+          {
+            "frame": 18,
+            "side": "right",
+            "jumpM": 0.1257
+          },
+          {
+            "frame": 242,
+            "side": "right",
+            "jumpM": 0.1985
+          },
+          {
+            "frame": 243,
+            "side": "right",
+            "jumpM": 0.1988
+          },
+          {
+            "frame": 244,
+            "side": "right",
+            "jumpM": 0.1266
+          },
+          {
+            "frame": 267,
+            "side": "right",
+            "jumpM": 0.2012
+          },
+          {
+            "frame": 268,
+            "side": "right",
+            "jumpM": 0.166
+          },
+          {
+            "frame": 328,
+            "side": "right",
+            "jumpM": 0.148
+          },
+          {
+            "frame": 538,
+            "side": "right",
+            "jumpM": 0.1312
+          },
+          {
+            "frame": 553,
+            "side": "right",
+            "jumpM": 0.1448
+          },
+          {
+            "frame": 686,
+            "side": "right",
+            "jumpM": 0.1597
+          },
+          {
+            "frame": 869,
+            "side": "right",
+            "jumpM": 0.146
+          },
+          {
+            "frame": 940,
+            "side": "right",
+            "jumpM": 0.1532
+          },
+          {
+            "frame": 1566,
+            "side": "right",
+            "jumpM": 0.1637
+          },
+          {
+            "frame": 1571,
+            "side": "right",
+            "jumpM": 0.1218
+          },
+          {
+            "frame": 1653,
+            "side": "right",
+            "jumpM": 0.1248
+          },
+          {
+            "frame": 1675,
+            "side": "right",
+            "jumpM": 0.1338
+          },
+          {
+            "frame": 1843,
+            "side": "right",
+            "jumpM": 0.1714
+          },
+          {
+            "frame": 1844,
+            "side": "right",
+            "jumpM": 0.1223
+          },
+          {
+            "frame": 1964,
+            "side": "right",
+            "jumpM": 0.1224
+          },
+          {
+            "frame": 2147,
+            "side": "right",
+            "jumpM": 0.1462
+          },
+          {
+            "frame": 2155,
+            "side": "right",
+            "jumpM": 0.1365
+          },
+          {
+            "frame": 2329,
+            "side": "right",
+            "jumpM": 0.1685
+          },
+          {
+            "frame": 2344,
+            "side": "right",
+            "jumpM": 0.167
+          },
+          {
+            "frame": 2538,
+            "side": "right",
+            "jumpM": 0.1758
+          },
+          {
+            "frame": 2576,
+            "side": "right",
+            "jumpM": 0.1857
+          },
+          {
+            "frame": 2591,
+            "side": "right",
+            "jumpM": 0.1321
+          },
+          {
+            "frame": 2790,
+            "side": "right",
+            "jumpM": 0.1587
+          },
+          {
+            "frame": 2809,
+            "side": "right",
+            "jumpM": 0.1444
+          },
+          {
+            "frame": 3198,
+            "side": "right",
+            "jumpM": 0.1243
+          },
+          {
+            "frame": 3212,
+            "side": "right",
+            "jumpM": 0.1515
+          },
+          {
+            "frame": 3279,
+            "side": "right",
+            "jumpM": 0.2464
+          },
+          {
+            "frame": 3389,
+            "side": "right",
+            "jumpM": 0.176
+          },
+          {
+            "frame": 3551,
+            "side": "right",
+            "jumpM": 0.1216
+          },
+          {
+            "frame": 3576,
+            "side": "right",
+            "jumpM": 0.1985
+          },
+          {
+            "frame": 3714,
+            "side": "right",
+            "jumpM": 0.1514
+          },
+          {
+            "frame": 3719,
+            "side": "right",
+            "jumpM": 0.2113
+          },
+          {
+            "frame": 3720,
+            "side": "right",
+            "jumpM": 0.1305
+          },
+          {
+            "frame": 4215,
+            "side": "right",
+            "jumpM": 0.1684
+          },
+          {
+            "frame": 4240,
+            "side": "right",
+            "jumpM": 0.1696
+          },
+          {
+            "frame": 4451,
+            "side": "right",
+            "jumpM": 0.1322
+          },
+          {
+            "frame": 4452,
+            "side": "right",
+            "jumpM": 0.1374
+          },
+          {
+            "frame": 4574,
+            "side": "right",
+            "jumpM": 0.1486
+          },
+          {
+            "frame": 4740,
+            "side": "right",
+            "jumpM": 0.1462
+          },
+          {
+            "frame": 4741,
+            "side": "right",
+            "jumpM": 0.1369
+          },
+          {
+            "frame": 4745,
+            "side": "right",
+            "jumpM": 0.1558
+          },
+          {
+            "frame": 4870,
+            "side": "right",
+            "jumpM": 0.1573
+          },
+          {
+            "frame": 4876,
+            "side": "right",
+            "jumpM": 0.1239
+          },
+          {
+            "frame": 5049,
+            "side": "right",
+            "jumpM": 0.1355
+          },
+          {
+            "frame": 5054,
+            "side": "right",
+            "jumpM": 0.1257
+          },
+          {
+            "frame": 5181,
+            "side": "right",
+            "jumpM": 0.1201
+          },
+          {
+            "frame": 5551,
+            "side": "right",
+            "jumpM": 0.1847
+          },
+          {
+            "frame": 5773,
+            "side": "right",
+            "jumpM": 0.1375
+          }
+        ]
+      },
+      "maxWristSpeedMs": 12.09,
+      "maxBoneLengthErrorM": 4.440892098500626e-16,
+      "extremesDeg": {
+        "pip": [
+          -97.7,
+          118
+        ],
+        "dip": [
+          -35.1,
+          62.1
+        ],
+        "mcp": [
+          -23.4,
+          79.6
+        ],
+        "elbow": [
+          10,
+          108.8
+        ],
+        "wristFlex": [
+          -83,
+          118.2
+        ],
+        "wristDev": [
+          -107.9,
+          121.2
+        ],
+        "wristTwist": [
+          -179.7,
+          179.6
+        ],
+        "fingerTwist": 2.64,
+        "hingeOffAxis": 70.59
+      }
+    },
+    "temporal": {
+      "trunk": {
+        "maxStepDeg": 5.11,
+        "worstBone": "spine_03",
+        "p999StepDeg": 3.05,
+        "maxAngularVelocityDegS": 153,
+        "p999AngularAccelerationDegS2": 1396,
+        "oneFrameSpikes": 0,
+        "spikeFrames": []
+      },
+      "face": {
+        "maxStepDeg": 7.66,
+        "worstBone": "jaw",
+        "p999StepDeg": 7.62,
+        "maxAngularVelocityDegS": 230,
+        "p999AngularAccelerationDegS2": 6840,
+        "oneFrameSpikes": 0,
+        "spikeFrames": []
+      },
+      "arm": {
+        "maxStepDeg": 48.63,
+        "worstBone": "lowerarm_r",
+        "p999StepDeg": 27.85,
+        "maxAngularVelocityDegS": 1459,
+        "p999AngularAccelerationDegS2": 22275,
+        "oneFrameSpikes": 0,
+        "spikeFrames": []
+      },
+      "wrist": {
+        "maxStepDeg": 70.54,
+        "worstBone": "hand_r",
+        "p999StepDeg": 68.32,
+        "maxAngularVelocityDegS": 2116,
+        "p999AngularAccelerationDegS2": 56686,
+        "oneFrameSpikes": 8,
+        "spikeFrames": [
+          3327,
+          3328,
+          1743,
+          1770,
+          3350,
+          4095,
+          4440,
+          4981
+        ]
+      },
+      "finger": {
+        "maxStepDeg": 42.49,
+        "worstBone": "middle_02_l",
+        "p999StepDeg": 36.36,
+        "maxAngularVelocityDegS": 1275,
+        "p999AngularAccelerationDegS2": 32723,
+        "oneFrameSpikes": 0,
+        "spikeFrames": []
+      }
+    }
+  },
+  "seconds": 6.1
+}

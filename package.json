@@ -8,9 +8,21 @@
   },
   "scripts": {
     "dev": "vite --host 0.0.0.0",
-    "typecheck": "vue-tsc --noEmit",
+    "typecheck": "vue-tsc --noEmit && tsc -p tsconfig.node.json",
     "build": "npm run typecheck && vite build",
-    "preview": "vite preview --host 0.0.0.0"
+    "preview": "vite preview --host 0.0.0.0",
+    "test": "node --import tsx --test tests/*.test.ts",
+    "rig:report": "tsx tools/rig-report.ts",
+    "motion:extract": "python3 pipeline/extract_landmarks.py --video media/source/qassem-story.original.mp4 --clip-id qassem-story",
+    "motion:clean": "tsx tools/clean-landmarks.ts",
+    "motion:solve": "tsx tools/solve-motion.ts",
+    "motion:qa": "tsx tools/validate-motion.ts",
+    "motion:export": "tsx tools/export-glb.ts",
+    "motion:all": "npm run motion:clean && npm run motion:solve && npm run motion:qa && npm run motion:export",
+    "motion:live-replay": "tsx tools/live-replay.ts",
+    "motion:legacy-replay": "tsx tools/legacy-motion.ts",
+    "evidence:record": "tsx tools/evidence/record.ts",
+    "e2e": "tsx tools/e2e/app-smoke.ts"
   },
   "dependencies": {
     "@mediapipe/holistic": "0.5.1675471629",
@@ -18,8 +30,13 @@
     "vue": "3.5.18"
   },
   "devDependencies": {
+    "@gltf-transform/core": "4.2.1",
+    "@types/node": "22.15.30",
     "@types/three": "0.172.0",
     "@vitejs/plugin-vue": "6.0.1",
+    "gltf-validator": "2.0.0-dev.3.10",
+    "playwright": "1.56.0",
+    "tsx": "4.21.0",
     "typescript": "5.8.3",
     "vite": "7.0.6",
     "vue-tsc": "3.0.4"

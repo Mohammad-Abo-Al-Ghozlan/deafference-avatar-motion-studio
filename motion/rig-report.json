@@ -1,0 +1,4718 @@
+{
+  "schema": "deafference.rig-report",
+  "schemaVersion": 1,
+  "source": "public/models/deafference-avatar.glb",
+  "generator": "tools/rig-report.ts",
+  "summary": {
+    "nodes": 90,
+    "joints": 88,
+    "skins": [
+      {
+        "name": "rp_claudia_rigged_002",
+        "joints": 88
+      }
+    ],
+    "meshes": [
+      {
+        "name": "Mesh.002",
+        "primitives": [
+          {
+            "attributes": [
+              "POSITION",
+              "NORMAL",
+              "TEXCOORD_0",
+              "JOINTS_0",
+              "WEIGHTS_0"
+            ],
+            "vertexCount": 12143,
+            "indexCount": 64476,
+            "morphTargets": 0,
+            "material": "rp_claudia_rigged_002_mat"
+          }
+        ]
+      }
+    ],
+    "morphTargets": 0,
+    "animations": [],
+    "materials": [
+      "rp_claudia_rigged_002_mat"
+    ],
+    "textures": [
+      {
+        "name": "rp_claudia_rigged_002_dif",
+        "mimeType": "image/webp",
+        "bytes": 7772014
+      },
+      {
+        "name": "rp_claudia_rigged_002_dif",
+        "mimeType": "image/jpeg",
+        "bytes": 20650323
+      }
+    ],
+    "bindPose": [
+      {
+        "skin": "rp_claudia_rigged_002",
+        "joints": 88,
+        "restPoseIsBindPose": true,
+        "maxAbsError": 5.330414201386302e-7
+      }
+    ],
+    "facing": [
+      0.0003,
+      0,
+      1
+    ],
+    "characterLeft": [
+      1,
+      0,
+      -0.0003
+    ],
+    "axisConvention": "Every bone points along its local +Y toward its child (Blender export); verified per bone in childDirectionLocal."
+  },
+  "semanticMapping": {
+    "profile": "renderpeople-claudia-blender",
+    "validation": "all structural checks passed",
+    "mapping": {
+      "profile": "renderpeople-claudia-blender",
+      "root": "root",
+      "hips": "hip",
+      "spine": [
+        "spine_01",
+        "spine_02",
+        "spine_03"
+      ],
+      "neck": "neck",
+      "head": "head",
+      "headEnd": "head_end",
+      "jaw": "jaw",
+      "eyes": {
+        "left": "eye_l",
+        "right": "eye_r"
+      },
+      "eyelids": {
+        "left": "eyelid_l",
+        "right": "eyelid_r"
+      },
+      "eyebrows": {
+        "left": "eyebrow_l",
+        "right": "eyebrow_r"
+      },
+      "mouthCorners": {
+        "left": "mouth_l",
+        "right": "mouth_r"
+      },
+      "arms": {
+        "left": {
+          "clavicle": "shoulder_l",
+          "upperArm": "upperarm_l",
+          "upperArmTwist": "upperarm_twist_l",
+          "forearm": "lowerarm_l",
+          "forearmTwist": "lowerarm_twist_l",
+          "hand": "hand_l",
+          "digits": {
+            "thumb": [
+              "thumb_01_l",
+              "thumb_02_l",
+              "thumb_03_l",
+              "thumb_end_l"
+            ],
+            "index": [
+              "index_01_l",
+              "index_02_l",
+              "index_03_l",
+              "index_end_l"
+            ],
+            "middle": [
+              "middle_01_l",
+              "middle_02_l",
+              "middle_03_l",
+              "middle_end_l"
+            ],
+            "ring": [
+              "ring_01_l",
+              "ring_02_l",
+              "ring_03_l",
+              "ring_end_l"
+            ],
+            "pinky": [
+              "pinky_01_l",
+              "pinky_02_l",
+              "pinky_03_l",
+              "pinky_end_l"
+            ]
+          }
+        },
+        "right": {
+          "clavicle": "shoulder_r",
+          "upperArm": "upperarm_r",
+          "upperArmTwist": "upperarm_twist_r",
+          "forearm": "lowerarm_r",
+          "forearmTwist": "lowerarm_twist_r",
+          "hand": "hand_r",
+          "digits": {
+            "thumb": [
+              "thumb_01_r",
+              "thumb_02_r",
+              "thumb_03_r",
+              "thumb_end_r"
+            ],
+            "index": [
+              "index_01_r",
+              "index_02_r",
+              "index_03_r",
+              "index_end_r"
+            ],
+            "middle": [
+              "middle_01_r",
+              "middle_02_r",
+              "middle_03_r",
+              "middle_end_r"
+            ],
+            "ring": [
+              "ring_01_r",
+              "ring_02_r",
+              "ring_03_r",
+              "ring_end_r"
+            ],
+            "pinky": [
+              "pinky_01_r",
+              "pinky_02_r",
+              "pinky_03_r",
+              "pinky_end_r"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "anatomy": {
+    "hands": {
+      "left": {
+        "palm": {
+          "forward": [
+            0.726,
+            -0.5884,
+            0.3559
+          ],
+          "radial": [
+            -0.2213,
+            0.29,
+            0.9311
+          ],
+          "volar": [
+            -0.6511,
+            -0.7547,
+            0.0803
+          ],
+          "palmLengthM": 0.07138
+        },
+        "fingers": {
+          "index": {
+            "bones": [
+              "index_01_l",
+              "index_02_l",
+              "index_03_l"
+            ],
+            "lengthsM": [
+              0.02834,
+              0.02138,
+              0.01566
+            ],
+            "restMcpFlexionDeg": 15.9,
+            "restMcpAbductionDeg": 6.5,
+            "restPipDeg": 10,
+            "restDipDeg": 10,
+            "mcpFlexAxisHandLocal": [
+              -0.7046,
+              -0.4377,
+              0.5585
+            ],
+            "mcpAbductionAxisHandLocal": [
+              -0.7096,
+              0.4411,
+              -0.5495
+            ],
+            "pipHingeAxisParentLocal": [
+              0.3466,
+              0,
+              0.938
+            ],
+            "dipHingeAxisParentLocal": [
+              0.1571,
+              0.005,
+              0.9876
+            ]
+          },
+          "middle": {
+            "bones": [
+              "middle_01_l",
+              "middle_02_l",
+              "middle_03_l"
+            ],
+            "lengthsM": [
+              0.03251,
+              0.02424,
+              0.01788
+            ],
+            "restMcpFlexionDeg": 15.8,
+            "restMcpAbductionDeg": 3.4,
+            "restPipDeg": 10,
+            "restDipDeg": 10,
+            "mcpFlexAxisHandLocal": [
+              -0.7039,
+              -0.4796,
+              0.5239
+            ],
+            "mcpAbductionAxisHandLocal": [
+              -0.7096,
+              0.4411,
+              -0.5495
+            ],
+            "pipHingeAxisParentLocal": [
+              0.4436,
+              0,
+              0.8962
+            ],
+            "dipHingeAxisParentLocal": [
+              0.262,
+              0.0075,
+              0.965
+            ]
+          },
+          "ring": {
+            "bones": [
+              "ring_01_l",
+              "ring_02_l",
+              "ring_03_l"
+            ],
+            "lengthsM": [
+              0.02837,
+              0.0224,
+              0.01692
+            ],
+            "restMcpFlexionDeg": 15.6,
+            "restMcpAbductionDeg": 0.2,
+            "restPipDeg": 10,
+            "restDipDeg": 10,
+            "mcpFlexAxisHandLocal": [
+              -0.7011,
+              -0.5201,
+              0.4878
+            ],
+            "mcpAbductionAxisHandLocal": [
+              -0.7096,
+              0.4411,
+              -0.5495
+            ],
+            "pipHingeAxisParentLocal": [
+              0.5425,
+              0,
+              0.8401
+            ],
+            "dipHingeAxisParentLocal": [
+              0.3766,
+              0.0101,
+              0.9263
+            ]
+          },
+          "pinky": {
+            "bones": [
+              "pinky_01_l",
+              "pinky_02_l",
+              "pinky_03_l"
+            ],
+            "lengthsM": [
+              0.02124,
+              0.0162,
+              0.0127
+            ],
+            "restMcpFlexionDeg": 15.4,
+            "restMcpAbductionDeg": -2.9,
+            "restPipDeg": 10,
+            "restDipDeg": 10,
+            "mcpFlexAxisHandLocal": [
+              -0.6962,
+              -0.559,
+              0.4503
+            ],
+            "mcpAbductionAxisHandLocal": [
+              -0.7096,
+              0.4411,
+              -0.5495
+            ],
+            "pipHingeAxisParentLocal": [
+              0.6404,
+              0,
+              0.768
+            ],
+            "dipHingeAxisParentLocal": [
+              0.4981,
+              0.0126,
+              0.867
+            ]
+          }
+        },
+        "thumb": {
+          "bones": [
+            "thumb_01_l",
+            "thumb_02_l",
+            "thumb_03_l"
+          ],
+          "lengthsM": [
+            0.03741,
+            0.02211,
+            0.01697
+          ],
+          "restCmcPalmarElevationDeg": 28.5,
+          "restCmcRadialAzimuthDeg": 29.9,
+          "restMcpDeg": 14.3,
+          "restIpDeg": 10,
+          "cmcAxialAxisHandLocal": [
+            -0.0878,
+            0.9951,
+            0.0443
+          ],
+          "mcpHingeAxisParentLocal": [
+            0.0575,
+            -0.0111,
+            -0.9983
+          ],
+          "ipHingeAxisParentLocal": [
+            -0.2744,
+            0,
+            -0.9616
+          ]
+        }
+      },
+      "right": {
+        "palm": {
+          "forward": [
+            -0.7471,
+            -0.4707,
+            0.4693
+          ],
+          "radial": [
+            0.3088,
+            0.3795,
+            0.8722
+          ],
+          "volar": [
+            0.5886,
+            -0.7965,
+            0.1382
+          ],
+          "palmLengthM": 0.07202
+        },
+        "fingers": {
+          "index": {
+            "bones": [
+              "index_01_r",
+              "index_02_r",
+              "index_03_r"
+            ],
+            "lengthsM": [
+              0.02875,
+              0.02178,
+              0.01615
+            ],
+            "restMcpFlexionDeg": 21.2,
+            "restMcpAbductionDeg": -1.7,
+            "restPipDeg": 10,
+            "restDipDeg": 10,
+            "mcpFlexAxisHandLocal": [
+              0.5384,
+              0.5807,
+              0.6107
+            ],
+            "mcpAbductionAxisHandLocal": [
+              0.8414,
+              -0.3294,
+              -0.4285
+            ],
+            "pipHingeAxisParentLocal": [
+              0.3289,
+              0,
+              -0.9444
+            ],
+            "dipHingeAxisParentLocal": [
+              0.1388,
+              -0.0082,
+              -0.9903
+            ]
+          },
+          "middle": {
+            "bones": [
+              "middle_01_r",
+              "middle_02_r",
+              "middle_03_r"
+            ],
+            "lengthsM": [
+              0.03209,
+              0.02445,
+              0.01836
+            ],
+            "restMcpFlexionDeg": 21,
+            "restMcpAbductionDeg": -4.9,
+            "restPipDeg": 10,
+            "restDipDeg": 10,
+            "mcpFlexAxisHandLocal": [
+              0.5348,
+              0.6215,
+              0.5724
+            ],
+            "mcpAbductionAxisHandLocal": [
+              0.8414,
+              -0.3294,
+              -0.4285
+            ],
+            "pipHingeAxisParentLocal": [
+              0.4218,
+              0,
+              -0.9067
+            ],
+            "dipHingeAxisParentLocal": [
+              0.239,
+              -0.0117,
+              -0.971
+            ]
+          },
+          "ring": {
+            "bones": [
+              "ring_01_r",
+              "ring_02_r",
+              "ring_03_r"
+            ],
+            "lengthsM": [
+              0.03009,
+              0.02281,
+              0.01739
+            ],
+            "restMcpFlexionDeg": 20.8,
+            "restMcpAbductionDeg": -8.1,
+            "restPipDeg": 10,
+            "restDipDeg": 10,
+            "mcpFlexAxisHandLocal": [
+              0.5297,
+              0.6603,
+              0.5325
+            ],
+            "mcpAbductionAxisHandLocal": [
+              0.8414,
+              -0.3294,
+              -0.4285
+            ],
+            "pipHingeAxisParentLocal": [
+              0.5175,
+              0,
+              -0.8557
+            ],
+            "dipHingeAxisParentLocal": [
+              0.3495,
+              -0.0152,
+              -0.9368
+            ]
+          },
+          "pinky": {
+            "bones": [
+              "pinky_01_r",
+              "pinky_02_r",
+              "pinky_03_r"
+            ],
+            "lengthsM": [
+              0.02197,
+              0.0167,
+              0.01246
+            ],
+            "restMcpFlexionDeg": 20.5,
+            "restMcpAbductionDeg": -11.3,
+            "restPipDeg": 9.9,
+            "restDipDeg": 10,
+            "mcpFlexAxisHandLocal": [
+              0.5229,
+              0.6968,
+              0.491
+            ],
+            "mcpAbductionAxisHandLocal": [
+              0.8414,
+              -0.3294,
+              -0.4285
+            ],
+            "pipHingeAxisParentLocal": [
+              0.6135,
+              0,
+              -0.7897
+            ],
+            "dipHingeAxisParentLocal": [
+              0.4683,
+              -0.0186,
+              -0.8834
+            ]
+          }
+        },
+        "thumb": {
+          "bones": [
+            "thumb_01_r",
+            "thumb_02_r",
+            "thumb_03_r"
+          ],
+          "lengthsM": [
+            0.03737,
+            0.02161,
+            0.01622
+          ],
+          "restCmcPalmarElevationDeg": 33.8,
+          "restCmcRadialAzimuthDeg": 22.8,
+          "restMcpDeg": 14.3,
+          "restIpDeg": 10,
+          "cmcAxialAxisHandLocal": [
+            -0.3185,
+            0.9463,
+            -0.0552
+          ],
+          "mcpHingeAxisParentLocal": [
+            0.0575,
+            0.0111,
+            0.9983
+          ],
+          "ipHingeAxisParentLocal": [
+            -0.2745,
+            0,
+            0.9616
+          ]
+        }
+      }
+    },
+    "arms": {
+      "left": {
+        "chain": [
+          "shoulder_l",
+          "upperarm_l",
+          "lowerarm_l",
+          "hand_l"
+        ],
+        "twistBones": {
+          "upperArm": "upperarm_twist_l",
+          "forearm": "lowerarm_twist_l"
+        },
+        "upperLengthM": 0.27238,
+        "forearmLengthM": 0.25612,
+        "restElbowFlexionDeg": 25,
+        "elbowAxisUpperLocal": [
+          1,
+          0,
+          0
+        ],
+        "upperAxisLocal": [
+          0,
+          1,
+          0
+        ],
+        "forearmAxisLocal": [
+          0,
+          1,
+          0
+        ]
+      },
+      "right": {
+        "chain": [
+          "shoulder_r",
+          "upperarm_r",
+          "lowerarm_r",
+          "hand_r"
+        ],
+        "twistBones": {
+          "upperArm": "upperarm_twist_r",
+          "forearm": "lowerarm_twist_r"
+        },
+        "upperLengthM": 0.27836,
+        "forearmLengthM": 0.26139,
+        "restElbowFlexionDeg": 25,
+        "elbowAxisUpperLocal": [
+          1,
+          0,
+          0
+        ],
+        "upperAxisLocal": [
+          0,
+          1,
+          0
+        ],
+        "forearmAxisLocal": [
+          0,
+          1,
+          0
+        ]
+      }
+    },
+    "torso": {
+      "shoulderWidthM": 0.33891,
+      "chestProxy": {
+        "center": [
+          0,
+          1.397,
+          0.012
+        ],
+        "radii": [
+          0.1491,
+          0.2452,
+          0.125
+        ]
+      },
+      "headProxy": {
+        "center": [
+          0,
+          1.7197,
+          0.0528
+        ],
+        "radii": [
+          0.088,
+          0.118,
+          0.112
+        ]
+      }
+    }
+  },
+  "bones": [
+    {
+      "name": "root",
+      "parent": "rp_claudia_rigged_002",
+      "children": [
+        "hip"
+      ],
+      "restLocalPosition": [
+        0,
+        0,
+        0
+      ],
+      "restLocalQuaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0,
+        0,
+        0
+      ],
+      "restWorldQuaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "length": 1.04281,
+      "childDirectionWorld": [
+        0,
+        1,
+        0
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 0,
+        "maxWeight": 0
+      }
+    },
+    {
+      "name": "hip",
+      "parent": "root",
+      "children": [
+        "spine_01",
+        "upperleg_l",
+        "upperleg_r"
+      ],
+      "restLocalPosition": [
+        0,
+        1.04281,
+        0
+      ],
+      "restLocalQuaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0,
+        1.04281,
+        0
+      ],
+      "restWorldQuaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "length": 0.14414,
+      "childDirectionWorld": [
+        0,
+        1,
+        0
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 582,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "spine_01",
+      "parent": "hip",
+      "children": [
+        "spine_02"
+      ],
+      "restLocalPosition": [
+        0,
+        0.14414,
+        0
+      ],
+      "restLocalQuaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0,
+        1.18695,
+        0
+      ],
+      "restWorldQuaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "length": 0.09971,
+      "childDirectionWorld": [
+        0,
+        1,
+        0
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 402,
+        "maxWeight": 0.9390856027603149
+      }
+    },
+    {
+      "name": "spine_02",
+      "parent": "spine_01",
+      "children": [
+        "spine_03"
+      ],
+      "restLocalPosition": [
+        0,
+        0.09971,
+        0
+      ],
+      "restLocalQuaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0,
+        1.28666,
+        0
+      ],
+      "restWorldQuaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "length": 0.13023,
+      "childDirectionWorld": [
+        0,
+        1,
+        0
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 701,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "spine_03",
+      "parent": "spine_02",
+      "children": [
+        "neck",
+        "shoulder_l",
+        "shoulder_r"
+      ],
+      "restLocalPosition": [
+        0,
+        0.13023,
+        0
+      ],
+      "restLocalQuaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0,
+        1.41688,
+        0
+      ],
+      "restWorldQuaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "length": 0.11497,
+      "childDirectionWorld": [
+        0,
+        1,
+        0
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 693,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "neck",
+      "parent": "spine_03",
+      "children": [
+        "head"
+      ],
+      "restLocalPosition": [
+        0,
+        0.11497,
+        0
+      ],
+      "restLocalQuaternion": [
+        0.097555,
+        0,
+        0,
+        0.99523
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0,
+        1.53185,
+        0
+      ],
+      "restWorldQuaternion": [
+        0.097555,
+        0,
+        0,
+        0.99523
+      ],
+      "length": 0.11731,
+      "childDirectionWorld": [
+        0,
+        0.981,
+        0.1942
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 444,
+        "maxWeight": 0.9920227527618408
+      }
+    },
+    {
+      "name": "head",
+      "parent": "neck",
+      "children": [
+        "head_end",
+        "jaw",
+        "eye_l",
+        "eye_r",
+        "mouth_l",
+        "mouth_r",
+        "eyelid_l",
+        "eyelid_r",
+        "eyebrow_l",
+        "eyebrow_r"
+      ],
+      "restLocalPosition": [
+        0,
+        0.11731,
+        0
+      ],
+      "restLocalQuaternion": [
+        -0.097555,
+        0,
+        0,
+        0.99523
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0,
+        1.64692,
+        0.02278
+      ],
+      "restWorldQuaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "length": 0.16173,
+      "childDirectionWorld": [
+        0,
+        1,
+        0
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 2755,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "head_end",
+      "parent": "head",
+      "children": [],
+      "restLocalPosition": [
+        0,
+        0.16173,
+        0
+      ],
+      "restLocalQuaternion": [
+        -0.707107,
+        0,
+        0,
+        0.707107
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0,
+        1.80865,
+        0.02278
+      ],
+      "restWorldQuaternion": [
+        -0.707107,
+        0,
+        0,
+        0.707107
+      ],
+      "length": 0,
+      "childDirectionWorld": null,
+      "childDirectionLocal": null,
+      "skinInfluence": {
+        "vertices": 0,
+        "maxWeight": 0
+      }
+    },
+    {
+      "name": "jaw",
+      "parent": "head",
+      "children": [
+        "jaw_end"
+      ],
+      "restLocalPosition": [
+        -0.00032,
+        0.00937,
+        0.01648
+      ],
+      "restLocalQuaternion": [
+        0.866457,
+        0,
+        0,
+        0.499252
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        -0.00032,
+        1.6563,
+        0.03926
+      ],
+      "restWorldQuaternion": [
+        0.866457,
+        0,
+        0,
+        0.499252
+      ],
+      "length": 0.08792,
+      "childDirectionWorld": [
+        0,
+        -0.5015,
+        0.8652
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 1294,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "jaw_end",
+      "parent": "jaw",
+      "children": [],
+      "restLocalPosition": [
+        0,
+        0.08792,
+        0
+      ],
+      "restLocalQuaternion": [
+        -0.707107,
+        0,
+        0,
+        0.707107
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        -0.00032,
+        1.61221,
+        0.11532
+      ],
+      "restWorldQuaternion": [
+        0.259653,
+        0,
+        0,
+        0.965702
+      ],
+      "length": 0,
+      "childDirectionWorld": null,
+      "childDirectionLocal": null,
+      "skinInfluence": {
+        "vertices": 0,
+        "maxWeight": 0
+      }
+    },
+    {
+      "name": "eye_l",
+      "parent": "head",
+      "children": [
+        "eye_end_l"
+      ],
+      "restLocalPosition": [
+        0.03093,
+        0.06041,
+        0.0773
+      ],
+      "restLocalQuaternion": [
+        0.707107,
+        0,
+        0,
+        0.707107
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0.03093,
+        1.70733,
+        0.10008
+      ],
+      "restWorldQuaternion": [
+        0.707107,
+        0,
+        0,
+        0.707107
+      ],
+      "length": 0.01062,
+      "childDirectionWorld": [
+        0,
+        0,
+        1
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 258,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "eye_end_l",
+      "parent": "eye_l",
+      "children": [],
+      "restLocalPosition": [
+        0,
+        0.01062,
+        0
+      ],
+      "restLocalQuaternion": [
+        -0.707109,
+        0,
+        0,
+        0.707105
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0.03093,
+        1.70733,
+        0.1107
+      ],
+      "restWorldQuaternion": [
+        -0.000003,
+        0,
+        0,
+        1
+      ],
+      "length": 0,
+      "childDirectionWorld": null,
+      "childDirectionLocal": null,
+      "skinInfluence": {
+        "vertices": 0,
+        "maxWeight": 0
+      }
+    },
+    {
+      "name": "eye_r",
+      "parent": "head",
+      "children": [
+        "eye_end_r"
+      ],
+      "restLocalPosition": [
+        -0.03088,
+        0.06147,
+        0.07643
+      ],
+      "restLocalQuaternion": [
+        0.707111,
+        0,
+        0,
+        0.707103
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        -0.03088,
+        1.70839,
+        0.09921
+      ],
+      "restWorldQuaternion": [
+        0.707111,
+        0,
+        0,
+        0.707103
+      ],
+      "length": 0.01072,
+      "childDirectionWorld": [
+        0,
+        0,
+        1
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 263,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "eye_end_r",
+      "parent": "eye_r",
+      "children": [],
+      "restLocalPosition": [
+        0,
+        0.01072,
+        0
+      ],
+      "restLocalQuaternion": [
+        -0.707109,
+        0,
+        0,
+        0.707105
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        -0.03088,
+        1.70839,
+        0.10993
+      ],
+      "restWorldQuaternion": [
+        0.000003,
+        0,
+        0,
+        1
+      ],
+      "length": 0,
+      "childDirectionWorld": null,
+      "childDirectionLocal": null,
+      "skinInfluence": {
+        "vertices": 0,
+        "maxWeight": 0
+      }
+    },
+    {
+      "name": "mouth_l",
+      "parent": "head",
+      "children": [],
+      "restLocalPosition": [
+        0.02681,
+        -0.00198,
+        0.08318
+      ],
+      "restLocalQuaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0.02681,
+        1.64494,
+        0.10596
+      ],
+      "restWorldQuaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "length": 0,
+      "childDirectionWorld": null,
+      "childDirectionLocal": null,
+      "skinInfluence": {
+        "vertices": 243,
+        "maxWeight": 0.9788569211959839
+      }
+    },
+    {
+      "name": "mouth_r",
+      "parent": "head",
+      "children": [],
+      "restLocalPosition": [
+        -0.02683,
+        -0.00209,
+        0.08511
+      ],
+      "restLocalQuaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        -0.02683,
+        1.64483,
+        0.10789
+      ],
+      "restWorldQuaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "length": 0,
+      "childDirectionWorld": null,
+      "childDirectionLocal": null,
+      "skinInfluence": {
+        "vertices": 246,
+        "maxWeight": 0.827716588973999
+      }
+    },
+    {
+      "name": "eyelid_l",
+      "parent": "head",
+      "children": [
+        "eyelid_end_l"
+      ],
+      "restLocalPosition": [
+        0.03093,
+        0.06041,
+        0.0773
+      ],
+      "restLocalQuaternion": [
+        0.462239,
+        -0.001918,
+        -0.001,
+        0.886753
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0.03093,
+        1.70733,
+        0.10008
+      ],
+      "restWorldQuaternion": [
+        0.462239,
+        -0.001918,
+        -0.001,
+        0.886753
+      ],
+      "length": 0.01389,
+      "childDirectionWorld": [
+        0,
+        0.5727,
+        0.8198
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 58,
+        "maxWeight": 0.9246854186058044
+      }
+    },
+    {
+      "name": "eyelid_end_l",
+      "parent": "eyelid_l",
+      "children": [],
+      "restLocalPosition": [
+        0,
+        0.01389,
+        0
+      ],
+      "restLocalQuaternion": [
+        -0.594954,
+        -0.000312,
+        0.001975,
+        0.803757
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0.03093,
+        1.71528,
+        0.11146
+      ],
+      "restWorldQuaternion": [
+        -0.156054,
+        -0.002137,
+        -0.000338,
+        0.987746
+      ],
+      "length": 0,
+      "childDirectionWorld": null,
+      "childDirectionLocal": null,
+      "skinInfluence": {
+        "vertices": 0,
+        "maxWeight": 0
+      }
+    },
+    {
+      "name": "eyelid_r",
+      "parent": "head",
+      "children": [
+        "eyelid_end_r"
+      ],
+      "restLocalPosition": [
+        -0.03088,
+        0.06147,
+        0.07643
+      ],
+      "restLocalQuaternion": [
+        0.477139,
+        -0.001901,
+        -0.001032,
+        0.878825
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        -0.03088,
+        1.70839,
+        0.09921
+      ],
+      "restWorldQuaternion": [
+        0.477139,
+        -0.001901,
+        -0.001032,
+        0.878825
+      ],
+      "length": 0.01312,
+      "childDirectionWorld": [
+        0,
+        0.5447,
+        0.8386
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 59,
+        "maxWeight": 0.9786180257797241
+      }
+    },
+    {
+      "name": "eyelid_end_r",
+      "parent": "eyelid_r",
+      "children": [],
+      "restLocalPosition": [
+        0,
+        0.01312,
+        0
+      ],
+      "restLocalQuaternion": [
+        -0.94409,
+        0.002098,
+        0.002381,
+        0.329671
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        -0.03088,
+        1.71554,
+        0.11021
+      ],
+      "restWorldQuaternion": [
+        -0.672394,
+        0.001056,
+        0.000959,
+        0.740192
+      ],
+      "length": 0,
+      "childDirectionWorld": null,
+      "childDirectionLocal": null,
+      "skinInfluence": {
+        "vertices": 0,
+        "maxWeight": 0
+      }
+    },
+    {
+      "name": "eyebrow_l",
+      "parent": "head",
+      "children": [],
+      "restLocalPosition": [
+        0.02192,
+        0.08257,
+        0.10274
+      ],
+      "restLocalQuaternion": [
+        -0.270598,
+        0.653281,
+        0.270598,
+        0.653282
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0.02192,
+        1.7295,
+        0.12552
+      ],
+      "restWorldQuaternion": [
+        -0.270598,
+        0.653281,
+        0.270598,
+        0.653282
+      ],
+      "length": 0,
+      "childDirectionWorld": null,
+      "childDirectionLocal": null,
+      "skinInfluence": {
+        "vertices": 44,
+        "maxWeight": 0.6235654354095459
+      }
+    },
+    {
+      "name": "eyebrow_r",
+      "parent": "head",
+      "children": [],
+      "restLocalPosition": [
+        -0.02241,
+        0.08243,
+        0.10192
+      ],
+      "restLocalQuaternion": [
+        -0.270598,
+        -0.653281,
+        -0.270598,
+        0.653282
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        -0.02241,
+        1.72936,
+        0.1247
+      ],
+      "restWorldQuaternion": [
+        -0.270598,
+        -0.653281,
+        -0.270598,
+        0.653282
+      ],
+      "length": 0,
+      "childDirectionWorld": null,
+      "childDirectionLocal": null,
+      "skinInfluence": {
+        "vertices": 42,
+        "maxWeight": 0.49182820320129395
+      }
+    },
+    {
+      "name": "shoulder_l",
+      "parent": "spine_03",
+      "children": [
+        "upperarm_l"
+      ],
+      "restLocalPosition": [
+        0.02978,
+        0.05727,
+        0.01999
+      ],
+      "restLocalQuaternion": [
+        0,
+        0,
+        -0.766044,
+        0.642788
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0.02978,
+        1.47416,
+        0.01999
+      ],
+      "restWorldQuaternion": [
+        0,
+        0,
+        -0.766044,
+        0.642788
+      ],
+      "length": 0.14488,
+      "childDirectionWorld": [
+        0.9848,
+        -0.1736,
+        0
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 136,
+        "maxWeight": 0.8367974162101746
+      }
+    },
+    {
+      "name": "upperarm_l",
+      "parent": "shoulder_l",
+      "children": [
+        "lowerarm_l",
+        "upperarm_twist_l"
+      ],
+      "restLocalPosition": [
+        0,
+        0.14488,
+        0
+      ],
+      "restLocalQuaternion": [
+        0,
+        0,
+        -0.300706,
+        0.953717
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0.17246,
+        1.449,
+        0.01999
+      ],
+      "restWorldQuaternion": [
+        0,
+        0,
+        0.92388,
+        -0.382683
+      ],
+      "length": 0.27238,
+      "childDirectionWorld": [
+        0.7071,
+        -0.7071,
+        0
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 358,
+        "maxWeight": 0.970455527305603
+      }
+    },
+    {
+      "name": "lowerarm_l",
+      "parent": "upperarm_l",
+      "children": [
+        "hand_l",
+        "lowerarm_twist_l"
+      ],
+      "restLocalPosition": [
+        0,
+        0.27238,
+        0
+      ],
+      "restLocalQuaternion": [
+        0.204608,
+        0.318367,
+        0.07058,
+        0.922928
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0.36506,
+        1.2564,
+        0.01999
+      ],
+      "restWorldQuaternion": [
+        -0.372433,
+        0.067199,
+        0.825664,
+        -0.418397
+      ],
+      "length": 0.25612,
+      "childDirectionWorld": [
+        0.6409,
+        -0.6409,
+        0.4226
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 273,
+        "maxWeight": 0.9540616869926453
+      }
+    },
+    {
+      "name": "hand_l",
+      "parent": "lowerarm_l",
+      "children": [
+        "thumb_01_l",
+        "index_01_l",
+        "middle_01_l",
+        "ring_01_l",
+        "pinky_01_l"
+      ],
+      "restLocalPosition": [
+        0,
+        0.25612,
+        0
+      ],
+      "restLocalQuaternion": [
+        0.034304,
+        -0.947874,
+        -0.312323,
+        0.053037
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0.52919,
+        1.09226,
+        0.12823
+      ],
+      "restWorldQuaternion": [
+        0.727532,
+        0.312155,
+        0.52518,
+        0.312156
+      ],
+      "length": 0.03253,
+      "childDirectionWorld": [
+        0.1263,
+        -0.6102,
+        0.7821
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 378,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "thumb_01_l",
+      "parent": "hand_l",
+      "children": [
+        "thumb_02_l"
+      ],
+      "restLocalPosition": [
+        0,
+        0.03253,
+        0
+      ],
+      "restLocalQuaternion": [
+        0.049231,
+        -0.904139,
+        -0.001418,
+        0.42439
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0.5333,
+        1.07242,
+        0.15367
+      ],
+      "restWorldQuaternion": [
+        0.798519,
+        -0.12287,
+        -0.45072,
+        0.379635
+      ],
+      "length": 0.03741,
+      "childDirectionWorld": [
+        0.146,
+        -0.6816,
+        0.7171
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 153,
+        "maxWeight": 0.9246415495872498
+      }
+    },
+    {
+      "name": "thumb_02_l",
+      "parent": "thumb_01_l",
+      "children": [
+        "thumb_03_l"
+      ],
+      "restLocalPosition": [
+        0,
+        0.03741,
+        0
+      ],
+      "restLocalQuaternion": [
+        -0.019208,
+        -0.166339,
+        -0.123514,
+        0.978114
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0.53876,
+        1.04692,
+        0.1805
+      ],
+      "restWorldQuaternion": [
+        0.713954,
+        -0.076043,
+        -0.62293,
+        0.310556
+      ],
+      "length": 0.02211,
+      "childDirectionWorld": [
+        0.2783,
+        -0.7955,
+        0.5382
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 119,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "thumb_03_l",
+      "parent": "thumb_02_l",
+      "children": [
+        "thumb_end_l"
+      ],
+      "restLocalPosition": [
+        0,
+        0.02211,
+        0
+      ],
+      "restLocalQuaternion": [
+        -0.035462,
+        -0.183966,
+        -0.079617,
+        0.979061
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0.54492,
+        1.02933,
+        0.1924
+      ],
+      "restWorldQuaternion": [
+        -0.579447,
+        0.052649,
+        0.768652,
+        -0.265786
+      ],
+      "length": 0.01697,
+      "childDirectionWorld": [
+        0.3476,
+        -0.8532,
+        0.389
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 46,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "thumb_end_l",
+      "parent": "thumb_03_l",
+      "children": [],
+      "restLocalPosition": [
+        0,
+        0.01697,
+        0
+      ],
+      "restLocalQuaternion": [
+        0.470197,
+        0.687076,
+        -0.528124,
+        0.167111
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0.55082,
+        1.01485,
+        0.199
+      ],
+      "restWorldQuaternion": [
+        -0.777732,
+        -0.118419,
+        -0.154061,
+        0.597808
+      ],
+      "length": 0,
+      "childDirectionWorld": null,
+      "childDirectionLocal": null,
+      "skinInfluence": {
+        "vertices": 0,
+        "maxWeight": 0
+      }
+    },
+    {
+      "name": "index_01_l",
+      "parent": "hand_l",
+      "children": [
+        "index_02_l"
+      ],
+      "restLocalPosition": [
+        0.00098,
+        0.06244,
+        0.03882
+      ],
+      "restLocalQuaternion": [
+        0.245717,
+        -0.546525,
+        -0.050272,
+        0.799003
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0.57456,
+        1.05002,
+        0.16778
+      ],
+      "restWorldQuaternion": [
+        0.929334,
+        0.244433,
+        -0.070389,
+        0.267649
+      ],
+      "length": 0.02834,
+      "childDirectionWorld": [
+        0.492,
+        -0.7372,
+        0.4631
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 116,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "index_02_l",
+      "parent": "index_01_l",
+      "children": [
+        "index_03_l"
+      ],
+      "restLocalPosition": [
+        0,
+        0.02834,
+        0
+      ],
+      "restLocalQuaternion": [
+        0.024446,
+        0.097775,
+        0.083659,
+        0.991385
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0.58851,
+        1.02913,
+        0.1809
+      ],
+      "restWorldQuaternion": [
+        0.955202,
+        0.189029,
+        0.037499,
+        0.224614
+      ],
+      "length": 0.02138,
+      "childDirectionWorld": [
+        0.3443,
+        -0.8276,
+        0.4433
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 74,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "index_03_l",
+      "parent": "index_02_l",
+      "children": [
+        "index_end_l"
+      ],
+      "restLocalPosition": [
+        0,
+        0.02138,
+        0
+      ],
+      "restLocalQuaternion": [
+        0.000167,
+        0.182327,
+        0.087157,
+        0.979367
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0.59587,
+        1.01144,
+        0.19038
+      ],
+      "restWorldQuaternion": [
+        0.945169,
+        0.142835,
+        0.23043,
+        0.182087
+      ],
+      "length": 0.01566,
+      "childDirectionWorld": [
+        0.1861,
+        -0.8929,
+        0.41
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 56,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "index_end_l",
+      "parent": "index_03_l",
+      "children": [],
+      "restLocalPosition": [
+        0,
+        0.01566,
+        0
+      ],
+      "restLocalQuaternion": [
+        0.542828,
+        -0.615933,
+        0.453138,
+        0.347318
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0.59878,
+        0.99746,
+        0.1968
+      ],
+      "restWorldQuaternion": [
+        0.63377,
+        -0.365753,
+        -0.497152,
+        -0.466262
+      ],
+      "length": 0,
+      "childDirectionWorld": null,
+      "childDirectionLocal": null,
+      "skinInfluence": {
+        "vertices": 0,
+        "maxWeight": 0
+      }
+    },
+    {
+      "name": "middle_01_l",
+      "parent": "hand_l",
+      "children": [
+        "middle_02_l"
+      ],
+      "restLocalPosition": [
+        -0.00525,
+        0.05205,
+        0.04857
+      ],
+      "restLocalQuaternion": [
+        0.267188,
+        -0.591886,
+        -0.060993,
+        0.757998
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0.58102,
+        1.05026,
+        0.15364
+      ],
+      "restWorldQuaternion": [
+        0.92668,
+        0.236549,
+        -0.134974,
+        0.259018
+      ],
+      "length": 0.03251,
+      "childDirectionWorld": [
+        0.5083,
+        -0.7539,
+        0.4162
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 120,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "middle_02_l",
+      "parent": "middle_01_l",
+      "children": [
+        "middle_03_l"
+      ],
+      "restLocalPosition": [
+        0,
+        0.03251,
+        0
+      ],
+      "restLocalQuaternion": [
+        0.034384,
+        0.097058,
+        0.080086,
+        0.991455
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0.59754,
+        1.02575,
+        0.16717
+      ],
+      "restWorldQuaternion": [
+        0.959713,
+        0.180813,
+        -0.031268,
+        0.212792
+      ],
+      "length": 0.02424,
+      "childDirectionWorld": [
+        0.3604,
+        -0.8441,
+        0.3971
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 55,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "middle_03_l",
+      "parent": "middle_02_l",
+      "children": [
+        "middle_end_l"
+      ],
+      "restLocalPosition": [
+        0,
+        0.02424,
+        0
+      ],
+      "restLocalQuaternion": [
+        0.010296,
+        0.187699,
+        0.086546,
+        0.978352
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0.60628,
+        1.00529,
+        0.17679
+      ],
+      "restWorldQuaternion": [
+        0.962646,
+        0.133458,
+        0.1661,
+        0.167072
+      ],
+      "length": 0.01788,
+      "childDirectionWorld": [
+        0.2014,
+        -0.9086,
+        0.366
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 55,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "middle_end_l",
+      "parent": "middle_03_l",
+      "children": [],
+      "restLocalPosition": [
+        0,
+        0.01788,
+        0
+      ],
+      "restLocalQuaternion": [
+        0.557704,
+        -0.587193,
+        0.434702,
+        0.393961
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0.60988,
+        0.98904,
+        0.18334
+      ],
+      "restWorldQuaternion": [
+        0.627969,
+        -0.371356,
+        -0.501625,
+        -0.46489
+      ],
+      "length": 0,
+      "childDirectionWorld": null,
+      "childDirectionLocal": null,
+      "skinInfluence": {
+        "vertices": 0,
+        "maxWeight": 0
+      }
+    },
+    {
+      "name": "ring_01_l",
+      "parent": "hand_l",
+      "children": [
+        "ring_02_l"
+      ],
+      "restLocalPosition": [
+        -0.01506,
+        0.04321,
+        0.05346
+      ],
+      "restLocalQuaternion": [
+        0.287694,
+        -0.636675,
+        -0.075582,
+        0.711453
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0.58211,
+        1.04736,
+        0.13991
+      ],
+      "restWorldQuaternion": [
+        0.918186,
+        0.229421,
+        -0.202959,
+        0.251213
+      ],
+      "length": 0.02837,
+      "childDirectionWorld": [
+        0.5233,
+        -0.7685,
+        0.3682
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 117,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "ring_02_l",
+      "parent": "ring_01_l",
+      "children": [
+        "ring_03_l"
+      ],
+      "restLocalPosition": [
+        0,
+        0.02837,
+        0
+      ],
+      "restLocalQuaternion": [
+        0.044621,
+        0.093574,
+        0.074867,
+        0.99179
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0.59695,
+        1.02556,
+        0.15035
+      ],
+      "restWorldQuaternion": [
+        0.958025,
+        0.173247,
+        -0.106804,
+        0.201907
+      ],
+      "length": 0.0224,
+      "childDirectionWorld": [
+        0.3751,
+        -0.8584,
+        0.3499
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 59,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "ring_03_l",
+      "parent": "ring_02_l",
+      "children": [
+        "ring_end_l"
+      ],
+      "restLocalPosition": [
+        0,
+        0.0224,
+        0
+      ],
+      "restLocalQuaternion": [
+        0.021793,
+        0.188805,
+        0.084384,
+        0.97814
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0.60535,
+        1.00634,
+        0.15819
+      ],
+      "restWorldQuaternion": [
+        0.976267,
+        0.124411,
+        0.089672,
+        0.152918
+      ],
+      "length": 0.01692,
+      "childDirectionWorld": [
+        0.2155,
+        -0.9223,
+        0.3209
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 53,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "ring_end_l",
+      "parent": "ring_03_l",
+      "children": [],
+      "restLocalPosition": [
+        0,
+        0.01692,
+        0
+      ],
+      "restLocalQuaternion": [
+        0.576526,
+        -0.550024,
+        0.409415,
+        0.444376
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0.609,
+        0.99073,
+        0.16362
+      ],
+      "restWorldQuaternion": [
+        0.622248,
+        -0.376824,
+        -0.506241,
+        -0.463175
+      ],
+      "length": 0,
+      "childDirectionWorld": null,
+      "childDirectionLocal": null,
+      "skinInfluence": {
+        "vertices": 0,
+        "maxWeight": 0
+      }
+    },
+    {
+      "name": "pinky_01_l",
+      "parent": "hand_l",
+      "children": [
+        "pinky_02_l"
+      ],
+      "restLocalPosition": [
+        -0.02683,
+        0.03553,
+        0.05314
+      ],
+      "restLocalQuaternion": [
+        0.30677,
+        -0.680026,
+        -0.094185,
+        0.659231
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0.57784,
+        1.04289,
+        0.12728
+      ],
+      "restWorldQuaternion": [
+        0.903108,
+        0.223141,
+        -0.273686,
+        0.244336
+      ],
+      "length": 0.02124,
+      "childDirectionWorld": [
+        0.5368,
+        -0.781,
+        0.3192
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 117,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "pinky_02_l",
+      "parent": "pinky_01_l",
+      "children": [
+        "pinky_03_l"
+      ],
+      "restLocalPosition": [
+        0,
+        0.02124,
+        0
+      ],
+      "restLocalQuaternion": [
+        0.054829,
+        0.086881,
+        0.067749,
+        0.992399
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0.58924,
+        1.0263,
+        0.13406
+      ],
+      "restWorldQuaternion": [
+        0.948536,
+        0.166482,
+        -0.188823,
+        0.192118
+      ],
+      "length": 0.0162,
+      "childDirectionWorld": [
+        0.3884,
+        -0.8708,
+        0.3016
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 77,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "pinky_03_l",
+      "parent": "pinky_02_l",
+      "children": [
+        "pinky_end_l"
+      ],
+      "restLocalPosition": [
+        0,
+        0.0162,
+        0
+      ],
+      "restLocalQuaternion": [
+        0.034537,
+        0.183812,
+        0.080017,
+        0.97909
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0.59553,
+        1.01219,
+        0.13894
+      ],
+      "restWorldQuaternion": [
+        0.983367,
+        0.115894,
+        -0.000899,
+        0.139848
+      ],
+      "length": 0.0127,
+      "childDirectionWorld": [
+        0.2282,
+        -0.934,
+        0.2748
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 60,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "pinky_end_l",
+      "parent": "pinky_03_l",
+      "children": [],
+      "restLocalPosition": [
+        0,
+        0.0127,
+        0
+      ],
+      "restLocalQuaternion": [
+        0.599249,
+        -0.501945,
+        0.375366,
+        0.498048
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0.59843,
+        1.00033,
+        0.14243
+      ],
+      "restWorldQuaternion": [
+        0.616619,
+        -0.382137,
+        -0.510999,
+        -0.461121
+      ],
+      "length": 0,
+      "childDirectionWorld": null,
+      "childDirectionLocal": null,
+      "skinInfluence": {
+        "vertices": 0,
+        "maxWeight": 0
+      }
+    },
+    {
+      "name": "lowerarm_twist_l",
+      "parent": "lowerarm_l",
+      "children": [],
+      "restLocalPosition": [
+        0,
+        0.12806,
+        0
+      ],
+      "restLocalQuaternion": [
+        -0.481694,
+        -0.704549,
+        0.517659,
+        0.060089
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0.44712,
+        1.17433,
+        0.07411
+      ],
+      "restWorldQuaternion": [
+        -0.795667,
+        -0.093895,
+        -0.127794,
+        0.584608
+      ],
+      "length": 0,
+      "childDirectionWorld": null,
+      "childDirectionLocal": null,
+      "skinInfluence": {
+        "vertices": 323,
+        "maxWeight": 0.9382259845733643
+      }
+    },
+    {
+      "name": "upperarm_twist_l",
+      "parent": "upperarm_l",
+      "children": [],
+      "restLocalPosition": [
+        0,
+        0.13619,
+        0
+      ],
+      "restLocalQuaternion": [
+        -0.270598,
+        -0.653281,
+        0.653281,
+        0.270598
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0.26876,
+        1.3527,
+        0.01999
+      ],
+      "restWorldQuaternion": [
+        -0.707107,
+        0,
+        0,
+        0.707107
+      ],
+      "length": 0,
+      "childDirectionWorld": null,
+      "childDirectionLocal": null,
+      "skinInfluence": {
+        "vertices": 379,
+        "maxWeight": 0.9624817967414856
+      }
+    },
+    {
+      "name": "shoulder_r",
+      "parent": "spine_03",
+      "children": [
+        "upperarm_r"
+      ],
+      "restLocalPosition": [
+        -0.03105,
+        0.05727,
+        0.01999
+      ],
+      "restLocalQuaternion": [
+        0,
+        0,
+        0.766044,
+        0.642788
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        -0.03105,
+        1.47416,
+        0.01999
+      ],
+      "restWorldQuaternion": [
+        0,
+        0,
+        0.766044,
+        0.642788
+      ],
+      "length": 0.13749,
+      "childDirectionWorld": [
+        -0.9848,
+        -0.1736,
+        0
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 123,
+        "maxWeight": 0.6726592183113098
+      }
+    },
+    {
+      "name": "upperarm_r",
+      "parent": "shoulder_r",
+      "children": [
+        "lowerarm_r",
+        "upperarm_twist_r"
+      ],
+      "restLocalPosition": [
+        0,
+        0.13749,
+        0
+      ],
+      "restLocalQuaternion": [
+        0,
+        0,
+        0.300706,
+        0.953717
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        -0.16645,
+        1.45028,
+        0.01999
+      ],
+      "restWorldQuaternion": [
+        0,
+        0,
+        0.92388,
+        0.382683
+      ],
+      "length": 0.27836,
+      "childDirectionWorld": [
+        -0.7071,
+        -0.7071,
+        0
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 374,
+        "maxWeight": 0.9735747575759888
+      }
+    },
+    {
+      "name": "lowerarm_r",
+      "parent": "upperarm_r",
+      "children": [
+        "hand_r",
+        "lowerarm_twist_r"
+      ],
+      "restLocalPosition": [
+        0,
+        0.27836,
+        0
+      ],
+      "restLocalQuaternion": [
+        0.204608,
+        -0.318367,
+        -0.07058,
+        0.922928
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        -0.36329,
+        1.25345,
+        0.01999
+      ],
+      "restWorldQuaternion": [
+        0.372433,
+        0.0672,
+        0.825664,
+        0.418397
+      ],
+      "length": 0.26139,
+      "childDirectionWorld": [
+        -0.6409,
+        -0.6409,
+        0.4226
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 299,
+        "maxWeight": 0.958502471446991
+      }
+    },
+    {
+      "name": "hand_r",
+      "parent": "lowerarm_r",
+      "children": [
+        "thumb_01_r",
+        "index_01_r",
+        "middle_01_r",
+        "ring_01_r",
+        "pinky_01_r"
+      ],
+      "restLocalPosition": [
+        0,
+        0.26139,
+        0
+      ],
+      "restLocalQuaternion": [
+        0.313455,
+        0.030627,
+        -0.133265,
+        0.939707
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        -0.5308,
+        1.08594,
+        0.13046
+      ],
+      "restWorldQuaternion": [
+        0.446884,
+        0.384403,
+        0.710467,
+        0.384403
+      ],
+      "length": 0.0376,
+      "childDirectionWorld": [
+        -0.2026,
+        -0.4089,
+        0.8898
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 367,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "thumb_01_r",
+      "parent": "hand_r",
+      "children": [
+        "thumb_02_r"
+      ],
+      "restLocalPosition": [
+        0,
+        0.0376,
+        0
+      ],
+      "restLocalQuaternion": [
+        0.051338,
+        -0.464604,
+        0.155584,
+        0.870231
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        -0.53842,
+        1.07056,
+        0.16391
+      ],
+      "restWorldQuaternion": [
+        0.798519,
+        0.12287,
+        0.450719,
+        0.379635
+      ],
+      "length": 0.03737,
+      "childDirectionWorld": [
+        -0.146,
+        -0.6816,
+        0.7171
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 146,
+        "maxWeight": 0.926776647567749
+      }
+    },
+    {
+      "name": "thumb_02_r",
+      "parent": "thumb_01_r",
+      "children": [
+        "thumb_03_r"
+      ],
+      "restLocalPosition": [
+        0,
+        0.03737,
+        0
+      ],
+      "restLocalQuaternion": [
+        -0.019208,
+        0.166342,
+        0.123515,
+        0.978113
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        -0.54387,
+        1.04509,
+        0.19071
+      ],
+      "restWorldQuaternion": [
+        0.713953,
+        0.076043,
+        0.622932,
+        0.310555
+      ],
+      "length": 0.02161,
+      "childDirectionWorld": [
+        -0.2783,
+        -0.7955,
+        0.5382
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 113,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "thumb_03_r",
+      "parent": "thumb_02_r",
+      "children": [
+        "thumb_end_r"
+      ],
+      "restLocalPosition": [
+        0,
+        0.02161,
+        0
+      ],
+      "restLocalQuaternion": [
+        -0.035464,
+        0.183965,
+        0.079615,
+        0.979061
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        -0.54989,
+        1.0279,
+        0.20234
+      ],
+      "restWorldQuaternion": [
+        0.579447,
+        0.052649,
+        0.768652,
+        0.265788
+      ],
+      "length": 0.01622,
+      "childDirectionWorld": [
+        -0.3476,
+        -0.8532,
+        0.389
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 48,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "thumb_end_r",
+      "parent": "thumb_03_r",
+      "children": [],
+      "restLocalPosition": [
+        0,
+        0.01622,
+        0
+      ],
+      "restLocalQuaternion": [
+        -0.167112,
+        -0.528123,
+        -0.687077,
+        0.470196
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        -0.55553,
+        1.01406,
+        0.20865
+      ],
+      "restWorldQuaternion": [
+        0.597807,
+        0.15406,
+        -0.118421,
+        0.777733
+      ],
+      "length": 0,
+      "childDirectionWorld": null,
+      "childDirectionLocal": null,
+      "skinInfluence": {
+        "vertices": 0,
+        "maxWeight": 0
+      }
+    },
+    {
+      "name": "index_01_r",
+      "parent": "hand_r",
+      "children": [
+        "index_02_r"
+      ],
+      "restLocalPosition": [
+        -0.00042,
+        0.06681,
+        -0.0349
+      ],
+      "restLocalQuaternion": [
+        0.036914,
+        -0.825651,
+        0.303373,
+        0.474239
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        -0.57668,
+        1.05116,
+        0.17912
+      ],
+      "restWorldQuaternion": [
+        0.929335,
+        -0.244431,
+        0.070389,
+        0.267649
+      ],
+      "length": 0.02875,
+      "childDirectionWorld": [
+        -0.492,
+        -0.7372,
+        0.4631
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 103,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "index_02_r",
+      "parent": "index_01_r",
+      "children": [
+        "index_03_r"
+      ],
+      "restLocalPosition": [
+        0,
+        0.02875,
+        0
+      ],
+      "restLocalQuaternion": [
+        0.024445,
+        -0.097778,
+        -0.083657,
+        0.991385
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        -0.59083,
+        1.02997,
+        0.19243
+      ],
+      "restWorldQuaternion": [
+        0.955202,
+        -0.189028,
+        -0.037502,
+        0.224614
+      ],
+      "length": 0.02178,
+      "childDirectionWorld": [
+        -0.3443,
+        -0.8276,
+        0.4433
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 59,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "index_03_r",
+      "parent": "index_02_r",
+      "children": [
+        "index_end_r"
+      ],
+      "restLocalPosition": [
+        0,
+        0.02178,
+        0
+      ],
+      "restLocalQuaternion": [
+        0.000166,
+        -0.182321,
+        -0.087155,
+        0.979369
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        -0.59832,
+        1.01195,
+        0.20208
+      ],
+      "restWorldQuaternion": [
+        0.945169,
+        -0.142836,
+        -0.230426,
+        0.182089
+      ],
+      "length": 0.01615,
+      "childDirectionWorld": [
+        -0.1861,
+        -0.8929,
+        0.41
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 51,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "index_end_r",
+      "parent": "index_03_r",
+      "children": [],
+      "restLocalPosition": [
+        0,
+        0.01615,
+        0
+      ],
+      "restLocalQuaternion": [
+        -0.347319,
+        0.453138,
+        0.615929,
+        0.542832
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        -0.60133,
+        0.99753,
+        0.20871
+      ],
+      "restWorldQuaternion": [
+        0.466263,
+        -0.497151,
+        0.365754,
+        0.633769
+      ],
+      "length": 0,
+      "childDirectionWorld": null,
+      "childDirectionLocal": null,
+      "skinInfluence": {
+        "vertices": 0,
+        "maxWeight": 0
+      }
+    },
+    {
+      "name": "middle_01_r",
+      "parent": "hand_r",
+      "children": [
+        "middle_02_r"
+      ],
+      "restLocalPosition": [
+        -0.00228,
+        0.05484,
+        -0.04663
+      ],
+      "restLocalQuaternion": [
+        0.020523,
+        -0.788555,
+        0.329789,
+        0.518651
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        -0.5846,
+        1.05204,
+        0.16426
+      ],
+      "restWorldQuaternion": [
+        0.92668,
+        -0.236549,
+        0.134975,
+        0.259018
+      ],
+      "length": 0.03209,
+      "childDirectionWorld": [
+        -0.5083,
+        -0.7539,
+        0.4162
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 124,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "middle_02_r",
+      "parent": "middle_01_r",
+      "children": [
+        "middle_03_r"
+      ],
+      "restLocalPosition": [
+        0,
+        0.03209,
+        0
+      ],
+      "restLocalQuaternion": [
+        0.034385,
+        -0.097059,
+        -0.080087,
+        0.991455
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        -0.60092,
+        1.02784,
+        0.17761
+      ],
+      "restWorldQuaternion": [
+        0.959713,
+        -0.180812,
+        0.031268,
+        0.212791
+      ],
+      "length": 0.02445,
+      "childDirectionWorld": [
+        -0.3604,
+        -0.8441,
+        0.3971
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 63,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "middle_03_r",
+      "parent": "middle_02_r",
+      "children": [
+        "middle_end_r"
+      ],
+      "restLocalPosition": [
+        0,
+        0.02445,
+        0
+      ],
+      "restLocalQuaternion": [
+        0.010295,
+        -0.187699,
+        -0.086546,
+        0.978352
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        -0.60973,
+        1.00721,
+        0.18732
+      ],
+      "restWorldQuaternion": [
+        0.962645,
+        -0.133458,
+        -0.166101,
+        0.167073
+      ],
+      "length": 0.01836,
+      "childDirectionWorld": [
+        -0.2014,
+        -0.9085,
+        0.366
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 56,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "middle_end_r",
+      "parent": "middle_03_r",
+      "children": [],
+      "restLocalPosition": [
+        0,
+        0.01836,
+        0
+      ],
+      "restLocalQuaternion": [
+        -0.39396,
+        0.434702,
+        0.587193,
+        0.557703
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        -0.61343,
+        0.99052,
+        0.19404
+      ],
+      "restWorldQuaternion": [
+        0.464889,
+        -0.501625,
+        0.371356,
+        0.627969
+      ],
+      "length": 0,
+      "childDirectionWorld": null,
+      "childDirectionLocal": null,
+      "skinInfluence": {
+        "vertices": 0,
+        "maxWeight": 0
+      }
+    },
+    {
+      "name": "ring_01_r",
+      "parent": "hand_r",
+      "children": [
+        "ring_02_r"
+      ],
+      "restLocalPosition": [
+        -0.01105,
+        0.04228,
+        -0.05277
+      ],
+      "restLocalQuaternion": [
+        -0.000324,
+        -0.746399,
+        0.355017,
+        0.562895
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        -0.58511,
+        1.04812,
+        0.14823
+      ],
+      "restWorldQuaternion": [
+        0.918186,
+        -0.229422,
+        0.202959,
+        0.251213
+      ],
+      "length": 0.03009,
+      "childDirectionWorld": [
+        -0.5233,
+        -0.7685,
+        0.3682
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 132,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "ring_02_r",
+      "parent": "ring_01_r",
+      "children": [
+        "ring_03_r"
+      ],
+      "restLocalPosition": [
+        0,
+        0.03009,
+        0
+      ],
+      "restLocalQuaternion": [
+        0.04462,
+        -0.093572,
+        -0.074866,
+        0.99179
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        -0.60085,
+        1.025,
+        0.15931
+      ],
+      "restWorldQuaternion": [
+        0.958024,
+        -0.173248,
+        0.106805,
+        0.201908
+      ],
+      "length": 0.02281,
+      "childDirectionWorld": [
+        -0.3751,
+        -0.8584,
+        0.3499
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 67,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "ring_03_r",
+      "parent": "ring_02_r",
+      "children": [
+        "ring_end_r"
+      ],
+      "restLocalPosition": [
+        0,
+        0.02281,
+        0
+      ],
+      "restLocalQuaternion": [
+        0.021794,
+        -0.188806,
+        -0.084388,
+        0.978139
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        -0.60941,
+        1.00541,
+        0.16729
+      ],
+      "restWorldQuaternion": [
+        0.976267,
+        -0.124409,
+        -0.089673,
+        0.152918
+      ],
+      "length": 0.01739,
+      "childDirectionWorld": [
+        -0.2155,
+        -0.9223,
+        0.3209
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 57,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "ring_end_r",
+      "parent": "ring_03_r",
+      "children": [],
+      "restLocalPosition": [
+        0,
+        0.01739,
+        0
+      ],
+      "restLocalQuaternion": [
+        -0.444376,
+        0.409415,
+        0.550026,
+        0.576525
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        -0.61315,
+        0.98938,
+        0.17287
+      ],
+      "restWorldQuaternion": [
+        0.463175,
+        -0.506241,
+        0.376824,
+        0.622248
+      ],
+      "length": 0,
+      "childDirectionWorld": null,
+      "childDirectionLocal": null,
+      "skinInfluence": {
+        "vertices": 0,
+        "maxWeight": 0
+      }
+    },
+    {
+      "name": "pinky_01_r",
+      "parent": "hand_r",
+      "children": [
+        "pinky_02_r"
+      ],
+      "restLocalPosition": [
+        -0.02306,
+        0.03426,
+        -0.05433
+      ],
+      "restLocalQuaternion": [
+        -0.02577,
+        -0.699022,
+        0.378489,
+        0.606177
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        -0.58126,
+        1.0404,
+        0.13654
+      ],
+      "restWorldQuaternion": [
+        0.903109,
+        -0.22314,
+        0.273686,
+        0.244335
+      ],
+      "length": 0.02197,
+      "childDirectionWorld": [
+        -0.5368,
+        -0.781,
+        0.3192
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 123,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "pinky_02_r",
+      "parent": "pinky_01_r",
+      "children": [
+        "pinky_03_r"
+      ],
+      "restLocalPosition": [
+        0,
+        0.02197,
+        0
+      ],
+      "restLocalQuaternion": [
+        0.054826,
+        -0.08688,
+        -0.067747,
+        0.992399
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        -0.59305,
+        1.02324,
+        0.14355
+      ],
+      "restWorldQuaternion": [
+        0.948535,
+        -0.166484,
+        0.188824,
+        0.192119
+      ],
+      "length": 0.0167,
+      "childDirectionWorld": [
+        -0.3884,
+        -0.8707,
+        0.3016
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 78,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "pinky_03_r",
+      "parent": "pinky_02_r",
+      "children": [
+        "pinky_end_r"
+      ],
+      "restLocalPosition": [
+        0,
+        0.0167,
+        0
+      ],
+      "restLocalQuaternion": [
+        0.03454,
+        -0.183816,
+        -0.08002,
+        0.979089
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        -0.59954,
+        1.00869,
+        0.14859
+      ],
+      "restWorldQuaternion": [
+        0.983367,
+        -0.115893,
+        0.000897,
+        0.139847
+      ],
+      "length": 0.01246,
+      "childDirectionWorld": [
+        -0.2282,
+        -0.934,
+        0.2748
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 71,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "pinky_end_r",
+      "parent": "pinky_03_r",
+      "children": [],
+      "restLocalPosition": [
+        0,
+        0.01246,
+        0
+      ],
+      "restLocalQuaternion": [
+        -0.498045,
+        0.37537,
+        0.501946,
+        0.599249
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        -0.60238,
+        0.99706,
+        0.15201
+      ],
+      "restWorldQuaternion": [
+        0.461123,
+        -0.510998,
+        0.38214,
+        0.616617
+      ],
+      "length": 0,
+      "childDirectionWorld": null,
+      "childDirectionLocal": null,
+      "skinInfluence": {
+        "vertices": 0,
+        "maxWeight": 0
+      }
+    },
+    {
+      "name": "lowerarm_twist_r",
+      "parent": "lowerarm_r",
+      "children": [],
+      "restLocalPosition": [
+        0,
+        0.1307,
+        0
+      ],
+      "restLocalQuaternion": [
+        0.060089,
+        -0.517659,
+        -0.704549,
+        0.481694
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        -0.44704,
+        1.16969,
+        0.07523
+      ],
+      "restWorldQuaternion": [
+        0.584607,
+        0.127794,
+        -0.093895,
+        0.795668
+      ],
+      "length": 0,
+      "childDirectionWorld": null,
+      "childDirectionLocal": null,
+      "skinInfluence": {
+        "vertices": 381,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "upperarm_twist_r",
+      "parent": "upperarm_r",
+      "children": [],
+      "restLocalPosition": [
+        0,
+        0.13918,
+        0
+      ],
+      "restLocalQuaternion": [
+        0.270598,
+        -0.653281,
+        -0.653281,
+        0.270598
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        -0.26487,
+        1.35187,
+        0.01999
+      ],
+      "restWorldQuaternion": [
+        0.707107,
+        0,
+        0,
+        0.707107
+      ],
+      "length": 0,
+      "childDirectionWorld": null,
+      "childDirectionLocal": null,
+      "skinInfluence": {
+        "vertices": 385,
+        "maxWeight": 0.9588253498077393
+      }
+    },
+    {
+      "name": "upperleg_l",
+      "parent": "hip",
+      "children": [
+        "lowerleg_l",
+        "upperleg_twist_l"
+      ],
+      "restLocalPosition": [
+        0.08741,
+        0,
+        0
+      ],
+      "restLocalQuaternion": [
+        0,
+        0,
+        1,
+        0
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0.08741,
+        1.04281,
+        0
+      ],
+      "restWorldQuaternion": [
+        0,
+        0,
+        1,
+        0
+      ],
+      "length": 0.49065,
+      "childDirectionWorld": [
+        0,
+        -1,
+        0
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 498,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "lowerleg_l",
+      "parent": "upperleg_l",
+      "children": [
+        "foot_l",
+        "lowerleg_twist_l"
+      ],
+      "restLocalPosition": [
+        0,
+        0.49065,
+        0
+      ],
+      "restLocalQuaternion": [
+        0,
+        -0.9999,
+        0.014106,
+        0.001266
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0.08741,
+        0.55217,
+        0
+      ],
+      "restWorldQuaternion": [
+        0.9999,
+        0,
+        0.001266,
+        -0.014106
+      ],
+      "length": 0.4047,
+      "childDirectionWorld": [
+        0,
+        -0.9996,
+        -0.0282
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 501,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "foot_l",
+      "parent": "lowerleg_l",
+      "children": [
+        "ball_l"
+      ],
+      "restLocalPosition": [
+        0,
+        0.4047,
+        0
+      ],
+      "restLocalQuaternion": [
+        -0.26117,
+        -0.001151,
+        -0.000314,
+        0.965292
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0.08742,
+        0.14763,
+        -0.01142
+      ],
+      "restWorldQuaternion": [
+        0.968881,
+        0,
+        0.000075,
+        0.247528
+      ],
+      "length": 0.16095,
+      "childDirectionWorld": [
+        0,
+        -0.8775,
+        0.4797
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 667,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "ball_l",
+      "parent": "foot_l",
+      "children": [
+        "foot_end_l"
+      ],
+      "restLocalPosition": [
+        0,
+        0.16095,
+        0
+      ],
+      "restLocalQuaternion": [
+        -0.50122,
+        -0.00147,
+        -0.002387,
+        0.865315
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0.08742,
+        0.00641,
+        0.06578
+      ],
+      "restWorldQuaternion": [
+        0.714321,
+        0.001911,
+        -0.00195,
+        0.699813
+      ],
+      "length": 0.06605,
+      "childDirectionWorld": [
+        0.0055,
+        -0.0205,
+        0.9998
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 243,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "foot_end_l",
+      "parent": "ball_l",
+      "children": [],
+      "restLocalPosition": [
+        0,
+        0.06605,
+        0
+      ],
+      "restLocalQuaternion": [
+        -0.707107,
+        0,
+        -0.000001,
+        0.707107
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0.08778,
+        0.00505,
+        0.13182
+      ],
+      "restWorldQuaternion": [
+        0.010259,
+        0.00273,
+        -0.000028,
+        0.999944
+      ],
+      "length": 0,
+      "childDirectionWorld": null,
+      "childDirectionLocal": null,
+      "skinInfluence": {
+        "vertices": 0,
+        "maxWeight": 0
+      }
+    },
+    {
+      "name": "lowerleg_twist_l",
+      "parent": "lowerleg_l",
+      "children": [],
+      "restLocalPosition": [
+        0,
+        0.20235,
+        0
+      ],
+      "restLocalQuaternion": [
+        0.707106,
+        -0.000882,
+        0.000908,
+        0.707106
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0.08741,
+        0.3499,
+        -0.00571
+      ],
+      "restWorldQuaternion": [
+        -0.697062,
+        0,
+        0,
+        0.717011
+      ],
+      "length": 0,
+      "childDirectionWorld": null,
+      "childDirectionLocal": null,
+      "skinInfluence": {
+        "vertices": 825,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "upperleg_twist_l",
+      "parent": "upperleg_l",
+      "children": [],
+      "restLocalPosition": [
+        0,
+        0.24532,
+        0.00003
+      ],
+      "restLocalQuaternion": [
+        0,
+        0.707068,
+        -0.707146,
+        0
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        0.08741,
+        0.79749,
+        0.00003
+      ],
+      "restWorldQuaternion": [
+        -0.707068,
+        0,
+        0,
+        0.707146
+      ],
+      "length": 0,
+      "childDirectionWorld": null,
+      "childDirectionLocal": null,
+      "skinInfluence": {
+        "vertices": 505,
+        "maxWeight": 0.9985058307647705
+      }
+    },
+    {
+      "name": "upperleg_r",
+      "parent": "hip",
+      "children": [
+        "lowerleg_r",
+        "upperleg_twist_r"
+      ],
+      "restLocalPosition": [
+        -0.08741,
+        0,
+        0
+      ],
+      "restLocalQuaternion": [
+        1,
+        0,
+        0,
+        0.000125
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        -0.08741,
+        1.04282,
+        0
+      ],
+      "restWorldQuaternion": [
+        1,
+        0,
+        0,
+        0.000125
+      ],
+      "length": 0.49525,
+      "childDirectionWorld": [
+        0,
+        -1,
+        0.0003
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 558,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "lowerleg_r",
+      "parent": "upperleg_r",
+      "children": [
+        "foot_r",
+        "lowerleg_twist_r"
+      ],
+      "restLocalPosition": [
+        0,
+        0.49525,
+        0
+      ],
+      "restLocalQuaternion": [
+        0.015128,
+        -0.017031,
+        -0.000002,
+        0.999741
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        -0.08741,
+        0.54757,
+        0.00012
+      ],
+      "restWorldQuaternion": [
+        0.999742,
+        0,
+        -0.017031,
+        -0.015003
+      ],
+      "length": 0.41486,
+      "childDirectionWorld": [
+        -0.0041,
+        -0.9981,
+        -0.0608
+      ],
+      "childDirectionLocal": [
+        -0.0025,
+        0.9995,
+        0.0309
+      ],
+      "skinInfluence": {
+        "vertices": 464,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "foot_r",
+      "parent": "lowerleg_r",
+      "children": [
+        "ball_r"
+      ],
+      "restLocalPosition": [
+        -0.00105,
+        0.41466,
+        0.01283
+      ],
+      "restLocalQuaternion": [
+        -0.372013,
+        0.013372,
+        -0.003088,
+        0.928126
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        -0.08911,
+        0.13348,
+        -0.02509
+      ],
+      "restWorldQuaternion": [
+        0.933696,
+        0.009223,
+        -0.002392,
+        0.35794
+      ],
+      "length": 0.15629,
+      "childDirectionWorld": [
+        0.0095,
+        -0.8086,
+        0.5883
+      ],
+      "childDirectionLocal": [
+        -0.0096,
+        0.9946,
+        0.103
+      ],
+      "skinInfluence": {
+        "vertices": 682,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "ball_r",
+      "parent": "foot_r",
+      "children": [
+        "foot_end_r"
+      ],
+      "restLocalPosition": [
+        -0.00149,
+        0.15545,
+        0.01609
+      ],
+      "restLocalQuaternion": [
+        -0.422682,
+        -0.004382,
+        0.009512,
+        0.906217
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        -0.08762,
+        0.00711,
+        0.06685
+      ],
+      "restWorldQuaternion": [
+        0.694914,
+        -0.001081,
+        0.001044,
+        0.719092
+      ],
+      "length": 0.05546,
+      "childDirectionWorld": [
+        -0.003,
+        0.0342,
+        0.9994
+      ],
+      "childDirectionLocal": [
+        0,
+        1,
+        0
+      ],
+      "skinInfluence": {
+        "vertices": 195,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "foot_end_r",
+      "parent": "ball_r",
+      "children": [],
+      "restLocalPosition": [
+        0,
+        0.05546,
+        0
+      ],
+      "restLocalQuaternion": [
+        0.707107,
+        0.000001,
+        0,
+        0.707107
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        -0.08779,
+        0.009,
+        0.12228
+      ],
+      "restWorldQuaternion": [
+        0.999853,
+        -0.000026,
+        0.001504,
+        0.017096
+      ],
+      "length": 0,
+      "childDirectionWorld": null,
+      "childDirectionLocal": null,
+      "skinInfluence": {
+        "vertices": 0,
+        "maxWeight": 0
+      }
+    },
+    {
+      "name": "lowerleg_twist_r",
+      "parent": "lowerleg_r",
+      "children": [],
+      "restLocalPosition": [
+        0,
+        0.20237,
+        0
+      ],
+      "restLocalQuaternion": [
+        -0.707007,
+        0.012225,
+        0.011863,
+        0.707001
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        -0.08751,
+        0.34529,
+        -0.00595
+      ],
+      "restWorldQuaternion": [
+        0.717634,
+        -0.000003,
+        0.000003,
+        0.69642
+      ],
+      "length": 0,
+      "childDirectionWorld": null,
+      "childDirectionLocal": null,
+      "skinInfluence": {
+        "vertices": 801,
+        "maxWeight": 1
+      }
+    },
+    {
+      "name": "upperleg_twist_r",
+      "parent": "upperleg_r",
+      "children": [],
+      "restLocalPosition": [
+        0,
+        0.24763,
+        0
+      ],
+      "restLocalQuaternion": [
+        -0.707107,
+        0,
+        0,
+        0.707107
+      ],
+      "restLocalScale": [
+        1,
+        1,
+        1
+      ],
+      "restWorldPosition": [
+        -0.08741,
+        0.79519,
+        0.00006
+      ],
+      "restWorldQuaternion": [
+        0.707018,
+        0,
+        0,
+        0.707195
+      ],
+      "length": 0,
+      "childDirectionWorld": null,
+      "childDirectionLocal": null,
+      "skinInfluence": {
+        "vertices": 521,
+        "maxWeight": 0.9940140843391418
+      }
+    }
+  ]
+}
