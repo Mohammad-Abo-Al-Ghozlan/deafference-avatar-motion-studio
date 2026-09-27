@@ -40,7 +40,7 @@ Removed: `src/lib/AvatarRetargeter.ts`. It is superseded, and an unchanged copy 
 
 ## Verification
 
-- **Unit tests** (`npm test`): 32 tests, all passing. They cover:
+- **Unit tests** (`npm test`): 33 tests, all passing. They cover:
   - filters (zero-phase, rate limits, Hampel, PCHIP, One Euro), swing-twist;
   - rig validation;
   - hand FK→fit round trip (exact on clean data; median 5° under 1.5 px noise);

@@ -9,7 +9,7 @@ A privacy-first Vue/Three.js app that transfers the motion of a recorded or live
 ```bash
 npm install          # Node >= 20.19
 npm run dev          # http://localhost:5173
-npm test             # 32 unit tests (Node test runner)
+npm test             # 33 unit tests (Node test runner)
 npm run build        # vue-tsc + tsc (tools) + vite build
 npm run preview
 ```
