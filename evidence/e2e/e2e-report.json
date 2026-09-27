@@ -1,5 +1,5 @@
 {
-  "startedAt": "2026-09-27T00:43:30.290Z",
+  "startedAt": "2026-09-27T01:32:42.865Z",
   "checks": {
     "app loads avatar + motion engine": {
       "ok": true,
@@ -33,7 +33,7 @@
       "ok": true,
       "detail": {
         "before": 162.3,
-        "after": 164.9
+        "after": 165.233
       }
     },
     "live: Holistic runs in-browser and the causal solver drives the avatar": {
@@ -42,11 +42,11 @@
         "status": {
           "engine": "live",
           "handState": {
-            "left": "T",
+            "left": "A",
             "right": "T"
           },
           "frameIndex": null,
-          "solveMs": 33.60000000009313,
+          "solveMs": 62.299999999813735,
           "channels": 54
         },
         "seconds": 33
@@ -66,10 +66,10 @@
             "right": "T"
           },
           "frameIndex": null,
-          "solveMs": 7.900000000139698,
+          "solveMs": 17.399999999441206,
           "channels": 54
         },
-        "seconds": 21
+        "seconds": 22
       }
     },
     "upload: an uploaded video is tracked and retargeted live": {
@@ -82,7 +82,7 @@
             "right": "A"
           },
           "frameIndex": null,
-          "solveMs": 1.5999999998603016,
+          "solveMs": 1.099999999627471,
           "channels": 54
         },
         "seconds": 21
