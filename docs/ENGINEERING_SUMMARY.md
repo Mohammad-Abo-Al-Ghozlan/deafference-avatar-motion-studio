@@ -30,6 +30,12 @@ The finger failures came from the original `src/lib/AvatarRetargeter.ts`. I repr
 | Live (causal) path | `src/motion/live/*`, `src/motion/filters/online.ts`, `src/motion/retarget/PoseApplier.ts` | Warm-started hand fit with a palm continuity gate. One Euro filters and rate limits. Robust depth gate plus depth completion. Trust-weighted wrist speed limits near the image border. Pose/hand wrist cross-fades, occlusion hold → relaxed, greedy swivel with a continuity penalty, rate-limited forearm twist, render-rate easing. |
 | App | `src/App.vue`, `src/components/AvatarStage.vue`, `src/composables/useHolisticTracker.ts`, `src/types/tracking.ts`, `src/styles.css` | Offline engine plays the clip by the presented frame's media time. Live engine for camera, upload, and the sample in live mode. HUD shows hand-state quality. Camera race fixed. World landmarks read from the Holistic bundle (`za`). Copy no longer labels the clip as ASL. |
 
+**Dependencies:**
+- Runtime dependencies are unchanged.
+- Dev dependencies added (exact pins): `tsx`, `@gltf-transform/core`, `@types/node`, `playwright`, `gltf-validator`.
+- `vite` bumped 7.0.6 → 7.3.6, same major version. 7.0.6 had seven dev-server advisories, including arbitrary file read and Windows `fs.deny` bypasses, and `npm run dev` binds `0.0.0.0`.
+- `npm audit`: 0 vulnerabilities.
+
 Removed: `src/lib/AvatarRetargeter.ts`. It is superseded, and an unchanged copy is kept at `tools/evidence/legacy/AvatarRetargeter.legacy.ts` to produce the "before" evidence. No UI feature was removed. The smoothing and strength sliders still work in live mode; smoothing is baked into precomputed motion.
 
 ## Verification
