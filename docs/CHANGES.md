@@ -1,6 +1,8 @@
 # Changes vs. baseline (commit 1d50650, the project as uploaded)
 
-Branch `motion-engine-v2`. Commits (newest first):
+Branch `motion-engine-v2`. This list covers the motion engine v2 work up to `95584fe`. Later work, such as the Sign clips tab, is described in the README and in `git log 95584fe..`.
+
+Commits (newest first):
 
 - bf3d672 Export test independent of generated artifacts; update instructions
 - 927b67f evidence: index of visual/numerical evidence

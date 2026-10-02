@@ -32,3 +32,18 @@ What to look at, honestly:
 - **Close-up framing:** the close-up camera follows the avatar's hand with light smoothing, so during the fastest movements the hand can briefly leave the close-up frame. That is framing, not pose.
 
 None of this is linguistic validation. The sign language of the clip is unidentified, and a fluent Deaf signer must review any animation before it is presented as signing.
+
+## Sign clips (`sign-clip-1`, 524 frames; `sign-clip-2`, 882 frames)
+
+Same rules: frame *k* is *t = k / 30* s of the clip's constant-frame-rate playback video (`public/samples/<clip>.mp4`), which was itself verified frame by frame against the original.
+
+| File | What it shows |
+|---|---|
+| `video/sign-clip-*-side-by-side.mp4` | Full clip: source (with frame number) · avatar (offline pipeline, source-like framing) |
+| `video/sign-clip-*-right-hand-closeup.mp4` | Full clip, right hand: source crop · avatar |
+| `video/sign-clip-*-after-offline-full.mp4`, `video/sign-clip-*-after-offline-right-hand.mp4`, `video/sign-clip-*-source-right-hand.mp4` | The individual renders used above |
+| `e2e/clips-sign-clip-*.png`, `e2e/clips-tab.png` | The Sign clips tab in the production build (E2E run) |
+| `../motion/sign-clip-*/qa-report.md` | Numerical QA (both PASS) |
+
+Visual review of the close-ups: one-finger, V, L, bent/claw, flat-B and open handshapes, pointing, and hands at the face and chest follow the source. Tight fists render as loosely curled hands, an edge-on thumbs-up (clip 1, k≈360) reads as extended fingers, and a hand pointing straight at the camera (clip 1, k≈120) loses its depth. The left hand is lowered or out of view about half of each clip and is shown relaxed.
+

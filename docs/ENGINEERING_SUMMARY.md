@@ -79,6 +79,37 @@ These are the same limits listed in the README.
 - The calibration constants come from this clip.
 - **No linguistic validation.** The clip's sign language is unidentified. A fluent Deaf signer must review before any use as signing.
 
+## Update: Sign clips tab (two recorded clips)
+
+**Request.** Add a tab with two sections in which the avatar performs the signs of two newly supplied recordings, processed by the same pipeline.
+
+**Pipeline, unchanged in method.** Each clip goes through the same stages as the sample clip: Holistic extraction → cleaning → solve → full-clip QA → GLB export. `npm run motion:clip -- --clip <id>` runs them in order. A rerun is byte-identical. The only new stage is `pipeline/make_playback.py`. It encodes the constant-frame-rate playback MP4 from the cleaning stage's slot → source-frame map, so video frame *k* is the source frame that motion frame *k* was solved from. It verifies the frame count and the *k / 30* timestamps, and every frame was also checked against its source frame (PSNR ≥ 42.9 dB). The sample clip's playback MP4 was supplied with the project.
+
+**Defects found and fixed:**
+- **Body cleaner edge fill.** Before a hand's first observation and after its last one, the body cleaner left placeholder zeros in the series, and zero-phase filtering smeared them into the observed frames. In `sign-clip-1` this produced a 0.28 m jump on the final frame, and QA failed. Edges now hold the nearest observation (`fillHoldEdges`, with a regression test). The sample clip was re-solved: only frames near its start and end changed, and its QA verdict and headline numbers are unchanged.
+- **QA comparison.** `validate-motion.ts` attached the sample clip's legacy before/after comparison to any clip. It now compares only within the same clip id.
+- **QA markdown.** The acceleration column of the QA report was always empty because of a wrong key.
+
+**App.**
+- `src/App.vue` is now a shell with two tabs. The studio moved unchanged to `src/views/StudioView.vue`. The new `src/views/SignClipsView.vue` is lazy-loaded and has one `SignClipSection` per clip.
+- The avatar texture is 8192² (~360 MB of GPU memory per WebGL context). The sections therefore render through one shared WebGL context and one parsed GLB (`src/three/sharedAvatarRenderer.ts`, SkeletonUtils clones copied into per-section canvases), and the inactive tab is unmounted.
+- Studio scene setup and the presented-frame media clock were extracted into `src/three/studioScene.ts` and `src/motion/clip/MediaFrameClock.ts` and are shared by both views. The studio's behaviour is unchanged, which the E2E confirms.
+- `useHolisticTracker.close()` now waits for an in-flight model initialization, because the studio can now be unmounted mid-load.
+
+**Verification.**
+- 41 unit tests pass (8 new: edge fill, clip asset linkage, full-clip QA per clip).
+- Typecheck and build pass.
+- Both clips' QA: PASS.
+- Browser E2E: 14/14 PASS. The sign clips tab check shows 0° pose error against each clip's motion file at 3 seek points per clip, exclusive playback, a single shared WebGL context, and a clean tab round-trip.
+- The E2E's input actions now allow 120 s, because SwiftShader inference blocks the page for up to ~20 s. The previous build's camera click already took ~31 s against Playwright's 30 s default, so this was a flaky test, not a regression.
+
+**Limits** (also in the README):
+- Tight fists render loosely curled.
+- An edge-on thumbs-up can read as extended fingers.
+- A hand pointing at the camera loses depth.
+- The left hand is lowered or out of view about half of each clip and is shown relaxed.
+- No linguistic validation: a fluent Deaf signer must review these clips too.
+
 ## Run commands
 
 ```bash
