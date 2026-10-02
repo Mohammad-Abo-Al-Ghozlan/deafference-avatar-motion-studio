@@ -66,11 +66,11 @@ Verdict: **PASS**
 
 | Class | Max step (°/frame) | worst bone | p99.9 step | Max ang. velocity (°/s) | p99.9 ang. accel (°/s²) | One-frame spikes |
 |---|---|---|---|---|---|---|
-| trunk | 2.87 | head | 2.51 | 86 | undefined | 0 |
-| face | 24.45 | eyelid_r | 16.87 | 734 | undefined | 0 |
-| arm | 25.85 | upperarm_r | 22.55 | 775 | undefined | 0 |
-| wrist | 35.31 | hand_r | 27.88 | 1059 | undefined | 0 |
-| finger | 29.68 | thumb_01_l | 25.6 | 890 | undefined | 0 |
+| trunk | 2.87 | head | 2.51 | 86 | 961 | 0 |
+| face | 24.45 | eyelid_r | 16.87 | 734 | 13366 | 0 |
+| arm | 25.85 | upperarm_r | 22.55 | 775 | 10227 | 0 |
+| wrist | 35.31 | hand_r | 25.94 | 1059 | 14482 | 0 |
+| finger | 29.68 | thumb_01_l | 25.6 | 890 | 16407 | 0 |
 
 ## Fast wrist motion vs source
 

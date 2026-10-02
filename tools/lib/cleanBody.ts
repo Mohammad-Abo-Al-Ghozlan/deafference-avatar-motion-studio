@@ -34,6 +34,30 @@ export interface BodyTrack {
 }
 
 /**
+ * PCHIP between observed samples, nearest observed value before the first and
+ * after the last one. `pchipFill` leaves those edge samples untouched, and
+ * here they hold placeholder zeros: zero-phase filtering would smear that
+ * fake step into the observed frames next to it (a hand that is last seen
+ * just before the clip ends was pulled toward the shoulder midpoint and then
+ * jumped back on the final frame).
+ */
+export function fillHoldEdges(raw: ArrayLike<number>, valid: ArrayLike<boolean>): Float64Array {
+  const n = raw.length
+  const out = pchipFill(raw, valid, new Array<boolean>(n).fill(true))
+  let first = -1
+  let last = -1
+  for (let k = 0; k < n; k += 1) {
+    if (!valid[k]) continue
+    if (first < 0) first = k
+    last = k
+  }
+  if (first < 0) return out
+  for (let k = 0; k < first; k += 1) out[k] = out[first]
+  for (let k = last + 1; k < n; k += 1) out[k] = out[last]
+  return out
+}
+
+/**
  * Body stream cleaning. `handWrists[k][side]` is the clean hand-model wrist
  * (normalized image coords) when the hand is tracked/interpolated at slot k.
  */
@@ -57,7 +81,6 @@ export function cleanBodyTrack(
     poseOnly[slot.k] = computeBodySample(frame.pose, frame.world, { left: null, right: null }, image, normalizer, irises)
   }
   const valid = samples.map((s) => Boolean(s?.valid))
-  const everywhere = new Array<boolean>(n).fill(true)
   const fs = timeline.fps
   let outliers = 0
   const series = (get: (s: BodySample) => number, hz: number, floor: number, mask = valid) => {
@@ -65,14 +88,14 @@ export function cleanBodyTrack(
     const bad = hampel(raw, mask, 4, 4, floor)
     const ok = mask.map((v, k) => v && !bad[k])
     outliers += mask.filter((v, k) => v && bad[k]).length
-    return filtfilt(butterworthLowpass(hz, fs), pchipFill(raw, ok, everywhere))
+    return filtfilt(butterworthLowpass(hz, fs), fillHoldEdges(raw, ok))
   }
   const seriesFrom = (source: (BodySample | null)[], get: (s: BodySample) => number, hz: number, floor: number) => {
     const raw = Float64Array.from(source.map((s) => (s ? get(s) : 0)))
     const ok = source.map((s) => Boolean(s?.valid))
     const bad = hampel(raw, ok, 4, 4, floor)
     const good = ok.map((v, k) => v && !bad[k])
-    return filtfilt(butterworthLowpass(hz, fs), pchipFill(raw, good, everywhere))
+    return filtfilt(butterworthLowpass(hz, fs), fillHoldEdges(raw, good))
   }
 
   const shoulder = (side: Side) => [0, 1, 2].map((axis) =>
@@ -92,7 +115,7 @@ export function cleanBodyTrack(
     const fromHand = filtfilt(butterworthLowpass(3, fs), Float64Array.from(handAvailable.map((v) => (v ? 1 : 0)))).map((v) => clamp(v, 0, 1))
     const poseXYZ = [0, 1, 2].map((axis) => seriesFrom(poseOnly, (s) => s.wrist[side].getComponent(axis), axis === 2 ? 2.5 : 6, 0.05))
     const handRawXY = [0, 1].map((axis) => Float64Array.from(samples.map((s, k) => (s && handAvailable[k] ? s.wrist[side].getComponent(axis) : 0))))
-    const handXY = handRawXY.map((raw) => filtfilt(butterworthLowpass(6, fs), pchipFill(raw, handAvailable, everywhere)))
+    const handXY = handRawXY.map((raw) => filtfilt(butterworthLowpass(6, fs), fillHoldEdges(raw, handAvailable)))
     const confidenceRaw = Float64Array.from(samples.map((s) => (s ? s.wristConfidence[side] : 0)))
     const confidence = filtfilt(butterworthLowpass(1.5, fs), confidenceRaw).map((v) => clamp(v, 0, 1))
     // Low-confidence (out-of-frame, extrapolated) wrists get extra smoothing.
@@ -144,7 +167,7 @@ export function cleanBodyTrack(
       raw[2][k] = dz / normalizer.shoulderWidthPx
     }
     const valid = available.map((v, k) => v && Boolean(samples[k]))
-    const xyz = raw.map((axis) => filtfilt(butterworthLowpass(6, fs), pchipFill(axis, valid, everywhere)))
+    const xyz = raw.map((axis) => filtfilt(butterworthLowpass(6, fs), fillHoldEdges(axis, valid)))
     handCenter[side] = { xyz, weight: Float64Array.from(wristTracks[side].fromHand) }
   }
 

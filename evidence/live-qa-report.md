@@ -66,11 +66,11 @@ Verdict: **PASS**
 
 | Class | Max step (°/frame) | worst bone | p99.9 step | Max ang. velocity (°/s) | p99.9 ang. accel (°/s²) | One-frame spikes |
 |---|---|---|---|---|---|---|
-| trunk | 2.11 | head | 1.8 | 63 | undefined | 0 |
-| face | 18.43 | eyelid_r | 12.32 | 553 | undefined | 0 |
-| arm | 32.59 | lowerarm_l | 24.49 | 978 | undefined | 0 |
-| wrist | 33.54 | hand_r | 22.75 | 1006 | undefined | 0 |
-| finger | 41.31 | thumb_01_r | 23.93 | 1239 | undefined | 0 |
+| trunk | 2.11 | head | 1.8 | 63 | 727 | 0 |
+| face | 18.43 | eyelid_r | 12.32 | 553 | 10182 | 0 |
+| arm | 32.59 | lowerarm_l | 24.49 | 978 | 16501 | 0 |
+| wrist | 33.54 | hand_r | 22.75 | 1006 | 15055 | 0 |
+| finger | 41.31 | thumb_01_r | 23.93 | 1239 | 16523 | 0 |
 
 ## Tracking and cleaning
 

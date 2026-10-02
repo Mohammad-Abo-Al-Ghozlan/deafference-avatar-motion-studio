@@ -2,7 +2,7 @@
   "schema": "deafference.glb-export-report",
   "schemaVersion": 1,
   "output": "motion/qassem-story/qassem-story.animation.glb",
-  "outputSha256": "0ff47e7967da90abb54bb01faa2754e8c62d2300786abb1b0bf2c2f5f11710e3",
+  "outputSha256": "2e77a23a8c7dda464872fe940881ce8adafe69b7a1ef72acc2db84e174242c5c",
   "outputBytes": 34162936,
   "animation": "qassem-story",
   "channels": 54,
@@ -40,7 +40,7 @@
   },
   "motion": {
     "file": "motion/qassem-story/avatar-motion.json.gz",
-    "sha256": "a391337a5b699ce5b257a42908310484513599ef54abc2303dfcebcf2538ae05",
+    "sha256": "f66200891b3b00e2baf0bed5c7682c1e06e20017a49841502fbec4dbeb053044",
     "generator": "tools/solve-motion.ts"
   }
 }

@@ -66,11 +66,11 @@ Verdict: **FAIL** (wrist teleports: impulsive / implausible wrist jumps (identit
 
 | Class | Max step (°/frame) | worst bone | p99.9 step | Max ang. velocity (°/s) | p99.9 ang. accel (°/s²) | One-frame spikes |
 |---|---|---|---|---|---|---|
-| trunk | 2.77 | head | 1.92 | 83 | undefined | 0 |
-| face | 18.43 | eyelid_l | 13.78 | 553 | undefined | 0 |
-| arm | 52.09 | lowerarm_l | 31.4 | 1563 | undefined | 0 |
-| wrist | 36.84 | hand_l | 30.74 | 1105 | undefined | 0 |
-| finger | 42.76 | thumb_01_r | 32.1 | 1283 | undefined | 0 |
+| trunk | 2.77 | head | 1.92 | 83 | 1480 | 0 |
+| face | 18.43 | eyelid_l | 13.78 | 553 | 11759 | 0 |
+| arm | 52.09 | lowerarm_l | 31.4 | 1563 | 27831 | 0 |
+| wrist | 36.84 | hand_l | 30.74 | 1105 | 23077 | 0 |
+| finger | 42.76 | thumb_01_r | 32.1 | 1283 | 27326 | 0 |
 
 ## Fast wrist motion vs source
 

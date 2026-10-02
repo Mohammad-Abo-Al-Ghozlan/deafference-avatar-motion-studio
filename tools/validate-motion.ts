@@ -28,6 +28,8 @@ const args = parseArgs(process.argv.slice(2), {
   fail: true
 })
 
+const LEGACY_REPLAY = 'evidence/legacy-motion.json.gz'
+
 function trackingSummary(clean: CleanFileJson) {
   const stats = clean.stats as Record<string, any>
   const hands = stats.hands as Record<string, any>
@@ -121,7 +123,7 @@ function markdown(result: QaResult, tracking: Record<string, any> | null, compar
   lines.push('', '## Joint extremes (degrees)', '', '```json', JSON.stringify(a.extremesDeg, null, 2), '```', '')
   lines.push('## Temporal (per bone class)', '', '| Class | Max step (°/frame) | worst bone | p99.9 step | Max ang. velocity (°/s) | p99.9 ang. accel (°/s²) | One-frame spikes |', '|---|---|---|---|---|---|---|')
   for (const [cls, v] of Object.entries(result.temporal as Record<string, any>)) {
-    lines.push(`| ${cls} | ${v.maxStepDeg} | ${v.worstBone} | ${v.p999StepDeg} | ${v.maxAngularVelocityDegS} | ${v.p999AccelerationDegS2} | ${v.oneFrameSpikes} |`)
+    lines.push(`| ${cls} | ${v.maxStepDeg} | ${v.worstBone} | ${v.p999StepDeg} | ${v.maxAngularVelocityDegS} | ${v.p999AngularAccelerationDegS2} | ${v.oneFrameSpikes} |`)
   }
   if (crossCheck && crossCheck.rows.length) {
     lines.push('', '## Fast wrist motion vs source', '', '| Frame | t (s) | Side | Hand state | Avatar step (m) | Source wrist step (m) | Source hand-centre step (m) | Source image-plane step (m) | Ratio |', '|---|---|---|---|---|---|---|---|---|')
@@ -183,11 +185,21 @@ async function main() {
   const crossCheck = clean && (clean.timeline.frameCount === motion.frameCount) ? fastMotionCrossCheck(events, clean) : null
   if (crossCheck?.unexplained) result.failures.push(`${crossCheck.unexplained} fast wrist steps not explained by source motion`)
   let compare: QaResult | null = null
-  // The canonical clip report includes the before/after comparison whenever
-  // the legacy replay exists (tools/legacy-motion.ts).
-  if (!args.compare && !args.motion && existsSync(repoPath('evidence/legacy-motion.json.gz'))) args.compare = 'evidence/legacy-motion.json.gz'
+  let legacy: AvatarMotionFile | null = null
   if (args.compare) {
-    const legacy = readJson<AvatarMotionFile>(args.compare)
+    legacy = readJson<AvatarMotionFile>(args.compare)
+    if (legacy.clipId !== motion.clipId) throw new Error(`--compare ${args.compare} is clip "${legacy.clipId}", not "${motion.clipId}"`)
+  } else if (!args.motion && existsSync(repoPath(LEGACY_REPLAY))) {
+    // The canonical clip report includes the before/after comparison when the
+    // legacy replay (tools/legacy-motion.ts) exists FOR THIS CLIP; it is only
+    // ever produced for one clip, so other clips are reported without it.
+    const candidate = readJson<AvatarMotionFile>(LEGACY_REPLAY)
+    if (candidate.clipId === motion.clipId) {
+      legacy = candidate
+      args.compare = LEGACY_REPLAY
+    }
+  }
+  if (legacy) {
     validateMotionFile(legacy)
     compare = evaluateMotion(legacy, rig, map, geometry)
   }

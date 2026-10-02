@@ -5268,10 +5268,10 @@
   },
   "stages": {
     "clean": {
-      "seconds": 92.7
+      "seconds": 134.3
     },
     "solve": {
-      "seconds": 30.3
+      "seconds": 16.1
     }
   },
   "solve": {
@@ -5400,7 +5400,7 @@
       },
       "wristSwingClamped": {
         "left": 452,
-        "right": 334
+        "right": 335
       },
       "collisionPushes": {
         "left": 0,
@@ -5450,7 +5450,7 @@
       "eyelid_r": 24.454,
       "shoulder_l": 1.782,
       "upperarm_l": 20.333,
-      "lowerarm_l": 18.649,
+      "lowerarm_l": 17.698,
       "hand_l": 33.928,
       "thumb_01_l": 29.677,
       "thumb_02_l": 25,

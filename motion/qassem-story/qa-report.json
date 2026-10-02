@@ -340,16 +340,16 @@
       "worstBone": "upperarm_r",
       "p999StepDeg": 22.55,
       "maxAngularVelocityDegS": 775,
-      "p999AngularAccelerationDegS2": 10390,
+      "p999AngularAccelerationDegS2": 10227,
       "oneFrameSpikes": 0,
       "spikeFrames": []
     },
     "wrist": {
       "maxStepDeg": 35.31,
       "worstBone": "hand_r",
-      "p999StepDeg": 27.88,
+      "p999StepDeg": 25.94,
       "maxAngularVelocityDegS": 1059,
-      "p999AngularAccelerationDegS2": 14745,
+      "p999AngularAccelerationDegS2": 14482,
       "oneFrameSpikes": 0,
       "spikeFrames": []
     },
@@ -2546,5 +2546,5 @@
       }
     }
   },
-  "seconds": 1.6
+  "seconds": 1.8
 }
