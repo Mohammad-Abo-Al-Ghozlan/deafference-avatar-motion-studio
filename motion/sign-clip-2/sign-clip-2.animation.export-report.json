@@ -1,0 +1,46 @@
+{
+  "schema": "deafference.glb-export-report",
+  "schemaVersion": 1,
+  "output": "motion/sign-clip-2/sign-clip-2.animation.glb",
+  "outputSha256": "44e6898eac6ab7e5bbb9952540568fb7f45d79a6f2fdbfe762e4cad4be6a2739",
+  "outputBytes": 29977800,
+  "animation": "sign-clip-2",
+  "channels": 54,
+  "frames": 882,
+  "fps": 30,
+  "bytesAdded": 751464,
+  "originalBinChunkIsBytePrefix": true,
+  "originalJsonObjectsUnchanged": true,
+  "maxSampleErrorVsMotionFile": 5.756149291658019e-7,
+  "khronosValidator": {
+    "version": "2.0.0-dev.3.10",
+    "input": {
+      "errors": 0,
+      "warnings": 1,
+      "infos": 0,
+      "codes": [
+        "W:NODE_SKINNED_MESH_NON_ROOT"
+      ],
+      "animationCount": 0
+    },
+    "output": {
+      "errors": 0,
+      "warnings": 1,
+      "infos": 0,
+      "codes": [
+        "W:NODE_SKINNED_MESH_NON_ROOT"
+      ],
+      "animationCount": 1
+    },
+    "newIssueCodes": []
+  },
+  "rig": {
+    "file": "public/models/deafference-avatar.glb",
+    "sha256": "18df37e0d48b7c7a619fbe1f356fa61186153b8ff2bbaefcba1f6fc0a77bece4"
+  },
+  "motion": {
+    "file": "motion/sign-clip-2/avatar-motion.json.gz",
+    "sha256": "dd4a16c9da92906b8e4e454f651146c1942e797fffa0484f2db2b08a05d3d204",
+    "generator": "tools/solve-motion.ts"
+  }
+}

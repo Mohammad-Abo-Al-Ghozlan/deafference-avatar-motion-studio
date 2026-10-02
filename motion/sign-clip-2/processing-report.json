@@ -1,0 +1,1511 @@
+{
+  "schema": "deafference.processing-report",
+  "schemaVersion": 1,
+  "clipId": "sign-clip-2",
+  "source": {
+    "file": "media/source/sign-clip-2.original.mp4",
+    "sha256": "35556f9d7ea0d4ef2e968df41b9e13558a9cd364946740fa164d239a7e009a10",
+    "width": 848,
+    "height": 478,
+    "codec": "h264",
+    "pixFmt": "yuv420p",
+    "timeBase": "1/90000",
+    "rFrameRate": "30/1",
+    "avgFrameRate": "79200000/2645737",
+    "durationSec": 29.397078,
+    "rotation": 0,
+    "color": {
+      "color_range": "tv",
+      "color_space": "bt709",
+      "color_transfer": "bt709",
+      "color_primaries": "bt709"
+    },
+    "timing": {
+      "frameCount": 880,
+      "firstPtsSec": 0,
+      "lastPtsSec": 29.363744444444446,
+      "nominalFps": 30,
+      "averageFps": 29.934874336719847,
+      "monotonic": true,
+      "duplicateTimestamps": 0,
+      "minDeltaMs": 33.30000000000055,
+      "maxDeltaMs": 67.73333333333333,
+      "variableFrameRate": true,
+      "droppedFrameGaps": [
+        {
+          "afterFrame": 0,
+          "atSec": 0,
+          "gapMs": 67.73
+        },
+        {
+          "afterFrame": 564,
+          "atSec": 18.8318,
+          "gapMs": 66.66
+        }
+      ],
+      "keyFrames": 3
+    },
+    "framesProcessed": 880
+  },
+  "extraction": {
+    "tracker": {
+      "name": "mediapipe.solutions.holistic",
+      "browserEquivalent": "@mediapipe/holistic (public/mediapipe)",
+      "mediapipeVersion": "0.10.14",
+      "config": {
+        "model_complexity": 1,
+        "smooth_landmarks": false,
+        "refine_face_landmarks": true,
+        "min_detection_confidence": 0.5,
+        "min_tracking_confidence": 0.5,
+        "static_image_mode": false
+      },
+      "modelMd5": {
+        "pose_landmark/pose_landmark_full.tflite": "80700fe9e5514be16bd8f8f773f2bbd7",
+        "pose_detection/pose_detection.tflite": "a2cecdebad5304f337109f4507b3be3a",
+        "hand_landmark/hand_landmark_full.tflite": "5f918ba6a0834fd45bc130c1803ca339",
+        "holistic_landmark/hand_recrop.tflite": "ade36a5204d0f98d6c396aaccf7907ab",
+        "face_detection/face_detection_short_range.tflite": "c21001d6003fe98ed674c5f6c13ca652",
+        "face_landmark/face_landmark_with_attention.tflite": "f89136fd9943b16a13a7c37e0705a92f"
+      },
+      "chunking": {
+        "chunk_size": 600,
+        "warmup_frames": 45
+      },
+      "configDigest": "bcb1efd907e13b16"
+    },
+    "detection": {
+      "frames": 880,
+      "pose": {
+        "detected": 880,
+        "detectedRatio": 1,
+        "missingIntervals": 0,
+        "longestMissingFrames": 0
+      },
+      "poseWorld": {
+        "detected": 880,
+        "detectedRatio": 1,
+        "missingIntervals": 0,
+        "longestMissingFrames": 0
+      },
+      "leftHand": {
+        "detected": 308,
+        "detectedRatio": 0.35,
+        "missingIntervals": 8,
+        "longestMissingFrames": 129
+      },
+      "rightHand": {
+        "detected": 827,
+        "detectedRatio": 0.9398,
+        "missingIntervals": 9,
+        "longestMissingFrames": 18
+      },
+      "face": {
+        "detected": 880,
+        "detectedRatio": 1,
+        "missingIntervals": 0,
+        "longestMissingFrames": 0
+      }
+    }
+  },
+  "timeline": {
+    "fps": 30,
+    "frameCount": 882,
+    "durationSec": 29.36667,
+    "droppedSlots": 2,
+    "collisions": 0,
+    "maxAbsOffsetMs": 2.92,
+    "note": "Uniform grid t = k / fps. `source` is the decoded source frame index shown at that time (null = dropped frame in the VFR source, interpolated)."
+  },
+  "calibration": {
+    "handZScale": {
+      "left": 1.95,
+      "right": 2.2
+    },
+    "handZScaleCurve": {
+      "left": [
+        {
+          "zScale": 0.5,
+          "inconsistency": 0.24779
+        },
+        {
+          "zScale": 0.55,
+          "inconsistency": 0.24527
+        },
+        {
+          "zScale": 0.6,
+          "inconsistency": 0.24268
+        },
+        {
+          "zScale": 0.65,
+          "inconsistency": 0.24005
+        },
+        {
+          "zScale": 0.7,
+          "inconsistency": 0.23739
+        },
+        {
+          "zScale": 0.75,
+          "inconsistency": 0.23473
+        },
+        {
+          "zScale": 0.8,
+          "inconsistency": 0.23209
+        },
+        {
+          "zScale": 0.85,
+          "inconsistency": 0.22947
+        },
+        {
+          "zScale": 0.9,
+          "inconsistency": 0.2269
+        },
+        {
+          "zScale": 0.95,
+          "inconsistency": 0.22439
+        },
+        {
+          "zScale": 1,
+          "inconsistency": 0.22196
+        },
+        {
+          "zScale": 1.05,
+          "inconsistency": 0.2196
+        },
+        {
+          "zScale": 1.1,
+          "inconsistency": 0.21734
+        },
+        {
+          "zScale": 1.15,
+          "inconsistency": 0.21518
+        },
+        {
+          "zScale": 1.2,
+          "inconsistency": 0.21312
+        },
+        {
+          "zScale": 1.25,
+          "inconsistency": 0.21118
+        },
+        {
+          "zScale": 1.3,
+          "inconsistency": 0.20936
+        },
+        {
+          "zScale": 1.35,
+          "inconsistency": 0.20765
+        },
+        {
+          "zScale": 1.4,
+          "inconsistency": 0.20608
+        },
+        {
+          "zScale": 1.45,
+          "inconsistency": 0.20464
+        },
+        {
+          "zScale": 1.5,
+          "inconsistency": 0.20332
+        },
+        {
+          "zScale": 1.55,
+          "inconsistency": 0.20215
+        },
+        {
+          "zScale": 1.6,
+          "inconsistency": 0.20111
+        },
+        {
+          "zScale": 1.65,
+          "inconsistency": 0.20021
+        },
+        {
+          "zScale": 1.7,
+          "inconsistency": 0.19944
+        },
+        {
+          "zScale": 1.75,
+          "inconsistency": 0.19882
+        },
+        {
+          "zScale": 1.8,
+          "inconsistency": 0.19834
+        },
+        {
+          "zScale": 1.85,
+          "inconsistency": 0.198
+        },
+        {
+          "zScale": 1.9,
+          "inconsistency": 0.19779
+        },
+        {
+          "zScale": 1.95,
+          "inconsistency": 0.19773
+        },
+        {
+          "zScale": 2,
+          "inconsistency": 0.1978
+        },
+        {
+          "zScale": 2.05,
+          "inconsistency": 0.19801
+        },
+        {
+          "zScale": 2.1,
+          "inconsistency": 0.19835
+        },
+        {
+          "zScale": 2.15,
+          "inconsistency": 0.19882
+        },
+        {
+          "zScale": 2.2,
+          "inconsistency": 0.19942
+        },
+        {
+          "zScale": 2.25,
+          "inconsistency": 0.20015
+        },
+        {
+          "zScale": 2.3,
+          "inconsistency": 0.20099
+        },
+        {
+          "zScale": 2.35,
+          "inconsistency": 0.20196
+        },
+        {
+          "zScale": 2.4,
+          "inconsistency": 0.20303
+        },
+        {
+          "zScale": 2.45,
+          "inconsistency": 0.20422
+        },
+        {
+          "zScale": 2.5,
+          "inconsistency": 0.20551
+        },
+        {
+          "zScale": 2.55,
+          "inconsistency": 0.2069
+        },
+        {
+          "zScale": 2.6,
+          "inconsistency": 0.20838
+        },
+        {
+          "zScale": 2.65,
+          "inconsistency": 0.20995
+        },
+        {
+          "zScale": 2.7,
+          "inconsistency": 0.21161
+        },
+        {
+          "zScale": 2.75,
+          "inconsistency": 0.21334
+        },
+        {
+          "zScale": 2.8,
+          "inconsistency": 0.21515
+        },
+        {
+          "zScale": 2.85,
+          "inconsistency": 0.21703
+        },
+        {
+          "zScale": 2.9,
+          "inconsistency": 0.21897
+        },
+        {
+          "zScale": 2.95,
+          "inconsistency": 0.22096
+        },
+        {
+          "zScale": 3,
+          "inconsistency": 0.22302
+        },
+        {
+          "zScale": 3.05,
+          "inconsistency": 0.22512
+        },
+        {
+          "zScale": 3.1,
+          "inconsistency": 0.22727
+        },
+        {
+          "zScale": 3.15,
+          "inconsistency": 0.22945
+        },
+        {
+          "zScale": 3.2,
+          "inconsistency": 0.23168
+        },
+        {
+          "zScale": 3.25,
+          "inconsistency": 0.23393
+        },
+        {
+          "zScale": 3.3,
+          "inconsistency": 0.23622
+        },
+        {
+          "zScale": 3.35,
+          "inconsistency": 0.23853
+        },
+        {
+          "zScale": 3.4,
+          "inconsistency": 0.24087
+        },
+        {
+          "zScale": 3.45,
+          "inconsistency": 0.24322
+        },
+        {
+          "zScale": 3.5,
+          "inconsistency": 0.24559
+        }
+      ],
+      "right": [
+        {
+          "zScale": 0.5,
+          "inconsistency": 0.31988
+        },
+        {
+          "zScale": 0.55,
+          "inconsistency": 0.31429
+        },
+        {
+          "zScale": 0.6,
+          "inconsistency": 0.30858
+        },
+        {
+          "zScale": 0.65,
+          "inconsistency": 0.30278
+        },
+        {
+          "zScale": 0.7,
+          "inconsistency": 0.29695
+        },
+        {
+          "zScale": 0.75,
+          "inconsistency": 0.2911
+        },
+        {
+          "zScale": 0.8,
+          "inconsistency": 0.28528
+        },
+        {
+          "zScale": 0.85,
+          "inconsistency": 0.2795
+        },
+        {
+          "zScale": 0.9,
+          "inconsistency": 0.2738
+        },
+        {
+          "zScale": 0.95,
+          "inconsistency": 0.2682
+        },
+        {
+          "zScale": 1,
+          "inconsistency": 0.26271
+        },
+        {
+          "zScale": 1.05,
+          "inconsistency": 0.25735
+        },
+        {
+          "zScale": 1.1,
+          "inconsistency": 0.25213
+        },
+        {
+          "zScale": 1.15,
+          "inconsistency": 0.24708
+        },
+        {
+          "zScale": 1.2,
+          "inconsistency": 0.24221
+        },
+        {
+          "zScale": 1.25,
+          "inconsistency": 0.23752
+        },
+        {
+          "zScale": 1.3,
+          "inconsistency": 0.23302
+        },
+        {
+          "zScale": 1.35,
+          "inconsistency": 0.22873
+        },
+        {
+          "zScale": 1.4,
+          "inconsistency": 0.22466
+        },
+        {
+          "zScale": 1.45,
+          "inconsistency": 0.22081
+        },
+        {
+          "zScale": 1.5,
+          "inconsistency": 0.21719
+        },
+        {
+          "zScale": 1.55,
+          "inconsistency": 0.21381
+        },
+        {
+          "zScale": 1.6,
+          "inconsistency": 0.21067
+        },
+        {
+          "zScale": 1.65,
+          "inconsistency": 0.20777
+        },
+        {
+          "zScale": 1.7,
+          "inconsistency": 0.20512
+        },
+        {
+          "zScale": 1.75,
+          "inconsistency": 0.20273
+        },
+        {
+          "zScale": 1.8,
+          "inconsistency": 0.20059
+        },
+        {
+          "zScale": 1.85,
+          "inconsistency": 0.1987
+        },
+        {
+          "zScale": 1.9,
+          "inconsistency": 0.19707
+        },
+        {
+          "zScale": 1.95,
+          "inconsistency": 0.1957
+        },
+        {
+          "zScale": 2,
+          "inconsistency": 0.19457
+        },
+        {
+          "zScale": 2.05,
+          "inconsistency": 0.19369
+        },
+        {
+          "zScale": 2.1,
+          "inconsistency": 0.19306
+        },
+        {
+          "zScale": 2.15,
+          "inconsistency": 0.19266
+        },
+        {
+          "zScale": 2.2,
+          "inconsistency": 0.19249
+        },
+        {
+          "zScale": 2.25,
+          "inconsistency": 0.19254
+        },
+        {
+          "zScale": 2.3,
+          "inconsistency": 0.1928
+        },
+        {
+          "zScale": 2.35,
+          "inconsistency": 0.19327
+        },
+        {
+          "zScale": 2.4,
+          "inconsistency": 0.19394
+        },
+        {
+          "zScale": 2.45,
+          "inconsistency": 0.19479
+        },
+        {
+          "zScale": 2.5,
+          "inconsistency": 0.19581
+        },
+        {
+          "zScale": 2.55,
+          "inconsistency": 0.197
+        },
+        {
+          "zScale": 2.6,
+          "inconsistency": 0.19835
+        },
+        {
+          "zScale": 2.65,
+          "inconsistency": 0.19983
+        },
+        {
+          "zScale": 2.7,
+          "inconsistency": 0.20145
+        },
+        {
+          "zScale": 2.75,
+          "inconsistency": 0.20319
+        },
+        {
+          "zScale": 2.8,
+          "inconsistency": 0.20505
+        },
+        {
+          "zScale": 2.85,
+          "inconsistency": 0.20701
+        },
+        {
+          "zScale": 2.9,
+          "inconsistency": 0.20907
+        },
+        {
+          "zScale": 2.95,
+          "inconsistency": 0.21121
+        },
+        {
+          "zScale": 3,
+          "inconsistency": 0.21344
+        },
+        {
+          "zScale": 3.05,
+          "inconsistency": 0.21574
+        },
+        {
+          "zScale": 3.1,
+          "inconsistency": 0.2181
+        },
+        {
+          "zScale": 3.15,
+          "inconsistency": 0.22052
+        },
+        {
+          "zScale": 3.2,
+          "inconsistency": 0.223
+        },
+        {
+          "zScale": 3.25,
+          "inconsistency": 0.22552
+        },
+        {
+          "zScale": 3.3,
+          "inconsistency": 0.22808
+        },
+        {
+          "zScale": 3.35,
+          "inconsistency": 0.23068
+        },
+        {
+          "zScale": 3.4,
+          "inconsistency": 0.23331
+        },
+        {
+          "zScale": 3.45,
+          "inconsistency": 0.23597
+        },
+        {
+          "zScale": 3.5,
+          "inconsistency": 0.23866
+        }
+      ]
+    },
+    "legacySolverDepthScale": {
+      "value": 0.38,
+      "boneLengthInconsistencyAtLegacyScale": {
+        "left": 0.24779,
+        "right": 0.31988
+      },
+      "note": "The previous finger solver multiplied hand z by 0.38; bone lengths are least consistent there. Calibrated values are ~2.1-2.3."
+    },
+    "handTemplate": {
+      "version": 1,
+      "palm": {
+        "thumbCmc": [
+          0.1954,
+          0.2716,
+          0.3296
+        ],
+        "indexMcp": [
+          0.2478,
+          1.0081,
+          0.0576
+        ],
+        "middleMcp": [
+          0,
+          1,
+          0
+        ],
+        "ringMcp": [
+          -0.2554,
+          0.9305,
+          0.0078
+        ],
+        "pinkyMcp": [
+          -0.5047,
+          0.8131,
+          0.0576
+        ]
+      },
+      "lengths": {
+        "thumb": [
+          0.4165,
+          0.3382,
+          0.2653
+        ],
+        "index": [
+          0.4539,
+          0.2245,
+          0.1997
+        ],
+        "middle": [
+          0.5526,
+          0.2828,
+          0.2228
+        ],
+        "ring": [
+          0.5228,
+          0.3075,
+          0.2222
+        ],
+        "pinky": [
+          0.4211,
+          0.2253,
+          0.1797
+        ]
+      },
+      "neutralAbduction": {
+        "index": -0.22305,
+        "middle": -0.17448,
+        "ring": -0.24359,
+        "pinky": -0.39473
+      },
+      "zScale": 2.075,
+      "source": "sign-clip-2:67826669ef66"
+    },
+    "face": {
+      "zScale": 1,
+      "zScaleCurve": [
+        {
+          "zScale": 0.4,
+          "residual": 0.01967
+        },
+        {
+          "zScale": 0.6,
+          "residual": 0.01527
+        },
+        {
+          "zScale": 0.8,
+          "residual": 0.01109
+        },
+        {
+          "zScale": 1,
+          "residual": 0.0102
+        },
+        {
+          "zScale": 1.2,
+          "residual": 0.01431
+        },
+        {
+          "zScale": 1.4,
+          "residual": 0.02039
+        },
+        {
+          "zScale": 1.6,
+          "residual": 0.02711
+        },
+        {
+          "zScale": 1.8,
+          "residual": 0.03407
+        },
+        {
+          "zScale": 2,
+          "residual": 0.04116
+        },
+        {
+          "zScale": 2.2,
+          "residual": 0.04839
+        },
+        {
+          "zScale": 2.4,
+          "residual": 0.05575
+        },
+        {
+          "zScale": 2.6,
+          "residual": 0.06328
+        },
+        {
+          "zScale": 2.8,
+          "residual": 0.07101
+        },
+        {
+          "zScale": 3,
+          "residual": 0.07898
+        }
+      ],
+      "baselines": {
+        "mouthOpen": {
+          "closed": 0.010489881770694712,
+          "open": 0.2860672849072315
+        },
+        "mouthWidth": {
+          "neutral": 0.5491854054960374,
+          "wide": 0.6241151190444065,
+          "narrow": 0.434341652790031
+        },
+        "cornerLift": {
+          "neutral": -0.010790103792255232,
+          "range": 0.03602815822613473
+        },
+        "eyeOpen": {
+          "left": {
+            "open": 0.26381188284638146,
+            "closed": 0.03313728967746916
+          },
+          "right": {
+            "open": 0.28220322699885847,
+            "closed": 0.015935450480701968
+          }
+        },
+        "brow": {
+          "left": {
+            "neutral": 0.20478515528889707,
+            "up": 0.2380536611044084,
+            "down": 0.18852069809082234
+          },
+          "right": {
+            "neutral": 0.17268984110719948,
+            "up": 0.20218884953222277,
+            "down": 0.1569171462148777
+          }
+        }
+      }
+    },
+    "body": {
+      "shoulderWidthPx": 167.66927923273835,
+      "shoulderWidthM": 0.32691668051661116
+    }
+  },
+  "cleaning": {
+    "rawFrames": 880,
+    "duplicateTrackerFrames": 0,
+    "identity": {
+      "swaps": 0,
+      "duplicatesDropped": 0,
+      "relabelled": 0
+    },
+    "hands": {
+      "left": {
+        "slots": 882,
+        "observedSlots": 308,
+        "acceptedFits": 297,
+        "rejectedFits": 11,
+        "rejectReasons": {
+          "palmError": 0,
+          "digitError": 0,
+          "outOfFrame": 11,
+          "fitFailed": 0,
+          "orientationVote": 0
+        },
+        "palmSpikesRejected": 0,
+        "palmFlipHypothesesSelected": 0,
+        "palmOrientationRejected": 0,
+        "scaleOutliersRejected": 3,
+        "channelOutliersRejected": 88,
+        "crossingCorrections": 61,
+        "states": {
+          "tracked": 294,
+          "interpolated": 2,
+          "held": 42,
+          "fallback": 147,
+          "absent": 397
+        },
+        "intervals": [
+          {
+            "state": "absent",
+            "start": 0,
+            "end": 122,
+            "startSec": 0,
+            "endSec": 4.067
+          },
+          {
+            "state": "fallback",
+            "start": 123,
+            "end": 129,
+            "startSec": 4.1,
+            "endSec": 4.3
+          },
+          {
+            "state": "held",
+            "start": 151,
+            "end": 156,
+            "startSec": 5.033,
+            "endSec": 5.2
+          },
+          {
+            "state": "fallback",
+            "start": 157,
+            "end": 170,
+            "startSec": 5.233,
+            "endSec": 5.667
+          },
+          {
+            "state": "absent",
+            "start": 171,
+            "end": 174,
+            "startSec": 5.7,
+            "endSec": 5.8
+          },
+          {
+            "state": "fallback",
+            "start": 175,
+            "end": 181,
+            "startSec": 5.833,
+            "endSec": 6.033
+          },
+          {
+            "state": "held",
+            "start": 228,
+            "end": 233,
+            "startSec": 7.6,
+            "endSec": 7.767
+          },
+          {
+            "state": "fallback",
+            "start": 234,
+            "end": 247,
+            "startSec": 7.8,
+            "endSec": 8.233
+          },
+          {
+            "state": "absent",
+            "start": 248,
+            "end": 249,
+            "startSec": 8.267,
+            "endSec": 8.3
+          },
+          {
+            "state": "fallback",
+            "start": 250,
+            "end": 256,
+            "startSec": 8.333,
+            "endSec": 8.533
+          },
+          {
+            "state": "interpolated",
+            "start": 263,
+            "end": 263,
+            "startSec": 8.767,
+            "endSec": 8.767
+          },
+          {
+            "state": "held",
+            "start": 327,
+            "end": 332,
+            "startSec": 10.9,
+            "endSec": 11.067
+          },
+          {
+            "state": "fallback",
+            "start": 333,
+            "end": 346,
+            "startSec": 11.1,
+            "endSec": 11.533
+          },
+          {
+            "state": "absent",
+            "start": 347,
+            "end": 393,
+            "startSec": 11.567,
+            "endSec": 13.1
+          },
+          {
+            "state": "fallback",
+            "start": 394,
+            "end": 400,
+            "startSec": 13.133,
+            "endSec": 13.333
+          },
+          {
+            "state": "held",
+            "start": 486,
+            "end": 491,
+            "startSec": 16.2,
+            "endSec": 16.367
+          },
+          {
+            "state": "fallback",
+            "start": 492,
+            "end": 505,
+            "startSec": 16.4,
+            "endSec": 16.833
+          },
+          {
+            "state": "absent",
+            "start": 506,
+            "end": 532,
+            "startSec": 16.867,
+            "endSec": 17.733
+          },
+          {
+            "state": "fallback",
+            "start": 533,
+            "end": 539,
+            "startSec": 17.767,
+            "endSec": 17.967
+          },
+          {
+            "state": "held",
+            "start": 564,
+            "end": 569,
+            "startSec": 18.8,
+            "endSec": 18.967
+          },
+          {
+            "state": "fallback",
+            "start": 570,
+            "end": 583,
+            "startSec": 19,
+            "endSec": 19.433
+          },
+          {
+            "state": "absent",
+            "start": 584,
+            "end": 633,
+            "startSec": 19.467,
+            "endSec": 21.1
+          },
+          {
+            "state": "fallback",
+            "start": 634,
+            "end": 640,
+            "startSec": 21.133,
+            "endSec": 21.333
+          },
+          {
+            "state": "interpolated",
+            "start": 648,
+            "end": 648,
+            "startSec": 21.6,
+            "endSec": 21.6
+          },
+          {
+            "state": "held",
+            "start": 667,
+            "end": 672,
+            "startSec": 22.233,
+            "endSec": 22.4
+          },
+          {
+            "state": "fallback",
+            "start": 673,
+            "end": 686,
+            "startSec": 22.433,
+            "endSec": 22.867
+          },
+          {
+            "state": "absent",
+            "start": 687,
+            "end": 787,
+            "startSec": 22.9,
+            "endSec": 26.233
+          },
+          {
+            "state": "fallback",
+            "start": 788,
+            "end": 794,
+            "startSec": 26.267,
+            "endSec": 26.467
+          },
+          {
+            "state": "held",
+            "start": 819,
+            "end": 824,
+            "startSec": 27.3,
+            "endSec": 27.467
+          },
+          {
+            "state": "fallback",
+            "start": 825,
+            "end": 838,
+            "startSec": 27.5,
+            "endSec": 27.933
+          },
+          {
+            "state": "absent",
+            "start": 839,
+            "end": 881,
+            "startSec": 27.967,
+            "endSec": 29.367
+          }
+        ]
+      },
+      "right": {
+        "slots": 882,
+        "observedSlots": 827,
+        "acceptedFits": 816,
+        "rejectedFits": 11,
+        "rejectReasons": {
+          "palmError": 0,
+          "digitError": 0,
+          "outOfFrame": 1,
+          "fitFailed": 0,
+          "orientationVote": 10
+        },
+        "palmSpikesRejected": 0,
+        "palmFlipHypothesesSelected": 0,
+        "palmOrientationRejected": 10,
+        "scaleOutliersRejected": 8,
+        "channelOutliersRejected": 280,
+        "crossingCorrections": 189,
+        "states": {
+          "tracked": 808,
+          "interpolated": 22,
+          "held": 24,
+          "fallback": 24,
+          "absent": 4
+        },
+        "intervals": [
+          {
+            "state": "absent",
+            "start": 0,
+            "end": 3,
+            "startSec": 0,
+            "endSec": 0.1
+          },
+          {
+            "state": "fallback",
+            "start": 4,
+            "end": 10,
+            "startSec": 0.133,
+            "endSec": 0.333
+          },
+          {
+            "state": "held",
+            "start": 154,
+            "end": 164,
+            "startSec": 5.133,
+            "endSec": 5.467
+          },
+          {
+            "state": "interpolated",
+            "start": 206,
+            "end": 206,
+            "startSec": 6.867,
+            "endSec": 6.867
+          },
+          {
+            "state": "interpolated",
+            "start": 229,
+            "end": 230,
+            "startSec": 7.633,
+            "endSec": 7.667
+          },
+          {
+            "state": "interpolated",
+            "start": 232,
+            "end": 232,
+            "startSec": 7.733,
+            "endSec": 7.733
+          },
+          {
+            "state": "interpolated",
+            "start": 281,
+            "end": 282,
+            "startSec": 9.367,
+            "endSec": 9.4
+          },
+          {
+            "state": "interpolated",
+            "start": 285,
+            "end": 285,
+            "startSec": 9.5,
+            "endSec": 9.5
+          },
+          {
+            "state": "interpolated",
+            "start": 328,
+            "end": 328,
+            "startSec": 10.933,
+            "endSec": 10.933
+          },
+          {
+            "state": "interpolated",
+            "start": 331,
+            "end": 331,
+            "startSec": 11.033,
+            "endSec": 11.033
+          },
+          {
+            "state": "interpolated",
+            "start": 484,
+            "end": 484,
+            "startSec": 16.133,
+            "endSec": 16.133
+          },
+          {
+            "state": "interpolated",
+            "start": 540,
+            "end": 542,
+            "startSec": 18,
+            "endSec": 18.067
+          },
+          {
+            "state": "held",
+            "start": 564,
+            "end": 569,
+            "startSec": 18.8,
+            "endSec": 18.967
+          },
+          {
+            "state": "fallback",
+            "start": 570,
+            "end": 581,
+            "startSec": 19,
+            "endSec": 19.367
+          },
+          {
+            "state": "held",
+            "start": 582,
+            "end": 582,
+            "startSec": 19.4,
+            "endSec": 19.4
+          },
+          {
+            "state": "interpolated",
+            "start": 584,
+            "end": 585,
+            "startSec": 19.467,
+            "endSec": 19.5
+          },
+          {
+            "state": "interpolated",
+            "start": 598,
+            "end": 598,
+            "startSec": 19.933,
+            "endSec": 19.933
+          },
+          {
+            "state": "interpolated",
+            "start": 627,
+            "end": 627,
+            "startSec": 20.9,
+            "endSec": 20.9
+          },
+          {
+            "state": "interpolated",
+            "start": 640,
+            "end": 640,
+            "startSec": 21.333,
+            "endSec": 21.333
+          },
+          {
+            "state": "interpolated",
+            "start": 707,
+            "end": 707,
+            "startSec": 23.567,
+            "endSec": 23.567
+          },
+          {
+            "state": "interpolated",
+            "start": 793,
+            "end": 793,
+            "startSec": 26.433,
+            "endSec": 26.433
+          },
+          {
+            "state": "interpolated",
+            "start": 828,
+            "end": 828,
+            "startSec": 27.6,
+            "endSec": 27.6
+          },
+          {
+            "state": "interpolated",
+            "start": 869,
+            "end": 869,
+            "startSec": 28.967,
+            "endSec": 28.967
+          },
+          {
+            "state": "held",
+            "start": 871,
+            "end": 876,
+            "startSec": 29.033,
+            "endSec": 29.2
+          },
+          {
+            "state": "fallback",
+            "start": 877,
+            "end": 881,
+            "startSec": 29.233,
+            "endSec": 29.367
+          }
+        ]
+      }
+    },
+    "body": {
+      "normalizer": {
+        "shoulderWidthPx": 167.66927923273835,
+        "shoulderWidthM": 0.32691668051661116
+      },
+      "validSlots": 880,
+      "outliersRejected": 15
+    },
+    "face": {
+      "zScale": 1,
+      "measuredSlots": 880,
+      "validSlots": 880,
+      "residualGate": 0.06912177506054613,
+      "headSpikesRejected": 0,
+      "featureOutliersRejected": 17,
+      "invalidIntervals": [
+        {
+          "start": 1,
+          "end": 1
+        },
+        {
+          "start": 566,
+          "end": 566
+        }
+      ]
+    }
+  },
+  "stages": {
+    "clean": {
+      "seconds": 20.6
+    },
+    "solve": {
+      "seconds": 2.5
+    }
+  },
+  "solve": {
+    "solverConfig": {
+      "torso": {
+        "yawGain": 0.75,
+        "rollGain": 0.75,
+        "maxYaw": 0.4886921905584123,
+        "maxRoll": 0.24434609527920614,
+        "distribution": [
+          0.25,
+          0.35,
+          0.4
+        ]
+      },
+      "head": {
+        "neckShare": 0.35,
+        "maxAngle": 1.1344640137963142
+      },
+      "shrug": {
+        "gain": 1.1,
+        "maxUp": 0.17453292519943295,
+        "maxDown": 0.06981317007977318
+      },
+      "arm": {
+        "minFlexion": 0.05235987755982989,
+        "maxFlexion": 2.5830872929516078,
+        "reach": 0.995,
+        "nearReach": 1.2,
+        "depthGain": 1,
+        "faceNear": 3.2,
+        "faceFar": 6,
+        "faceDepthGain": 0.4
+      },
+      "wrist": {
+        "flexion": 1.3962634015954636,
+        "extension": 1.2217304763960306,
+        "radial": 0.4886921905584123,
+        "ulnar": 0.6981317007977318,
+        "twist": 1.7453292519943295,
+        "forearmTwistShare": 0.7,
+        "upperTwistCounter": 0.5
+      },
+      "fingers": {
+        "overlap": 0.13962634015954636
+      },
+      "face": {
+        "jawMax": 0.24434609527920614,
+        "blinkMax": 0.5235987755982988,
+        "browUp": 0.004,
+        "browDown": 0.0025,
+        "cornerUp": 0.0025,
+        "cornerOut": 0.002
+      },
+      "collision": {
+        "enabled": true,
+        "margin": 0.03
+      }
+    },
+    "controlledRotationBones": [
+      "spine_01",
+      "spine_02",
+      "spine_03",
+      "neck",
+      "head",
+      "jaw",
+      "eyelid_l",
+      "eyelid_r",
+      "shoulder_l",
+      "upperarm_l",
+      "lowerarm_l",
+      "hand_l",
+      "thumb_01_l",
+      "thumb_02_l",
+      "thumb_03_l",
+      "index_01_l",
+      "index_02_l",
+      "index_03_l",
+      "middle_01_l",
+      "middle_02_l",
+      "middle_03_l",
+      "ring_01_l",
+      "ring_02_l",
+      "ring_03_l",
+      "pinky_01_l",
+      "pinky_02_l",
+      "pinky_03_l",
+      "lowerarm_twist_l",
+      "upperarm_twist_l",
+      "shoulder_r",
+      "upperarm_r",
+      "lowerarm_r",
+      "hand_r",
+      "thumb_01_r",
+      "thumb_02_r",
+      "thumb_03_r",
+      "index_01_r",
+      "index_02_r",
+      "index_03_r",
+      "middle_01_r",
+      "middle_02_r",
+      "middle_03_r",
+      "ring_01_r",
+      "ring_02_r",
+      "ring_03_r",
+      "pinky_01_r",
+      "pinky_02_r",
+      "pinky_03_r",
+      "lowerarm_twist_r",
+      "upperarm_twist_r"
+    ],
+    "translatedBones": [
+      "eyebrow_l",
+      "mouth_l",
+      "eyebrow_r",
+      "mouth_r"
+    ],
+    "diagnostics": {
+      "reachClamped": {
+        "left": 474,
+        "right": 1
+      },
+      "wristTwistClamped": {
+        "left": 0,
+        "right": 0
+      },
+      "wristSwingClamped": {
+        "left": 103,
+        "right": 25
+      },
+      "collisionPushes": {
+        "left": 0,
+        "right": 0
+      },
+      "depthCompleted": {
+        "left": 0,
+        "right": 0
+      },
+      "maxDepthCompletionM": {
+        "left": 0,
+        "right": 0
+      },
+      "maxCollisionPushM": {
+        "left": 0,
+        "right": 0
+      },
+      "maxIkErrorM": {
+        "left": 4.9282296885440286e-8,
+        "right": 1.5580080921020736e-8
+      },
+      "elbowFlexionDeg": {
+        "left": [
+          11.853977481536973,
+          92.74806935212489
+        ],
+        "right": [
+          11.854213398354315,
+          117.41670409988872
+        ]
+      },
+      "fingerCrossingCorrections": 319,
+      "maxHeadAngleDeg": 15.779004185017516,
+      "forearmTwistSideTransitionsSmoothed": {
+        "left": 0,
+        "right": 0
+      }
+    },
+    "maxPerFrameStepDeg": {
+      "spine_01": 0.237,
+      "spine_02": 0.332,
+      "spine_03": 0.379,
+      "neck": 1.251,
+      "head": 2.322,
+      "jaw": 5.416,
+      "eyelid_l": 14.769,
+      "eyelid_r": 15.719,
+      "shoulder_l": 0.877,
+      "upperarm_l": 14.303,
+      "lowerarm_l": 28.549,
+      "hand_l": 20.684,
+      "thumb_01_l": 23.291,
+      "thumb_02_l": 21.864,
+      "thumb_03_l": 23.004,
+      "index_01_l": 22.869,
+      "index_02_l": 25,
+      "index_03_l": 24.295,
+      "middle_01_l": 24.318,
+      "middle_02_l": 25,
+      "middle_03_l": 25,
+      "ring_01_l": 20.626,
+      "ring_02_l": 25,
+      "ring_03_l": 23.491,
+      "pinky_01_l": 25.222,
+      "pinky_02_l": 25,
+      "pinky_03_l": 23.683,
+      "lowerarm_twist_l": 9.896,
+      "upperarm_twist_l": 3.96,
+      "shoulder_r": 1.264,
+      "upperarm_r": 21.16,
+      "lowerarm_r": 23.621,
+      "hand_r": 23.334,
+      "thumb_01_r": 26.656,
+      "thumb_02_r": 23.302,
+      "thumb_03_r": 20.001,
+      "index_01_r": 25.421,
+      "index_02_r": 25,
+      "index_03_r": 22.381,
+      "middle_01_r": 25.078,
+      "middle_02_r": 25,
+      "middle_03_r": 25,
+      "ring_01_r": 25.199,
+      "ring_02_r": 25,
+      "ring_03_r": 24.083,
+      "pinky_01_r": 25.818,
+      "pinky_02_r": 25,
+      "pinky_03_r": 24.079,
+      "lowerarm_twist_r": 15.713,
+      "upperarm_twist_r": 6.532
+    },
+    "output": {
+      "file": "motion/sign-clip-2/avatar-motion.json.gz",
+      "frames": 882,
+      "tracks": 54
+    }
+  }
+}

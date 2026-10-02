@@ -1,0 +1,62 @@
+{
+  "schema": "deafference.playback-report",
+  "schemaVersion": 1,
+  "clipId": "sign-clip-1",
+  "source": {
+    "file": "media/source/sign-clip-1.original.mp4",
+    "sha256": "8415bf48f13841ee9ab020dfdea670bd3e692da6149ec383ec5deb2a55e8e7dc",
+    "frames": 522,
+    "width": 848,
+    "height": 478
+  },
+  "timeline": {
+    "file": "motion/sign-clip-1/clean-landmarks.json.gz",
+    "fps": 30,
+    "slots": 524,
+    "filledSlots": [
+      {
+        "slot": 1,
+        "timeSec": 0.03333,
+        "shows": 0,
+        "from": "previous"
+      },
+      {
+        "slot": 2,
+        "timeSec": 0.06667,
+        "shows": 1,
+        "from": "next"
+      }
+    ]
+  },
+  "output": {
+    "file": "public/samples/sign-clip-1.mp4",
+    "frames": 524,
+    "maxTimestampErrorMs": 0.0,
+    "stream": {
+      "codec_name": "h264",
+      "profile": "High",
+      "width": 848,
+      "height": 478,
+      "pix_fmt": "yuv420p",
+      "color_range": "tv",
+      "color_space": "bt709",
+      "r_frame_rate": "30/1",
+      "avg_frame_rate": "30/1",
+      "nb_frames": "524"
+    },
+    "format": {
+      "duration": "17.466667",
+      "bit_rate": "968829"
+    },
+    "sha256": "313be5543d6bdeccae25e5334294afae7a9ede59b56644da0b813b5453347b2c",
+    "poster": "public/samples/sign-clip-1-poster.jpg",
+    "posterFrame": 0
+  },
+  "encoder": {
+    "crf": 20,
+    "preset": "slow",
+    "audio": "dropped",
+    "command": "ffmpeg -v error -y -nostdin -f rawvideo -pix_fmt yuv420p -s 848x478 -framerate 30 -color_range tv -colorspace bt709 -color_trc bt709 -color_primaries bt709 -i - -an -c:v libx264 -preset slow -crf 20 -profile:v high -pix_fmt yuv420p -color_range tv -colorspace bt709 -color_trc bt709 -color_primaries bt709 -fps_mode cfr -r 30 -movflags +faststart -map_metadata -1 public/samples/sign-clip-1.mp4"
+  },
+  "note": "Frame k of the playback file shows source frame timeline.sources[k]; filled slots repeat the nearest source frame."
+}

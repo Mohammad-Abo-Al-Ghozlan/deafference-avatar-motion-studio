@@ -1,0 +1,571 @@
+{
+  "schema": "deafference.qa-report",
+  "schemaVersion": 1,
+  "clipId": "sign-clip-2",
+  "motion": "motion/sign-clip-2/avatar-motion.json.gz",
+  "thresholds": {
+    "quaternionNormTolerance": 0.001,
+    "hingeOffAxisDeg": 1,
+    "fingerTwistDeg": 3,
+    "pipRangeDeg": [
+      -5,
+      110
+    ],
+    "dipRangeDeg": [
+      -10,
+      85
+    ],
+    "mcpFlexRangeDeg": [
+      -25,
+      95
+    ],
+    "thumbHingeRangeDeg": [
+      -20,
+      88
+    ],
+    "elbowRangeDeg": [
+      0,
+      150
+    ],
+    "wristFlexDeg": 80,
+    "wristExtDeg": 70,
+    "wristRadialDeg": 28,
+    "wristUlnarDeg": 40,
+    "wristTwistDeg": 100,
+    "limitToleranceDeg": 0.5,
+    "spikeDeg": {
+      "finger": 20,
+      "wrist": 20,
+      "arm": 15,
+      "trunk": 8,
+      "face": 12
+    },
+    "crossingToleranceDeg": 30,
+    "palmPenetrationM": 0.004,
+    "wristFastSpeedMs": 3.6,
+    "wristMaxSpeedMs": 7.5,
+    "wristImpulseRatio": 2.5
+  },
+  "verdict": "PASS",
+  "structural": {
+    "frameCount": 882,
+    "fps": 30,
+    "durationSec": 29.36667,
+    "expectedFrames": 882,
+    "missingFrames": 0,
+    "rotationTracks": 50,
+    "translationTracks": 4,
+    "tracksWithUnknownBones": [],
+    "tracksWithWrongLength": [],
+    "timelineMappingComplete": true,
+    "timestampsMonotonic": true,
+    "gridTimestampsMonotonic": true
+  },
+  "numeric": {
+    "nonFiniteValues": 0,
+    "maxQuaternionNormError": 8.683646228746511e-7,
+    "quaternionHemisphereFlips": 0,
+    "maxFaceTranslationOffsetM": 0.004000150791999928
+  },
+  "anatomical": {
+    "hingeOffAxis": {
+      "pip": {
+        "frames": 0,
+        "maxExcessDeg": 0,
+        "firstFrames": []
+      },
+      "dip": {
+        "frames": 0,
+        "maxExcessDeg": 0,
+        "firstFrames": []
+      },
+      "thumbMcp": {
+        "frames": 0,
+        "maxExcessDeg": 0,
+        "firstFrames": []
+      },
+      "thumbIp": {
+        "frames": 0,
+        "maxExcessDeg": 0,
+        "firstFrames": []
+      },
+      "elbow": {
+        "frames": 0,
+        "maxExcessDeg": 0,
+        "firstFrames": []
+      }
+    },
+    "hingeAxes": {
+      "left.elbow": {
+        "axisVsAnatomicalDeg": 0,
+        "maxOffAxisDeg": 0
+      },
+      "left.index.pip": {
+        "axisVsAnatomicalDeg": 0,
+        "maxOffAxisDeg": 0
+      },
+      "left.index.dip": {
+        "axisVsAnatomicalDeg": 0,
+        "maxOffAxisDeg": 0
+      },
+      "left.middle.pip": {
+        "axisVsAnatomicalDeg": 0,
+        "maxOffAxisDeg": 0
+      },
+      "left.middle.dip": {
+        "axisVsAnatomicalDeg": 0,
+        "maxOffAxisDeg": 0
+      },
+      "left.ring.pip": {
+        "axisVsAnatomicalDeg": 0,
+        "maxOffAxisDeg": 0
+      },
+      "left.ring.dip": {
+        "axisVsAnatomicalDeg": 0,
+        "maxOffAxisDeg": 0
+      },
+      "left.pinky.pip": {
+        "axisVsAnatomicalDeg": 0,
+        "maxOffAxisDeg": 0
+      },
+      "left.pinky.dip": {
+        "axisVsAnatomicalDeg": 0,
+        "maxOffAxisDeg": 0
+      },
+      "left.thumb.thumbMcp": {
+        "axisVsAnatomicalDeg": 0,
+        "maxOffAxisDeg": 0
+      },
+      "left.thumb.thumbIp": {
+        "axisVsAnatomicalDeg": 0,
+        "maxOffAxisDeg": 0
+      },
+      "right.elbow": {
+        "axisVsAnatomicalDeg": 0,
+        "maxOffAxisDeg": 0
+      },
+      "right.index.pip": {
+        "axisVsAnatomicalDeg": 0,
+        "maxOffAxisDeg": 0
+      },
+      "right.index.dip": {
+        "axisVsAnatomicalDeg": 0,
+        "maxOffAxisDeg": 0
+      },
+      "right.middle.pip": {
+        "axisVsAnatomicalDeg": 0,
+        "maxOffAxisDeg": 0
+      },
+      "right.middle.dip": {
+        "axisVsAnatomicalDeg": 0,
+        "maxOffAxisDeg": 0
+      },
+      "right.ring.pip": {
+        "axisVsAnatomicalDeg": 0,
+        "maxOffAxisDeg": 0
+      },
+      "right.ring.dip": {
+        "axisVsAnatomicalDeg": 0,
+        "maxOffAxisDeg": 0
+      },
+      "right.pinky.pip": {
+        "axisVsAnatomicalDeg": 0,
+        "maxOffAxisDeg": 0
+      },
+      "right.pinky.dip": {
+        "axisVsAnatomicalDeg": 0,
+        "maxOffAxisDeg": 0
+      },
+      "right.thumb.thumbMcp": {
+        "axisVsAnatomicalDeg": 0,
+        "maxOffAxisDeg": 0
+      },
+      "right.thumb.thumbIp": {
+        "axisVsAnatomicalDeg": 0,
+        "maxOffAxisDeg": 0
+      }
+    },
+    "rangeViolations": {
+      "pip": {
+        "frames": 0,
+        "maxExcessDeg": 0,
+        "firstFrames": []
+      },
+      "dip": {
+        "frames": 0,
+        "maxExcessDeg": 0,
+        "firstFrames": []
+      },
+      "mcp": {
+        "frames": 0,
+        "maxExcessDeg": 0,
+        "firstFrames": []
+      },
+      "thumb": {
+        "frames": 0,
+        "maxExcessDeg": 0,
+        "firstFrames": []
+      },
+      "elbowHyperextension": {
+        "frames": 0,
+        "maxExcessDeg": 0,
+        "firstFrames": []
+      },
+      "elbowOverflex": {
+        "frames": 0,
+        "maxExcessDeg": 0,
+        "firstFrames": []
+      }
+    },
+    "reverseBending": {
+      "pip": {
+        "frames": 0,
+        "maxExcessDeg": 0,
+        "firstFrames": []
+      },
+      "dip": {
+        "frames": 0,
+        "maxExcessDeg": 0,
+        "firstFrames": []
+      }
+    },
+    "fingerTwist": {
+      "frames": 0,
+      "maxExcessDeg": 0,
+      "firstFrames": []
+    },
+    "wristLimitViolations": {
+      "flex": {
+        "frames": 0,
+        "maxExcessDeg": 0,
+        "firstFrames": []
+      },
+      "dev": {
+        "frames": 0,
+        "maxExcessDeg": 0,
+        "firstFrames": []
+      },
+      "twist": {
+        "frames": 0,
+        "maxExcessDeg": 0,
+        "firstFrames": []
+      }
+    },
+    "fingerOrderReversals": {
+      "frames": 0,
+      "maxExcessDeg": 0,
+      "firstFrames": []
+    },
+    "fingertipPalmPenetration": {
+      "frames": 0,
+      "maxDepthM": 0,
+      "firstFrames": []
+    },
+    "restPoseResetsWhileTracked": 0,
+    "wristTeleports": {
+      "frames": 0,
+      "maxJumpM": 0,
+      "firstFrames": []
+    },
+    "wristFastMotion": {
+      "frames": 1,
+      "maxStepM": 0.133,
+      "firstFrames": [
+        565
+      ],
+      "events": [
+        {
+          "frame": 565,
+          "side": "right",
+          "jumpM": 0.1332
+        }
+      ]
+    },
+    "maxWristSpeedMs": 4,
+    "maxBoneLengthErrorM": 5.551115123125783e-16,
+    "extremesDeg": {
+      "pip": [
+        -5,
+        110
+      ],
+      "dip": [
+        -10,
+        85
+      ],
+      "mcp": [
+        -25,
+        90
+      ],
+      "elbow": [
+        11.9,
+        117.4
+      ],
+      "wristFlex": [
+        -61.5,
+        73.5
+      ],
+      "wristDev": [
+        -39.7,
+        28
+      ],
+      "wristTwist": [
+        -92.1,
+        88.1
+      ],
+      "fingerTwist": 0,
+      "hingeOffAxis": 0
+    }
+  },
+  "temporal": {
+    "trunk": {
+      "maxStepDeg": 2.32,
+      "worstBone": "head",
+      "p999StepDeg": 2.19,
+      "maxAngularVelocityDegS": 70,
+      "p999AngularAccelerationDegS2": 740,
+      "oneFrameSpikes": 0,
+      "spikeFrames": []
+    },
+    "face": {
+      "maxStepDeg": 15.72,
+      "worstBone": "eyelid_r",
+      "p999StepDeg": 14.13,
+      "maxAngularVelocityDegS": 472,
+      "p999AngularAccelerationDegS2": 11464,
+      "oneFrameSpikes": 0,
+      "spikeFrames": []
+    },
+    "arm": {
+      "maxStepDeg": 28.55,
+      "worstBone": "lowerarm_l",
+      "p999StepDeg": 27.72,
+      "maxAngularVelocityDegS": 856,
+      "p999AngularAccelerationDegS2": 17412,
+      "oneFrameSpikes": 0,
+      "spikeFrames": []
+    },
+    "wrist": {
+      "maxStepDeg": 23.33,
+      "worstBone": "hand_r",
+      "p999StepDeg": 23.32,
+      "maxAngularVelocityDegS": 700,
+      "p999AngularAccelerationDegS2": 12740,
+      "oneFrameSpikes": 0,
+      "spikeFrames": []
+    },
+    "finger": {
+      "maxStepDeg": 26.66,
+      "worstBone": "thumb_01_r",
+      "p999StepDeg": 25.81,
+      "maxAngularVelocityDegS": 800,
+      "p999AngularAccelerationDegS2": 17240,
+      "oneFrameSpikes": 0,
+      "spikeFrames": []
+    }
+  },
+  "failures": [],
+  "tracking": {
+    "processedFrames": 882,
+    "decodedSourceFrames": 880,
+    "droppedSourceSlots": 2,
+    "duplicateTrackerFrames": 0,
+    "identityCorrections": {
+      "swaps": 0,
+      "duplicatesDropped": 0,
+      "relabelled": 0
+    },
+    "left": {
+      "detectedSlots": 308,
+      "acceptedFits": 297,
+      "rejectedFits": 11,
+      "rejectReasons": {
+        "palmError": 0,
+        "digitError": 0,
+        "outOfFrame": 11,
+        "fitFailed": 0,
+        "orientationVote": 0
+      },
+      "rejectedOutliers": {
+        "palmOrientationSpikes": 0,
+        "scaleOutliers": 3,
+        "jointChannelOutliers": 88
+      },
+      "states": {
+        "tracked": 294,
+        "interpolated": 2,
+        "held": 42,
+        "fallback": 147,
+        "absent": 397
+      },
+      "missingHandIntervals": 29,
+      "interpolatedIntervals": 2,
+      "uncertainIntervals": [
+        [
+          4.1,
+          4.3
+        ],
+        [
+          5.033,
+          5.2
+        ],
+        [
+          5.233,
+          5.667
+        ],
+        [
+          5.833,
+          6.033
+        ],
+        [
+          7.6,
+          7.767
+        ],
+        [
+          7.8,
+          8.233
+        ],
+        [
+          8.333,
+          8.533
+        ],
+        [
+          10.9,
+          11.067
+        ],
+        [
+          11.1,
+          11.533
+        ],
+        [
+          13.133,
+          13.333
+        ],
+        [
+          16.2,
+          16.367
+        ],
+        [
+          16.4,
+          16.833
+        ],
+        [
+          17.767,
+          17.967
+        ],
+        [
+          18.8,
+          18.967
+        ],
+        [
+          19,
+          19.433
+        ],
+        [
+          21.133,
+          21.333
+        ],
+        [
+          22.233,
+          22.4
+        ],
+        [
+          22.433,
+          22.867
+        ],
+        [
+          26.267,
+          26.467
+        ],
+        [
+          27.3,
+          27.467
+        ],
+        [
+          27.5,
+          27.933
+        ]
+      ]
+    },
+    "right": {
+      "detectedSlots": 827,
+      "acceptedFits": 816,
+      "rejectedFits": 11,
+      "rejectReasons": {
+        "palmError": 0,
+        "digitError": 0,
+        "outOfFrame": 1,
+        "fitFailed": 0,
+        "orientationVote": 10
+      },
+      "rejectedOutliers": {
+        "palmOrientationSpikes": 0,
+        "scaleOutliers": 8,
+        "jointChannelOutliers": 280
+      },
+      "states": {
+        "tracked": 808,
+        "interpolated": 22,
+        "held": 24,
+        "fallback": 24,
+        "absent": 4
+      },
+      "missingHandIntervals": 8,
+      "interpolatedIntervals": 17,
+      "uncertainIntervals": [
+        [
+          0.133,
+          0.333
+        ],
+        [
+          5.133,
+          5.467
+        ],
+        [
+          18.8,
+          18.967
+        ],
+        [
+          19,
+          19.367
+        ],
+        [
+          19.4,
+          19.4
+        ],
+        [
+          29.033,
+          29.2
+        ],
+        [
+          29.233,
+          29.367
+        ]
+      ]
+    },
+    "face": {
+      "validSlots": 880,
+      "headSpikesRejected": 0,
+      "featureOutliersRejected": 17
+    }
+  },
+  "fastMotionSourceCrossCheck": {
+    "maxRatio": 2.5,
+    "events": 1,
+    "explained": 1,
+    "unexplained": 0,
+    "rows": [
+      {
+        "frame": 565,
+        "side": "right",
+        "jumpM": 0.1332,
+        "timeSec": 18.833,
+        "handState": "held",
+        "sourceWristStepM": 0.1072,
+        "sourceHandCentreStepM": 0.0356,
+        "sourceImagePlaneStepM": 0.1016,
+        "avatarToSourceRatio": 1.24
+      }
+    ]
+  },
+  "seconds": 0.4
+}
