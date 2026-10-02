@@ -17,34 +17,25 @@
 
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
-import {
-  type Object3D,
-  ACESFilmicToneMapping,
-  AmbientLight,
-  Box3,
-  Clock,
-  Color,
-  DirectionalLight,
-  GridHelper,
-  HemisphereLight,
-  MathUtils,
-  Mesh,
-  MeshStandardMaterial,
-  PCFSoftShadowMap,
-  PerspectiveCamera,
-  PlaneGeometry,
-  Scene,
-  SRGBColorSpace,
-  Vector3,
-  WebGLRenderer
-} from 'three'
+import { type Object3D, Clock, type PerspectiveCamera, type Scene, WebGLRenderer } from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import { MediaFrameClock } from '../motion/clip/MediaFrameClock'
 import type { MotionBinding, MotionClip } from '../motion/clip/MotionClip'
 import type { HandStateCode } from '../motion/clip/format'
 import { LiveMotionPipeline } from '../motion/live/LiveMotionPipeline'
 import { PoseApplier } from '../motion/retarget/PoseApplier'
 import { Rig } from '../motion/rig/Rig'
+import {
+  AVATAR_URL,
+  configureOrbitControls,
+  configureRenderer,
+  createStudioCamera,
+  createStudioScene,
+  disposeScene,
+  frameAvatar,
+  prepareAvatar
+} from '../three/studioScene'
 import type { MotionEngine, TrackingFrame } from '../types/tracking'
 
 export interface StageStatus {
@@ -107,12 +98,8 @@ let lastOfflineTime: number | null = null
 // (tracker stalled); while paused the last pose is held.
 const LIVE_STALE_MS = 1500
 
-// Offline engine clock: the media time of the frame the browser actually
-// presented (requestVideoFrameCallback), so the avatar shows the motion of
-// exactly the video frame on screen. Falls back to currentTime.
-let presentedMediaTime: number | null = null
-let frameCallbackHandle = 0
-let frameCallbackVideo: HTMLVideoElement | null = null
+// Offline engine clock: media time of the presented video frame.
+const frameClock = new MediaFrameClock()
 
 const SMOOTHING_DEFAULT = 15
 
@@ -120,7 +107,7 @@ function resetPose() {
   pipeline?.reset()
   applier?.reset()
   binding?.reset()
-  presentedMediaTime = null
+  frameClock.reset()
   lastLiveFrameAt = 0
   liveHandState = { left: 'A', right: 'A' }
 }
@@ -166,7 +153,7 @@ watch(() => props.engine, (engine) => {
 
 watch(() => props.clip, () => bindClip())
 
-watch(() => props.media, (video) => attachFrameClock(video ?? null), { immediate: true })
+watch(() => props.media, (video) => frameClock.attach(video ?? null), { immediate: true })
 
 function bindClip() {
   binding = null
@@ -176,29 +163,6 @@ function bindClip() {
   } catch (cause) {
     emit('error', cause instanceof Error ? cause.message : String(cause))
   }
-}
-
-function attachFrameClock(video: HTMLVideoElement | null) {
-  if (frameCallbackVideo?.cancelVideoFrameCallback && frameCallbackHandle) frameCallbackVideo.cancelVideoFrameCallback(frameCallbackHandle)
-  frameCallbackHandle = 0
-  frameCallbackVideo = video
-  presentedMediaTime = null
-  if (!video?.requestVideoFrameCallback) return
-  const onFrame = (_now: DOMHighResTimeStamp, metadata: VideoFrameCallbackMetadata) => {
-    if (disposed || frameCallbackVideo !== video) return
-    presentedMediaTime = metadata.mediaTime
-    frameCallbackHandle = video.requestVideoFrameCallback!(onFrame)
-  }
-  frameCallbackHandle = video.requestVideoFrameCallback(onFrame)
-}
-
-function offlineTime() {
-  const video = props.media
-  if (!video) return 0
-  // After a seek while paused, rVFC reports the newly presented frame; if it
-  // has not fired yet, currentTime is the best available estimate.
-  if (presentedMediaTime !== null && Math.abs(presentedMediaTime - video.currentTime) < 0.25) return presentedMediaTime
-  return video.currentTime
 }
 
 /**
@@ -242,83 +206,26 @@ onMounted(async () => {
   if (!host.value) return
 
   try {
-    scene = new Scene()
-    scene.background = new Color('#11191d')
-
-    camera = new PerspectiveCamera(31, 1, 0.01, 100)
-    camera.position.set(0, 1.3, 2.65)
+    scene = createStudioScene()
+    camera = createStudioCamera()
 
     renderer = new WebGLRenderer({ antialias: true, alpha: false, powerPreference: 'high-performance' })
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2))
-    renderer.outputColorSpace = SRGBColorSpace
-    renderer.toneMapping = ACESFilmicToneMapping
-    renderer.toneMappingExposure = 1.03
-    renderer.shadowMap.enabled = true
-    renderer.shadowMap.type = PCFSoftShadowMap
+    configureRenderer(renderer)
     renderer.domElement.setAttribute('aria-label', 'Animated Deafference signing avatar')
     renderer.domElement.className = 'avatar-canvas'
     host.value.prepend(renderer.domElement)
 
     controls = new OrbitControls(camera, renderer.domElement)
-    controls.enablePan = false
-    controls.enableDamping = true
-    controls.dampingFactor = 0.06
-    controls.minDistance = 1.75
-    controls.maxDistance = 4.2
-    controls.minPolarAngle = MathUtils.degToRad(60)
-    controls.maxPolarAngle = MathUtils.degToRad(98)
+    configureOrbitControls(controls)
 
-    const hemisphere = new HemisphereLight('#effaff', '#172126', 2.6)
-    scene.add(hemisphere)
-
-    const key = new DirectionalLight('#fff9ef', 4.1)
-    key.position.set(-2.8, 4.4, 3.6)
-    key.castShadow = true
-    key.shadow.mapSize.set(1024, 1024)
-    scene.add(key)
-
-    const rim = new DirectionalLight('#72d9ff', 2.2)
-    rim.position.set(3.2, 2.5, -2.5)
-    scene.add(rim)
-    scene.add(new AmbientLight('#a5c0ca', 0.9))
-
-    const floor = new Mesh(
-      new PlaneGeometry(12, 12),
-      new MeshStandardMaterial({ color: '#10171a', roughness: 0.92, metalness: 0.05 })
-    )
-    floor.rotation.x = -Math.PI / 2
-    floor.receiveShadow = true
-    scene.add(floor)
-
-    const grid = new GridHelper(8, 32, '#30434a', '#1d2b30')
-    grid.position.y = 0.002
-    scene.add(grid)
-
-    const gltf = await new GLTFLoader().loadAsync('/models/deafference-avatar.glb')
+    const gltf = await new GLTFLoader().loadAsync(AVATAR_URL)
     if (disposed) return
 
     const avatar = gltf.scene
-    avatar.traverse((node) => {
-      const renderable = node as Mesh
-      if (renderable.isMesh) {
-        renderable.castShadow = true
-        renderable.receiveShadow = true
-        renderable.frustumCulled = false
-      }
-    })
-
-    const initialBounds = new Box3().setFromObject(avatar)
-    const center = initialBounds.getCenter(new Vector3())
-    avatar.position.set(-center.x, -initialBounds.min.y, -center.z)
-    avatar.updateMatrixWorld(true)
+    prepareAvatar(avatar)
     scene.add(avatar)
-
-    const bounds = new Box3().setFromObject(avatar)
-    const height = bounds.getSize(new Vector3()).y
-    const focusY = height * 0.62
-    camera.position.set(0, focusY, height * 1.44)
-    controls.target.set(0, focusY, 0)
-    controls.update()
+    frameAvatar(avatar, camera, controls)
 
     avatarRoot = avatar
     // Same rig model the offline tools build from the GLB (model space =
@@ -340,7 +247,7 @@ onMounted(async () => {
       animationFrame = requestAnimationFrame(animate)
       const dt = clock.getDelta()
       if (props.engine === 'offline' && binding && props.clip) {
-        const time = offlineTime()
+        const time = frameClock.time()
         lastOfflineTime = time
         props.clip.applyTo(binding, time)
         binding.applyStrength(props.strength)
@@ -369,18 +276,12 @@ onMounted(async () => {
 
 onBeforeUnmount(() => {
   disposed = true
-  attachFrameClock(null)
+  frameClock.dispose()
   cancelAnimationFrame(animationFrame)
   resizeObserver?.disconnect()
   controls?.dispose()
   renderer?.dispose()
   renderer?.domElement.remove()
-  scene?.traverse((node) => {
-    const mesh = node as Mesh
-    if (!mesh.isMesh) return
-    mesh.geometry?.dispose()
-    const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material]
-    materials.forEach((material) => material?.dispose())
-  })
+  if (scene) disposeScene(scene)
 })
 </script>

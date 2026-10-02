@@ -1065,6 +1065,264 @@ button {
   border: 0 !important;
 }
 
+/* App shell: view tabs ------------------------------------------------- */
+
+.view-tabs {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(17, 27, 31, 0.58);
+}
+
+.view-tab {
+  display: grid;
+  gap: 3px;
+  min-width: 150px;
+  padding: 8px 14px;
+  border: 0;
+  border-radius: 9px;
+  color: var(--muted);
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  transition: background 180ms ease, color 180ms ease, box-shadow 180ms ease;
+}
+
+.view-tab strong {
+  font-size: 11px;
+  font-weight: 690;
+}
+
+.view-tab small {
+  color: var(--muted-2);
+  font-size: 8px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.view-tab:hover {
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.view-tab.active {
+  color: var(--ink);
+  background: linear-gradient(120deg, rgba(44, 134, 153, 0.24), rgba(18, 30, 34, 0.9));
+  box-shadow: inset 0 0 0 1px rgba(127, 233, 255, 0.35);
+}
+
+.view-tab.active small {
+  color: var(--cyan);
+}
+
+/* Sign clips view --------------------------------------------------------- */
+
+.clip-jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.clip-jump a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--ink);
+  background: rgba(17, 26, 30, 0.65);
+  font-size: 11px;
+  font-weight: 650;
+  text-decoration: none;
+  transition: border-color 180ms ease, background 180ms ease;
+}
+
+.clip-jump a:hover {
+  border-color: var(--line-strong);
+  background: rgba(22, 34, 39, 0.9);
+}
+
+.clip-jump a span {
+  color: var(--cyan);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 9px;
+}
+
+.clip-jump a small {
+  color: var(--muted-2);
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.clip-section {
+  scroll-margin-top: 18px;
+}
+
+.clip-section + .clip-section {
+  margin-top: 40px;
+  padding-top: 34px;
+  border-top: 1px solid var(--line);
+}
+
+.clip-section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 16px;
+}
+
+.clip-section-number {
+  margin: 0 0 8px;
+  color: var(--cyan);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.clip-section-header h2 {
+  margin: 0;
+  font-size: clamp(22px, 2.4vw, 32px);
+  font-weight: 560;
+  letter-spacing: -0.035em;
+}
+
+.clip-facts {
+  display: flex;
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: rgba(17, 26, 30, 0.5);
+}
+
+.clip-facts > div {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+  padding: 9px 14px;
+}
+
+.clip-facts > div + div {
+  border-left: 1px solid var(--line);
+}
+
+.clip-facts dt {
+  color: var(--muted-2);
+  font-size: 7px;
+  font-weight: 750;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.clip-facts dd {
+  margin: 0;
+  overflow: hidden;
+  color: var(--ink);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.clip-facts .clip-file dd {
+  max-width: 280px;
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 10px;
+}
+
+.clip-workspace {
+  grid-template-columns: minmax(0, 1.35fr) minmax(360px, 1fr);
+}
+
+.clip-avatar-wrap {
+  min-height: 520px;
+  height: min(62vh, 640px);
+}
+
+/* The recorded clips are landscape (848 x 478). */
+.clip-viewport {
+  aspect-ratio: 16 / 9;
+}
+
+.clip-workspace .source-panel {
+  align-self: start;
+}
+
+.hand-legend {
+  display: grid;
+  gap: 12px;
+  padding: 17px 19px 19px;
+}
+
+.hand-legend p {
+  margin: 0;
+  color: var(--muted-2);
+  font-size: 8px;
+  font-weight: 750;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.hand-legend dl {
+  display: grid;
+  gap: 9px;
+  margin: 0;
+}
+
+.hand-legend dl > div {
+  display: grid;
+  grid-template-columns: 112px 1fr;
+  gap: 10px;
+  align-items: baseline;
+}
+
+.hand-legend dt {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #c4cfd2;
+  font-size: 10px;
+  font-weight: 650;
+}
+
+.hand-legend dt i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #77858a;
+}
+
+.hand-legend dt i.detected {
+  background: var(--cyan);
+  box-shadow: 0 0 8px rgba(127, 233, 255, 0.6);
+}
+
+.hand-legend dt i.uncertain {
+  background: var(--orange);
+}
+
+.hand-legend dd {
+  margin: 0;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.hand-legend small {
+  color: var(--muted-2);
+  font-size: 9px;
+  line-height: 1.55;
+}
+
 @media (max-width: 1050px) {
   .motion-workspace {
     grid-template-columns: minmax(0, 1.35fr) minmax(310px, 0.85fr);
@@ -1223,5 +1481,78 @@ button {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* View tabs and sign clips: responsive (after the base breakpoints so these win). */
+@media (max-width: 1050px) {
+  .clip-workspace {
+    grid-template-columns: minmax(0, 1.15fr) minmax(320px, 1fr);
+  }
+}
+
+@media (max-width: 840px) {
+  .topbar {
+    height: auto;
+    min-height: 76px;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 12px 0;
+  }
+
+  .view-tabs {
+    order: 3;
+    width: 100%;
+  }
+
+  .view-tab {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .clip-workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .clip-avatar-wrap {
+    height: 64vh;
+    min-height: 460px;
+  }
+
+  /* Keep the landscape clip ratio (the studio viewport switches to 4:3 here). */
+  .clip-viewport {
+    aspect-ratio: 16 / 9;
+  }
+
+  /* Full width in the two-column source panel used at this breakpoint. */
+  .hand-legend {
+    grid-column: 1 / -1;
+  }
+
+  .clip-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .clip-facts {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 610px) {
+  .clip-facts {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .clip-facts .clip-file {
+    flex-basis: 100%;
+    border-left: 0 !important;
+    border-top: 1px solid var(--line);
+  }
+
+  .clip-avatar-wrap {
+    min-height: 420px;
+    height: 60vh;
   }
 }

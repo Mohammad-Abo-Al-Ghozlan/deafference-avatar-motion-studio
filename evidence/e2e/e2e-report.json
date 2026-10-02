@@ -1,5 +1,5 @@
 {
-  "startedAt": "2026-09-27T01:36:21.748Z",
+  "startedAt": "2026-10-02T22:30:44.233Z",
   "checks": {
     "app loads avatar + motion engine": {
       "ok": true,
@@ -33,7 +33,7 @@
       "ok": true,
       "detail": {
         "before": 162.3,
-        "after": 165.1
+        "after": 164.767
       }
     },
     "live: Holistic runs in-browser and the causal solver drives the avatar": {
@@ -42,14 +42,14 @@
         "status": {
           "engine": "live",
           "handState": {
-            "left": "T",
+            "left": "A",
             "right": "T"
           },
           "frameIndex": null,
-          "solveMs": 51.799999999813735,
+          "solveMs": 56.19999999925494,
           "channels": 54
         },
-        "seconds": 37
+        "seconds": 27
       }
     },
     "live: metric world landmarks received from the Holistic bundle": {
@@ -66,10 +66,10 @@
             "right": "T"
           },
           "frameIndex": null,
-          "solveMs": 8.099999999627471,
+          "solveMs": 25.399999999441206,
           "channels": 54
         },
-        "seconds": 20
+        "seconds": 29
       }
     },
     "upload: an uploaded video is tracked and retargeted live": {
@@ -82,10 +82,109 @@
             "right": "A"
           },
           "frameIndex": null,
-          "solveMs": 2,
+          "solveMs": 2.1000000005587935,
           "channels": 54
         },
-        "seconds": 22
+        "seconds": 29
+      }
+    },
+    "clips tab: studio unmounted, both avatar views are 2D copies of ONE shared WebGL context": {
+      "ok": true,
+      "detail": [
+        {
+          "cls": "avatar-canvas",
+          "twoD": true
+        },
+        {
+          "cls": "avatar-canvas",
+          "twoD": true
+        }
+      ]
+    },
+    "clips tab: URL addresses the tab": {
+      "ok": true,
+      "detail": "http://127.0.0.1:4179/?debug=1#sign-clips"
+    },
+    "clips tab: each avatar == its own motion file at the presented media time": {
+      "ok": true,
+      "detail": [
+        {
+          "clip": "sign-clip-1",
+          "frame": 105,
+          "mediaTime": 3.5,
+          "maxErrorDeg": 0
+        },
+        {
+          "clip": "sign-clip-1",
+          "frame": 288,
+          "mediaTime": 9.6,
+          "maxErrorDeg": 0
+        },
+        {
+          "clip": "sign-clip-1",
+          "frame": 508,
+          "mediaTime": 16.933,
+          "maxErrorDeg": 0
+        },
+        {
+          "clip": "sign-clip-2",
+          "frame": 176,
+          "mediaTime": 5.867,
+          "maxErrorDeg": 0
+        },
+        {
+          "clip": "sign-clip-2",
+          "frame": 485,
+          "mediaTime": 16.167,
+          "maxErrorDeg": 0
+        },
+        {
+          "clip": "sign-clip-2",
+          "frame": 866,
+          "mediaTime": 28.867,
+          "maxErrorDeg": 0
+        }
+      ]
+    },
+    "clips tab: playback drives the avatar, and starting one section pauses the other": {
+      "ok": true,
+      "detail": {
+        "firstPlaying": [
+          {
+            "id": "sign-clip-1",
+            "avatarTime": 3.3,
+            "videoTime": 3.726167,
+            "paused": false
+          },
+          {
+            "id": "sign-clip-2",
+            "avatarTime": 1,
+            "videoTime": 1,
+            "paused": true
+          }
+        ],
+        "secondPlaying": [
+          {
+            "id": "sign-clip-1",
+            "avatarTime": 5.033,
+            "videoTime": 5.108814,
+            "paused": true
+          },
+          {
+            "id": "sign-clip-2",
+            "avatarTime": 2.933,
+            "videoTime": 3.389423,
+            "paused": false
+          }
+        ]
+      }
+    },
+    "tabs: back to the studio (clip views released, studio reloaded)": {
+      "ok": true,
+      "detail": {
+        "canvases": 2,
+        "status": "Playing precomputed motion",
+        "url": "http://127.0.0.1:4179/?debug=1"
       }
     },
     "no page errors": {

@@ -26,6 +26,9 @@ export function useHolisticTracker() {
   const fps = ref(0)
 
   let holistic: Holistic | null = null
+  // In-flight model initialization: close() waits for it (the studio view can
+  // be unmounted by switching tabs while the model is still loading).
+  let initializing: Promise<void> | null = null
   let lastResultAt = 0
   let smoothedFps = 0
   let sourceSize = { width: 0, height: 0 }
@@ -71,13 +74,15 @@ export function useHolisticTracker() {
         processing.value = false
       })
 
-      await holistic.initialize()
+      initializing = holistic.initialize()
+      await initializing
       ready.value = true
     } catch (cause) {
       error.value = cause instanceof Error ? cause.message : String(cause)
       holistic = null
       throw cause
     } finally {
+      initializing = null
       loading.value = false
     }
   }
@@ -112,8 +117,16 @@ export function useHolisticTracker() {
   }
 
   const close = async () => {
-    if (holistic) await holistic.close()
+    if (initializing) await initializing.catch(() => undefined)
+    const instance = holistic
     holistic = null
+    if (instance) {
+      try {
+        await instance.close()
+      } catch {
+        // Releasing the WASM graph is best effort; the instance is dropped either way.
+      }
+    }
     ready.value = false
     processing.value = false
     clear()
