@@ -107,17 +107,17 @@ export interface Framing {
   distance: number
 }
 
-/** Studio framing: most of the body, standing on the floor. */
-export const STUDIO_FRAMING: Framing = { focus: 0.62, distance: 1.44 }
 /**
- * Signing-space framing, like a waist-up signing recording: with the 31 deg
- * lens it shows ~0.51-1.13 x the avatar's height (waist to just above the
- * head), so handshapes read at a similar scale to the source video.
+ * Signing-space framing used by every avatar view, like a waist-up signing
+ * recording: with the 31 deg lens it shows ~0.51-1.13 x the avatar's height
+ * (waist to just above the head), so handshapes read at a similar scale to
+ * the source video. (The studio used { focus: 0.62, distance: 1.44 } before:
+ * knees to head, centred on the middle of the body.)
  */
 export const SIGNING_FRAMING: Framing = { focus: 0.82, distance: 1.12 }
 
 /** Aim the camera at the placed avatar. */
-export function frameAvatar(avatar: Object3D, camera: PerspectiveCamera, controls: OrbitControls, framing: Framing = STUDIO_FRAMING) {
+export function frameAvatar(avatar: Object3D, camera: PerspectiveCamera, controls: OrbitControls, framing: Framing = SIGNING_FRAMING) {
   const bounds = new Box3().setFromObject(avatar)
   const height = bounds.getSize(new Vector3()).y
   const focusY = height * framing.focus

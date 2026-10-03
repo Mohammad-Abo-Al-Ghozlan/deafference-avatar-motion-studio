@@ -1,5 +1,5 @@
 {
-  "startedAt": "2026-10-03T07:56:31.110Z",
+  "startedAt": "2026-10-03T08:07:33.912Z",
   "checks": {
     "app loads avatar + motion engine": {
       "ok": true,
@@ -43,7 +43,7 @@
       "ok": true,
       "detail": {
         "before": 162.3,
-        "after": 164.867
+        "after": 165.1
       }
     },
     "live: Holistic runs in-browser and the causal solver drives the avatar": {
@@ -56,10 +56,10 @@
             "right": "T"
           },
           "frameIndex": null,
-          "solveMs": 51.90000000002328,
+          "solveMs": 62.800000000046566,
           "channels": 54
         },
-        "seconds": 43
+        "seconds": 37
       }
     },
     "live: metric world landmarks received from the Holistic bundle": {
@@ -76,10 +76,10 @@
             "right": "T"
           },
           "frameIndex": null,
-          "solveMs": 15,
+          "solveMs": 22.299999999813735,
           "channels": 54
         },
-        "seconds": 35
+        "seconds": 34
       }
     },
     "upload: an uploaded video is tracked and retargeted live": {
@@ -92,7 +92,7 @@
             "right": "A"
           },
           "frameIndex": null,
-          "solveMs": 2.300000000046566,
+          "solveMs": 2.5,
           "channels": 54
         },
         "seconds": 33
@@ -177,8 +177,8 @@
         "firstPlaying": [
           {
             "id": "sign-clip-1",
-            "avatarTime": 2.533,
-            "videoTime": 2.886045,
+            "avatarTime": 2.8,
+            "videoTime": 3.200202,
             "paused": false
           },
           {
@@ -191,14 +191,14 @@
         "secondPlaying": [
           {
             "id": "sign-clip-1",
-            "avatarTime": 4.433,
-            "videoTime": 4.494155,
+            "avatarTime": 5.033,
+            "videoTime": 5.060043,
             "paused": true
           },
           {
             "id": "sign-clip-2",
-            "avatarTime": 2.733,
-            "videoTime": 3.143157,
+            "avatarTime": 3.1,
+            "videoTime": 3.42933,
             "paused": false
           }
         ]

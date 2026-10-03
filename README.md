@@ -51,7 +51,7 @@ Rendering notes:
 
 - The avatar texture is 8192 × 8192, about 360 MB of GPU memory per WebGL context. The two sections therefore share **one** WebGL context and one parsed GLB (`src/three/sharedAvatarRenderer.ts`). Each section gets its own skeleton clone, rendered into the shared buffer and copied into the section's own canvas.
 - The studio is unmounted while this tab is open, and the reverse, so there is never more than one avatar texture upload.
-- The clip views frame the avatar waist-up, like the recordings (`SIGNING_FRAMING` in `src/three/studioScene.ts`). The studio keeps its original framing.
+- Every avatar view, the studio included, frames the avatar waist-up like the recordings (`SIGNING_FRAMING` in `src/three/studioScene.ts`).
 
 **Logo.** All three avatar views (the studio and both clip sections) show the Deafference logo in the top-left corner of the stage (`src/components/AvatarCornerLabel.vue`). The image is `public/brand/deafference-logo-on-dark.png`. `python3 tools/brand/make_logo_variants.py` generates it from the untouched original, `media/brand/deafference-logo.original.png`. The mark keeps its colours, and the dark wordmark is recoloured to the UI's light ink because it would be invisible on the dark stage.
 

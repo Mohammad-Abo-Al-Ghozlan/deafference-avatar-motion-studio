@@ -34,7 +34,8 @@ import {
   createStudioScene,
   disposeScene,
   frameAvatar,
-  prepareAvatar
+  prepareAvatar,
+  SIGNING_FRAMING
 } from '../three/studioScene'
 import type { MotionEngine, TrackingFrame } from '../types/tracking'
 
@@ -225,7 +226,7 @@ onMounted(async () => {
     const avatar = gltf.scene
     prepareAvatar(avatar)
     scene.add(avatar)
-    frameAvatar(avatar, camera, controls)
+    frameAvatar(avatar, camera, controls, SIGNING_FRAMING)
 
     avatarRoot = avatar
     // Same rig model the offline tools build from the GLB (model space =
