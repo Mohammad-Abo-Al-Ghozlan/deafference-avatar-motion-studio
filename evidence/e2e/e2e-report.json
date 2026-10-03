@@ -1,9 +1,19 @@
 {
-  "startedAt": "2026-10-02T22:30:44.233Z",
+  "startedAt": "2026-10-03T07:56:31.110Z",
   "checks": {
     "app loads avatar + motion engine": {
       "ok": true,
       "detail": "Playing precomputed motion"
+    },
+    "logo: top-left of the studio avatar view": {
+      "ok": true,
+      "detail": [
+        {
+          "loaded": true,
+          "width": 150,
+          "topLeft": true
+        }
+      ]
     },
     "sample clip uses the precomputed (offline) engine by default": {
       "ok": true,
@@ -33,7 +43,7 @@
       "ok": true,
       "detail": {
         "before": 162.3,
-        "after": 164.767
+        "after": 164.867
       }
     },
     "live: Holistic runs in-browser and the causal solver drives the avatar": {
@@ -46,10 +56,10 @@
             "right": "T"
           },
           "frameIndex": null,
-          "solveMs": 56.19999999925494,
+          "solveMs": 51.90000000002328,
           "channels": 54
         },
-        "seconds": 27
+        "seconds": 43
       }
     },
     "live: metric world landmarks received from the Holistic bundle": {
@@ -66,10 +76,10 @@
             "right": "T"
           },
           "frameIndex": null,
-          "solveMs": 25.399999999441206,
+          "solveMs": 15,
           "channels": 54
         },
-        "seconds": 29
+        "seconds": 35
       }
     },
     "upload: an uploaded video is tracked and retargeted live": {
@@ -82,10 +92,10 @@
             "right": "A"
           },
           "frameIndex": null,
-          "solveMs": 2.1000000005587935,
+          "solveMs": 2.300000000046566,
           "channels": 54
         },
-        "seconds": 29
+        "seconds": 33
       }
     },
     "clips tab: studio unmounted, both avatar views are 2D copies of ONE shared WebGL context": {
@@ -104,6 +114,21 @@
     "clips tab: URL addresses the tab": {
       "ok": true,
       "detail": "http://127.0.0.1:4179/?debug=1#sign-clips"
+    },
+    "logo: top-left of both clip avatar views": {
+      "ok": true,
+      "detail": [
+        {
+          "loaded": true,
+          "width": 150,
+          "topLeft": true
+        },
+        {
+          "loaded": true,
+          "width": 150,
+          "topLeft": true
+        }
+      ]
     },
     "clips tab: each avatar == its own motion file at the presented media time": {
       "ok": true,
@@ -152,8 +177,8 @@
         "firstPlaying": [
           {
             "id": "sign-clip-1",
-            "avatarTime": 3.3,
-            "videoTime": 3.726167,
+            "avatarTime": 2.533,
+            "videoTime": 2.886045,
             "paused": false
           },
           {
@@ -166,14 +191,14 @@
         "secondPlaying": [
           {
             "id": "sign-clip-1",
-            "avatarTime": 5.033,
-            "videoTime": 5.108814,
+            "avatarTime": 4.433,
+            "videoTime": 4.494155,
             "paused": true
           },
           {
             "id": "sign-clip-2",
-            "avatarTime": 2.933,
-            "videoTime": 3.389423,
+            "avatarTime": 2.733,
+            "videoTime": 3.143157,
             "paused": false
           }
         ]

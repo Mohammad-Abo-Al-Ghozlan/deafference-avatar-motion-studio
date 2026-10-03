@@ -514,6 +514,14 @@ button {
   letter-spacing: 0.04em;
 }
 
+.avatar-logo {
+  display: block;
+  width: 150px;
+  height: auto;
+  margin-bottom: 9px;
+  filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.35));
+}
+
 .avatar-hud {
   position: absolute;
   z-index: 3;
@@ -1540,6 +1548,11 @@ button {
 }
 
 @media (max-width: 610px) {
+  .avatar-logo {
+    width: 112px;
+    margin-bottom: 6px;
+  }
+
   .clip-facts {
     width: 100%;
     flex-wrap: wrap;

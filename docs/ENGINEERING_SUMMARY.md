@@ -100,7 +100,7 @@ These are the same limits listed in the README.
 - 41 unit tests pass (8 new: edge fill, clip asset linkage, full-clip QA per clip).
 - Typecheck and build pass.
 - Both clips' QA: PASS.
-- Browser E2E: 14/14 PASS. The sign clips tab check shows 0° pose error against each clip's motion file at 3 seek points per clip, exclusive playback, a single shared WebGL context, and a clean tab round-trip.
+- Browser E2E: 16/16 PASS. The sign clips tab check shows 0° pose error against each clip's motion file at 3 seek points per clip, exclusive playback, a single shared WebGL context, and a clean tab round-trip. The logo check shows it loaded in the top-left corner of all three avatar views.
 - The E2E's input actions now allow 120 s, because SwiftShader inference blocks the page for up to ~20 s. The previous build's camera click already took ~31 s against Playwright's 30 s default, so this was a flaky test, not a regression.
 
 **Limits** (also in the README):

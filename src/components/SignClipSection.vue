@@ -33,10 +33,7 @@
             @status="viewStatus = $event"
           />
 
-          <div class="avatar-corner-label">
-            <span>Motion</span>
-            <strong>Section {{ config.section }}</strong>
-          </div>
+          <AvatarCornerLabel :value="`Section ${config.section}`" />
 
           <div class="avatar-hud" aria-label="Hand tracking quality at this frame">
             <span :class="handClass('left')" :title="handTitle('left')"><i></i> L hand</span>
@@ -152,6 +149,7 @@
 
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref, shallowRef, watch } from 'vue'
+import AvatarCornerLabel from './AvatarCornerLabel.vue'
 import ClipAvatarView, { type ClipViewStatus } from './ClipAvatarView.vue'
 import { MotionClip } from '../motion/clip/MotionClip'
 import type { HandStateCode } from '../motion/clip/format'

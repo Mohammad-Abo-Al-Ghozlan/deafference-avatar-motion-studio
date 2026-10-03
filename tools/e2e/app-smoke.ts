@@ -66,6 +66,17 @@ type ClipView = {
 // exceed Playwright's 30 s default before the page handles them.
 const BUSY_PAGE_ACTION = { timeout: 120_000 }
 
+/** Every avatar view shows the loaded Deafference logo in the top-left corner of its stage. */
+const logoCheck = () => Array.from(document.querySelectorAll<HTMLImageElement>('img.avatar-logo')).map((img) => {
+  const stage = img.closest('.avatar-wrap')!.getBoundingClientRect()
+  const box = img.getBoundingClientRect()
+  return {
+    loaded: img.complete && img.naturalWidth > 0,
+    width: Math.round(box.width),
+    topLeft: box.left - stage.left < stage.width * 0.25 && box.top - stage.top < stage.height * 0.25
+  }
+})
+
 const CHECK_BONES = ['upperarm_r', 'lowerarm_r', 'hand_r', 'index_02_r', 'thumb_02_r', 'middle_03_l', 'head', 'jaw']
 
 function sleep(ms: number) {
@@ -160,6 +171,9 @@ async function main() {
     await page.waitForFunction(() => Boolean((window as unknown as { __deafferenceStage?: unknown }).__deafferenceStage), null, { timeout: 180_000 })
     await page.waitForFunction(() => document.querySelector('video')!.readyState >= 2, null, { timeout: 60_000 })
     expect('app loads avatar + motion engine', true, await page.locator('.system-status').innerText())
+    await page.waitForFunction(() => Array.from(document.querySelectorAll<HTMLImageElement>('img.avatar-logo')).every((img) => img.complete), null, { timeout: 30_000 })
+    const studioLogos = await page.evaluate(logoCheck)
+    expect('logo: top-left of the studio avatar view', studioLogos.length === 1 && studioLogos.every((l) => l.loaded && l.topLeft && l.width > 60), studioLogos)
 
     // ---- 2. Offline engine lockstep sync.
     await page.evaluate(() => document.querySelector('video')!.pause())
@@ -264,6 +278,9 @@ async function main() {
     const canvases = await page.evaluate(() => Array.from(document.querySelectorAll('canvas')).map((c) => ({ cls: c.className, twoD: Boolean(c.getContext('2d')) })))
     expect('clips tab: studio unmounted, both avatar views are 2D copies of ONE shared WebGL context', canvases.length === SIGN_CLIPS.length && canvases.every((c) => c.twoD && c.cls.includes('avatar-canvas')), canvases)
     expect('clips tab: URL addresses the tab', page.url().endsWith('#sign-clips'), page.url())
+    await page.waitForFunction(() => Array.from(document.querySelectorAll<HTMLImageElement>('img.avatar-logo')).every((img) => img.complete), null, { timeout: 30_000 })
+    const clipLogos = await page.evaluate(logoCheck)
+    expect('logo: top-left of both clip avatar views', clipLogos.length === SIGN_CLIPS.length && clipLogos.every((l) => l.loaded && l.topLeft && l.width > 60), clipLogos)
 
     const clipSync: { clip: string; frame: number; mediaTime: number | null; maxErrorDeg: number }[] = []
     for (const config of SIGN_CLIPS) {

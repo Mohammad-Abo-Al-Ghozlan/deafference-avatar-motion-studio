@@ -73,10 +73,7 @@
             @status="stageStatus = $event"
           />
 
-          <div class="avatar-corner-label">
-            <span>Motion</span>
-            <strong>{{ activeSourceName }}</strong>
-          </div>
+          <AvatarCornerLabel :value="activeSourceName" />
 
           <div class="avatar-hud" aria-label="Tracking channels">
             <span :class="{ detected: hud.body }"><i></i> Body</span>
@@ -241,6 +238,7 @@
 
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, shallowRef, watch } from 'vue'
+import AvatarCornerLabel from '../components/AvatarCornerLabel.vue'
 import AvatarStage, { type StageStatus } from '../components/AvatarStage.vue'
 import { useHolisticTracker } from '../composables/useHolisticTracker'
 import { MotionClip } from '../motion/clip/MotionClip'

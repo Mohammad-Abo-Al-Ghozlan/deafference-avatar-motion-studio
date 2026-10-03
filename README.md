@@ -53,6 +53,8 @@ Rendering notes:
 - The studio is unmounted while this tab is open, and the reverse, so there is never more than one avatar texture upload.
 - The clip views frame the avatar waist-up, like the recordings (`SIGNING_FRAMING` in `src/three/studioScene.ts`). The studio keeps its original framing.
 
+**Logo.** All three avatar views (the studio and both clip sections) show the Deafference logo in the top-left corner of the stage (`src/components/AvatarCornerLabel.vue`). The image is `public/brand/deafference-logo-on-dark.png`. `python3 tools/brand/make_logo_variants.py` generates it from the untouched original, `media/brand/deafference-logo.original.png`. The mark keeps its colours, and the dark wordmark is recoloured to the UI's light ink because it would be invisible on the dark stage.
+
 ### Adding a clip
 
 The pipeline is the same for every clip. Copy the original to `media/source/<id>.original.mp4` (it is never modified), then run:
@@ -174,7 +176,7 @@ npm run e2e -- --video-override <vp9-transcode-of-sample.webm> --camera <clip.y4
   --clip-video-overrides sign-clip-1=<vp9-of-sign-clip-1.webm>,sign-clip-2=<vp9-of-sign-clip-2.webm>
 ```
 
-The E2E also opens the Sign clips tab. It checks that both avatars equal their own motion files at the presented media time (0° error at 3 seek points each), that starting one section pauses the other, that both views share one WebGL context, and that switching back to the studio works.
+The E2E also opens the Sign clips tab. It checks that both avatars equal their own motion files at the presented media time (0° error at 3 seek points each), that starting one section pauses the other, that both views share one WebGL context, and that switching back to the studio works. It also checks that the logo is loaded in the top-left corner of all three avatar views.
 
 Rendering is frame-stepped and deterministic: output frame *k* is the pose at *t = k / 30*. Two options exist only because of limits in headless Chromium:
 
