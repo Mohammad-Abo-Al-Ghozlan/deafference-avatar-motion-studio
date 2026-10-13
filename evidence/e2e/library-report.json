@@ -1,5 +1,5 @@
 {
-  "finishedAt": "2026-10-13T03:05:48.975Z",
+  "finishedAt": "2026-10-13T14:20:54.594Z",
   "url": "vite preview",
   "checks": {
     "tab selected and labelled": {
@@ -22,11 +22,11 @@
       "ok": true,
       "detail": "max 0.00000 deg over 8 bones"
     },
-    "thankyou (raw): avatar pose == library at t=0.867 s": {
+    "thankyou (raw): avatar pose == library at t=0.817 s": {
       "ok": true,
       "detail": "max 0.00000 deg over 8 bones"
     },
-    "thankyou (conformed): avatar pose == library at t=0.867 s": {
+    "thankyou (conformed): avatar pose == library at t=0.817 s": {
       "ok": true,
       "detail": "max 0.00000 deg over 8 bones"
     },
@@ -54,11 +54,11 @@
       "ok": true,
       "detail": "max 0.00000 deg over 8 bones"
     },
-    "night (raw): avatar pose == library at t=0.918 s": {
+    "night (raw): avatar pose == library at t=0.768 s": {
       "ok": true,
       "detail": "max 0.00000 deg over 8 bones"
     },
-    "night (conformed): avatar pose == library at t=0.918 s": {
+    "night (conformed): avatar pose == library at t=0.768 s": {
       "ok": true,
       "detail": "max 0.00000 deg over 8 bones"
     },
@@ -78,9 +78,18 @@
       "ok": true,
       "detail": "max 0.00000 deg over 8 bones"
     },
-    "round-trip: no Misread filter without a recognizer run": {
+    "round-trip: Misread filter lists exactly the misread takes": {
       "ok": true,
-      "detail": "hidden"
+      "detail": {
+        "label": "Misread 16",
+        "shown": 16,
+        "badges": 16,
+        "expected": 16
+      }
+    },
+    "round-trip: the detail panel names what the recognizer read": {
+      "ok": true,
+      "detail": "RECOGNIZER (ROUND-TRIP) Read as \"stay\" · p 0.23 for this word"
     },
     "review: approve + export writes the pipeline CSV": {
       "ok": true,
@@ -98,8 +107,8 @@
           "thank you",
           "mom"
         ],
-        "frameCount": 154,
-        "expectedFrames": 154
+        "frameCount": 157,
+        "expectedFrames": 157
       }
     },
     "review is disabled while a phrase plays": {

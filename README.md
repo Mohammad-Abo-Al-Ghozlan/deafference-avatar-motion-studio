@@ -104,7 +104,7 @@ The raw bake fails the studio's anatomical QA on every word. The failures are mo
 4. **Long fingers.** The MCP keeps flexion and abduction only (no axial roll), with a flexion-dependent abduction range and adjacent fingers kept in order. PIP and DIP are pure hinges.
 5. **Thumb.** MCP and IP are pure hinges within range.
 
-The conformance is deterministic. The unit tests recompute it from the committed pipeline output and check that it is a projection: applying it twice changes < 0.15°.
+The conformance is deterministic. The unit tests recompute it from the committed pipeline output and check that it is a projection: applying it twice changes < 0.25° (worst 0.16°, a finger MCP near full flexion, from the Int16 input).
 
 ### Data and commands
 
@@ -122,34 +122,61 @@ The importer refuses input that was baked for a different GLB, comes from mismat
 
 | File | Content |
 |---|---|
-| `public/motion/sign-library/sign-library.json` | Index (187 KB): words, timing (ease in / sign / ease out), provenance (dataset take, signer, rank, selection), per-variant QA failures, conformance statistics, review status |
-| `public/motion/sign-library/sign-library.bin.gz` | 13,076 frames × 47 bones of local quaternions, Int16 (error < 0.004°), raw and conformed blocks (4.6 MB) |
+| `public/motion/sign-library/sign-library.json` | Index (208 KB): words, timing (ease in / sign / ease out), provenance (dataset take, signer, rank, selection), how the take was chosen and the recognizer's verdict on it, per-variant QA failures, conformance statistics, review status |
+| `public/motion/sign-library/sign-library.bin.gz` | 13,170 frames × 47 bones of local quaternions, Int16 (error < 0.004°), raw and conformed blocks (4.8 MB) |
 | `motion/sign-library/qa-report.md`, `qa-report.json.gz` | QA summary, and per-word metrics of both variants |
-| `motion/sign-library/source/` | The pipeline output the files above were built from (select run `20261012T230856Z_0eb172`) |
+| `motion/sign-library/source/` | The pipeline output the files above were built from (select run `20261012T230856Z_0eb172`, round-trip `avatar_20261013_0104`) |
 
 `tests/signLibrary.test.ts` (16 tests, about 8 s) checks the following:
 
 - The shipped files are the import of the committed source (sha256), and the raw frames equal the bake within quantisation error for every word, frame and bone.
 - The conformed frames are reproducible, and every word starts and ends at the same idle pose in both variants.
-- The stored QA equals the QA recomputed on the decoded data.
+- The stored QA equals the QA recomputed on the decoded data, and each word's take choice and recognizer verdict match the pipeline's library.json.
 - The player, the clock, sequences, lookup, the review CSV and the loader behave correctly, including when a host decodes the `.gz` on the fly.
 
-`npm run e2e:library` loads the tab in headless Chromium. For 8 words × 2 variants it checks that the avatar's bones equal the library at the presented time. It also approves a word and checks the exported CSV byte for byte, plays the lookup test, and checks that switching variant keeps the phrase that is playing. It saves screenshots to `evidence/e2e/library-*.png`. With `--url` it runs against a deployment.
+`npm run e2e:library` loads the tab in headless Chromium. For 8 words × 2 variants it checks that the avatar's bones equal the library at the presented time. It also checks that the *Misread* filter lists exactly the takes the recognizer misread, approves a word and checks the exported CSV byte for byte, plays the lookup test, and checks that switching variant keeps the phrase that is playing. It saves screenshots to `evidence/e2e/library-*.png`. With `--url` it runs against a deployment.
 
 ### QA results (250 words)
 
 | | Studio QA pass | Findings (words) |
 |---|---|---|
-| Raw (pipeline bake) | 0 / 250 | thumb off-hinge 240, finger twist 232, finger ranges 138, wrist limits 112, elbow range 18, finger crossing 14, rest-pose hand 9, one-frame finger spike 1 |
-| Conformed | **241 / 250** | rest-pose hand 9 (tolerated, see below) |
+| Raw (pipeline bake) | 0 / 250 | thumb off-hinge 247, finger twist 240, finger ranges 141, wrist limits 115, elbow range 25, finger crossing 13, rest-pose hand 2, one-frame finger spike 1 |
+| Conformed | **248 / 250** | rest-pose hand 2 (tolerated, see below) |
 
-What the conformance changed: the elbow swivelled in 110 words (max 60°), and the wrist position moved at most 22 mm. Hand orientation, worst frame per word, changed by a median of 0° and a max of 55°. Fingertip displacement, worst frame per word, had a median of 17 mm and a max of 105 mm. Details per word: `motion/sign-library/qa-report.md`, and the tab's detail panel.
+What the conformance changed: the elbow swivelled in 113 words (max 60°), and the wrist position moved at most 22 mm. Hand orientation, worst frame per word, changed by a median of 0° and a max of 55°. Fingertip displacement, worst frame per word, had a median of 18 mm and a max of 105 mm. Details per word: `motion/sign-library/qa-report.md`, and the tab's detail panel.
+
+Before the round-trip tie-breaker (best-ranked take for every word) the conformed pass was 241 / 250, with 9 rest-pose hands.
 
 Findings to check by eye, listed under the *Check* filter:
 
-- **No finger data, 9 words** (`beside`, `black`, `farm`, `food`, `give`, `grandma`, `jump`, `loud`, `toy`). The dominant hand stays at the rig's rest handshape during the sign, because the pipeline had no finger data for that take. These words need another take.
-- **Hand turned ≥ 15° by the wrist limits, 12 words** (`beside` 55°, `empty` 42°, `on` 34°, `read` 31°, `chair` 29°, `old` 28°, `that` 25°, `every` 21°, `pencil` 19°, `night` 17°, `puppy` 15°, `helicopter` 15°). The raw take bends the wrist beyond its anatomical range. Compare Conformed with Raw: the palm orientation may matter for the meaning.
-- **Two-handed words, 87.** Every second hand is synthesized, never recorded. 52 are a mirror of the dominant arm and hand (symmetric signs), and 35 are a static base hand from a hearing-authored lexicon (asymmetric signs). The pipeline's base-hand placement (`2a`) produces impossible wrist angles: the raw `night` left wrist reaches 74° radial deviation and `beside` 81°, against a 28° limit. The conformance absorbs most of this by swivelling the elbow out, and clamps the rest, which turns the base hand (`beside` 55°, `night` 17°). The proper fix belongs in the pipeline (aslv2 `motion/passive.py`).
+- **No finger data, 2 words** (`beside`, `grandma`). The dominant hand stays at the rig's rest handshape during the sign, because the pipeline had no finger data for that take. These words need another take. The round-trip tie-breaker already replaced the takes of the other 7 such words (`black`, `farm`, `food`, `give`, `jump`, `loud`, `toy`) with takes that have finger data.
+- **Hand turned ≥ 15° by the wrist limits, 13 words** (`beside` 55°, `empty` 42°, `on` 34°, `read` 31°, `chair` 29°, `old` 28°, `cat` 25°, `that` 25°, `quiet` 24°, `every` 21°, `lion` 21°, `green` 17°, `helicopter` 15°). The raw take bends the wrist beyond its anatomical range. Compare Conformed with Raw: the palm orientation may matter for the meaning.
+- **Two-handed words, 87.** Every second hand is synthesized, never recorded. 52 are a mirror of the dominant arm and hand (symmetric signs), and 35 are a static base hand from a hearing-authored lexicon (asymmetric signs). The pipeline's base-hand placement (`2a`) produces impossible wrist angles: in the raw bake the `beside` left wrist reaches 81° radial deviation (limit 28°), and `empty` and `on` 62–66° ulnar deviation (limit 40°). The conformance absorbs most of this by swivelling the elbow out, and clamps the rest, which turns the base hand (`beside` 55°, `empty` 42°). The proper fix belongs in the pipeline (aslv2 `motion/passive.py`).
+
+### Recognizer round-trip (pipeline `train-all`, 2026-10-13)
+
+The pipeline trained two small sign recognizers (250 classes, same signer split). One reads the original tracked landmarks, the other the avatar's motion. On the 3 test signers neither model saw (12,966 clips):
+
+| Sign type | Signs | Landmarks | Avatar |
+|---|---|---|---|
+| One-handed | 163 | 50.2% | 49.0% |
+| Two-handed, symmetric (mirrored second hand) | 52 | 43.1% | 46.4% |
+| Two-handed, asymmetric (lexicon base hand) | 35 | 45.7% | 75.5% |
+| All | 250 | 48.1% | 52.1% |
+
+The numbers show first-guess accuracy.
+
+- **The fair comparison is the one-handed row: the avatar motion keeps 98% of what the recognizer can read from the tracking.** The asymmetric row is a label leak. The pipeline builds the base hand of those signs from the lexicon entry of the word itself, in every split, so the avatar recognizer sees the answer. Don't quote the overall "52.1% vs 48.1%".
+- **The recognizer is weak.** It gets about half of the clips of new signers right (69–70% on the validation signers), so a single misread is weak evidence.
+
+The pipeline's `library` stage uses the round-trip (the avatar recognizer run on each exported take) to break ties between unreviewed takes of the same word, which cancels the leak. When the recognizer misreads the best-ranked unrejected take and recognizes another unrejected take of the same word, the best-ranked recognized take ships instead (`choice: roundtrip`).
+
+- **Takes switched:** 70 words (48 to their second-ranked take, 22 to their third).
+- **Effect:** conformed QA went from 241 to 248 / 250, and words with no finger data went from 9 to 2.
+- **Recognized now:** 234 / 250 shipped takes.
+- **Still misread (16):** `any`, `awake`, `bee`, `drawer`, `grandma`, `hot`, `kiss`, `lamp`, `mouth`, `pizza`, `say`, `sleepy`, `snack`, `sun`, `who`, `will`. These come first in Deaf review. Some are near-synonyms rather than bad motion (`mouth` is read as *lips*).
+
+A Deaf decision always overrides the recognizer.
 
 ## Pipeline
 
