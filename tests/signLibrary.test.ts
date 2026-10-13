@@ -118,13 +118,20 @@ test('sign library: index is valid, baked for this exact avatar, and its counts 
     twoHanded: count((w) => w.hands === 'both'),
     pendingDeafReview: count((w) => w.review === 'pending_deaf_review'),
     approved: count((w) => w.review === 'approved'),
-    qaPass: { raw: count((w) => w.qa.raw.pass), conformed: count((w) => w.qa.conformed.pass) }
+    qaPass: { raw: count((w) => w.qa.raw.pass), conformed: count((w) => w.qa.conformed.pass) },
+    chosenByRoundtrip: count((w) => w.choice === 'roundtrip'),
+    roundtripNotRecognised: count((w) => Boolean(w.roundtrip && !w.roundtrip.recognised))
   })
   for (const w of index.words) {
     assert.equal(w.hands === 'both', w.signClass !== '1', `${w.gloss}: hands agree with the lexicon class`)
     assert.equal(w.passive === 'none', w.hands === 'right', `${w.gloss}: a second hand exactly for two-handed signs`)
     assert.ok(w.holdIn >= 1 && w.stroke >= 1 && w.holdOut >= 1, `${w.gloss}: ease in, sign, ease out`)
     for (const v of index.variants) assert.equal(w.qa[v].pass, w.qa[v].failures.length === 0, `${w.gloss} (${v}): pass flag`)
+    // Round-trip: only reorders unreviewed takes, only towards a recognised one, only with a run behind it.
+    assert.ok(['deaf_approved', 'roundtrip', 'rank'].includes(w.choice), `${w.gloss}: choice`)
+    if (w.choice === 'roundtrip') assert.ok(w.roundtrip?.recognised && w.source.rank > 1 && w.review !== 'approved', `${w.gloss}: round-trip choice`)
+    if (w.choice === 'deaf_approved') assert.equal(w.review, 'approved', `${w.gloss}: approval`)
+    if (w.roundtrip) assert.ok(index.source.roundtripRun && w.roundtrip.pTrue >= 0 && w.roundtrip.pTrue <= 1 && byGloss.has(w.roundtrip.readAs), `${w.gloss}: verdict`)
   }
 })
 
@@ -132,10 +139,18 @@ test('sign library: shipped files are the import of the committed pipeline outpu
   for (const path of [BAKED, LIBRARY]) assert.ok(existsSync(repoPath(path)), path)
   assert.equal(index.source.bakedSha256, sha256(gunzipSync(readFileSync(repoPath(BAKED)))))
   assert.equal(index.source.librarySha256, sha256(gunzipSync(readFileSync(repoPath(LIBRARY)))))
-  const library = readJson<{ select_run: string; skeleton_sha256: string; words: Record<string, unknown> }>(LIBRARY)
+  type Entry = { sequence_id: string | number; rank: number; choice?: string; roundtrip?: { recognised: boolean; read_as: string; p_true: number } | null }
+  const library = readJson<{ select_run: string; skeleton_sha256: string; roundtrip_run?: string | null; words: Record<string, Entry> }>(LIBRARY)
   assert.equal(library.select_run, index.source.selectRun)
   assert.equal(library.skeleton_sha256, index.rig.sha256, 'the pipeline baked for the same skeleton')
   assert.deepEqual(Object.keys(library.words).sort(), index.words.map((w) => w.gloss).sort())
+  assert.equal(index.source.roundtripRun, library.roundtrip_run ?? null)
+  for (const w of index.words) {
+    const entry = library.words[w.gloss]
+    assert.deepEqual([w.source.sequenceId, w.source.rank, w.choice], [String(entry.sequence_id), entry.rank, entry.choice ?? 'rank'], w.gloss)
+    const v = entry.roundtrip
+    assert.deepEqual(w.roundtrip, v ? { recognised: v.recognised, readAs: v.read_as, pTrue: v.p_true } : null, `${w.gloss}: round-trip verdict`)
+  }
   assert.deepEqual(index.bones, Object.keys(baked()._rest))
 })
 

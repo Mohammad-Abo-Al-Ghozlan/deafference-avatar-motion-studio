@@ -39,6 +39,22 @@ export interface WordQa {
   failures: string[]
 }
 
+/** How the pipeline's library stage chose a word's take. */
+export type TakeChoice = 'deaf_approved' | 'roundtrip' | 'rank'
+
+/**
+ * The pipeline's avatar recognizer on a take (round-trip: avatar motion -> which sign?). Evidence
+ * for review order, not correctness; weak for asymmetric two-handed signs, whose synthesized base
+ * hand comes from the lexicon entry of the word itself.
+ */
+export interface RoundtripVerdict {
+  recognised: boolean
+  /** The gloss the recognizer's first guess names. */
+  readAs: string
+  /** The recognizer's probability for this word. */
+  pTrue: number
+}
+
 export interface WordConformance {
   /** Frames where at least one joint was changed by the conformance. */
   changedFrames: number
@@ -73,6 +89,10 @@ export interface SignLibraryWord {
   /** How the non-dominant hand was produced ("none", "recorded", "mirrored_...", "base"). */
   passive: string
   review: ReviewStatus
+  /** deaf_approved; roundtrip = the better-ranked takes were misread by the avatar recognizer and this one was recognised; rank = best-ranked take. */
+  choice: TakeChoice
+  /** The avatar recognizer's verdict on this take, or null when no avatar evaluation covered the select run. */
+  roundtrip: RoundtripVerdict | null
   source: {
     sequenceId: string
     participantId: string
@@ -103,6 +123,8 @@ export interface SignLibraryIndex {
     librarySha256: string
     reviewPolicy: string
     twoHandedNote: string
+    /** The pipeline's avatar evaluate run whose round-trip ranked unreviewed takes (null: none). */
+    roundtripRun: string | null
   }
   fps: number
   bones: string[]
@@ -117,6 +139,10 @@ export interface SignLibraryIndex {
     pendingDeafReview: number
     approved: number
     qaPass: Record<LibraryVariant, number>
+    /** Words whose take the round-trip chose over a better-ranked one the recognizer misread. */
+    chosenByRoundtrip: number
+    /** Words whose chosen take the recognizer does not recognise. */
+    roundtripNotRecognised: number
   }
   qaConvention: string
   notes: string[]

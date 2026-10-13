@@ -1,5 +1,5 @@
 {
-  "finishedAt": "2026-10-13T00:38:07.252Z",
+  "finishedAt": "2026-10-13T03:05:48.975Z",
   "url": "vite preview",
   "checks": {
     "tab selected and labelled": {
@@ -77,6 +77,10 @@
     "drink (conformed): avatar pose == library at t=0.868 s": {
       "ok": true,
       "detail": "max 0.00000 deg over 8 bones"
+    },
+    "round-trip: no Misread filter without a recognizer run": {
+      "ok": true,
+      "detail": "hidden"
     },
     "review: approve + export writes the pipeline CSV": {
       "ok": true,

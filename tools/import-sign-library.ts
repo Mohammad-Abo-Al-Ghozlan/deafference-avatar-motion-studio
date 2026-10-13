@@ -38,7 +38,9 @@ import {
   validateLibraryIndex,
   type LibraryVariant,
   type ReviewStatus,
+  type RoundtripVerdict,
   type SignLibraryIndex,
+  type TakeChoice,
   type SignLibraryWord,
   type WordConformance
 } from '../src/motion/library/format'
@@ -85,6 +87,8 @@ interface LibraryFile {
   avatar_id: string
   skeleton_sha256: string
   select_run: string
+  /** Absent before the pipeline's round-trip tie-breaker. */
+  roundtrip_run?: string | null
   created_utc: string
   fps: number
   review_policy: string
@@ -101,6 +105,8 @@ interface LibraryFile {
     passive: string
     review_status: string
     alternatives: string[]
+    choice?: string
+    roundtrip?: { recognised: boolean; read_as: string; p_true: number } | null
   }>
   missing: Record<string, unknown>
 }
@@ -238,6 +244,13 @@ async function main() {
   const words: SignLibraryWord[] = glosses.map((gloss) => {
     const word = b.signs[gloss]
     const entry = l.words[gloss]
+    if (String(entry.sequence_id) !== String(word.source.sequence_id)) fail(`"${gloss}": library.json chose take ${entry.sequence_id}, baked_signs.json holds ${word.source.sequence_id}`)
+    const choice: TakeChoice = entry.choice === 'deaf_approved' || entry.choice === 'roundtrip' ? entry.choice : 'rank'
+    const roundtrip: RoundtripVerdict | null = entry.roundtrip
+      ? { recognised: entry.roundtrip.recognised === true, readAs: String(entry.roundtrip.read_as ?? ''), pTrue: Number(entry.roundtrip.p_true) }
+      : null
+    if (roundtrip && !Number.isFinite(roundtrip.pTrue)) fail(`"${gloss}": round-trip p_true is not a number`)
+    if (choice === 'roundtrip' && !roundtrip?.recognised) fail(`"${gloss}": chosen by round-trip but its take is not recognised`)
     return {
       gloss,
       frameOffset: offsets[gloss],
@@ -249,6 +262,8 @@ async function main() {
       signClass: entry.class,
       passive: entry.passive,
       review: status(entry.review_status),
+      choice,
+      roundtrip,
       source: {
         sequenceId: String(entry.sequence_id),
         participantId: String(entry.participant_id),
@@ -277,7 +292,8 @@ async function main() {
       bakedSha256: sha256(baked.bytes),
       librarySha256: sha256(library.bytes),
       reviewPolicy: l.review_policy,
-      twoHandedNote: l.two_handed_note
+      twoHandedNote: l.two_handed_note,
+      roundtripRun: l.roundtrip_run ?? null
     },
     fps,
     bones,
@@ -290,7 +306,9 @@ async function main() {
       twoHanded: words.filter((w) => w.hands === 'both').length,
       pendingDeafReview: words.filter((w) => w.review === 'pending_deaf_review').length,
       approved: words.filter((w) => w.review === 'approved').length,
-      qaPass: { raw: 0, conformed: 0 }
+      qaPass: { raw: 0, conformed: 0 },
+      chosenByRoundtrip: words.filter((w) => w.choice === 'roundtrip').length,
+      roundtripNotRecognised: words.filter((w) => w.roundtrip && !w.roundtrip.recognised).length
     },
     qaConvention: 'Studio QA (src/motion/qa/metrics.ts, DEFAULT_QA) on the decoded Int16 data. Hand state: the right hand, and the left hand of two-handed signs, count as tracked during the stroke; everything else as not observed.',
     notes: [
@@ -382,6 +400,10 @@ function markdown(index: SignLibraryIndex, summary: { qaPass: Record<string, num
     `| conformed (studio joint model) | ${index.counts.words} | ${summary.qaPass.conformed} |`,
     '',
     `Two-handed: ${index.counts.twoHanded}. Pending Deaf review: ${index.counts.pendingDeafReview}. Approved: ${index.counts.approved}.`,
+    '',
+    index.source.roundtripRun
+      ? `Take choice: ${index.counts.chosenByRoundtrip} words switched to a take the avatar recognizer recognises (round-trip \`${index.source.roundtripRun}\`); ${index.counts.roundtripNotRecognised} chosen takes are not recognised: ${index.words.filter((w) => w.roundtrip && !w.roundtrip.recognised).map((w) => w.gloss).join(', ')}.`
+      : 'Take choice: best-ranked take per word (no avatar recognizer round-trip for this select run).',
     '',
     '## QA findings (number of words)',
     ''

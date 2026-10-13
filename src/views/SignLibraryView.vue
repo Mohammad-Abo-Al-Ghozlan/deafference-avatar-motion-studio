@@ -13,12 +13,15 @@
       </p>
     </section>
 
-    <dl v-if="index" class="library-stats" aria-label="Library summary">
+    <dl v-if="index" class="library-stats" :class="{ 'has-roundtrip': index.source.roundtripRun }" aria-label="Library summary">
       <div><dt>Words</dt><dd>{{ index.counts.words }}</dd></div>
       <div><dt>Two-handed</dt><dd>{{ index.counts.twoHanded }}<small> 2nd hand synthesized</small></dd></div>
       <div><dt>Studio QA · raw</dt><dd>{{ index.counts.qaPass.raw }}<small> / {{ index.counts.words }} pass</small></dd></div>
       <div><dt>Studio QA · conformed</dt><dd>{{ index.counts.qaPass.conformed }}<small> / {{ index.counts.words }} pass</small></dd></div>
       <div><dt>Deaf-approved</dt><dd>{{ index.counts.approved }}<small> · {{ reviewedCount }} reviewed here</small></dd></div>
+      <div v-if="index.source.roundtripRun" :title="`Avatar recognizer round-trip, pipeline run ${index.source.roundtripRun}`">
+        <dt>Recognizer · round-trip</dt><dd>{{ recognisedCount }}<small> / {{ index.counts.words }} recognized</small></dd>
+      </div>
     </dl>
 
     <div class="motion-workspace library-workspace">
@@ -173,7 +176,8 @@
             <div><dt>Handedness</dt><dd>{{ CLASS_TEXT[currentWord.signClass] ?? currentWord.signClass }}</dd></div>
             <div><dt>Second hand</dt><dd>{{ PASSIVE_TEXT[currentWord.passive] ?? currentWord.passive }}</dd></div>
             <div><dt>Dataset take</dt><dd>sequence {{ currentWord.source.sequenceId }} · signer {{ currentWord.source.participantId }}</dd></div>
-            <div><dt>Selection</dt><dd>candidate {{ currentWord.source.rank }} of {{ currentWord.source.alternatives + 1 }} · {{ SELECTION_TEXT[currentWord.source.selection] ?? currentWord.source.selection }}</dd></div>
+            <div><dt>Selection</dt><dd>candidate {{ currentWord.source.rank }} of {{ currentWord.source.alternatives + 1 }} · {{ SELECTION_TEXT[currentWord.source.selection] ?? currentWord.source.selection }}<template v-if="CHOICE_TEXT[currentWord.choice]"> · {{ CHOICE_TEXT[currentWord.choice] }}</template></dd></div>
+            <div v-if="index.source.roundtripRun"><dt>Recognizer (round-trip)</dt><dd :class="{ warn: currentWord.roundtrip && !currentWord.roundtrip.recognised }">{{ roundtripText(currentWord) }}</dd></div>
             <div><dt>Timing</dt><dd>{{ currentWord.stroke }} sign frames + {{ currentWord.holdIn + currentWord.holdOut }} ease frames @ {{ index.fps }} fps</dd></div>
           </dl>
 
@@ -309,6 +313,10 @@ const PASSIVE_TEXT: Record<string, string> = {
   mirrored_hand: 'Synthesized: mirrored handshape',
   base: 'Synthesized: static base hand from the lexicon'
 }
+const CHOICE_TEXT: Record<string, string> = {
+  deaf_approved: 'Deaf-approved take',
+  roundtrip: 'chosen over the better-ranked takes, which the avatar recognizer misread'
+}
 const SELECTION_TEXT: Record<string, string> = {
   held_out: 'held-out signer',
   split_fallback: 'training signer (no held-out take passed)',
@@ -372,6 +380,7 @@ const currentReviews = computed(() => Object.fromEntries(words.value.flatMap((w)
   return record && record.sequenceId === w.source.sequenceId ? [[w.gloss, record]] : []
 })) as Record<string, ReviewRecord>)
 const reviewedCount = computed(() => Object.keys(currentReviews.value).length)
+const recognisedCount = computed(() => words.value.filter((w) => w.roundtrip?.recognised).length)
 /** Review applies to the word on screen; in phrase mode that word changes while it plays. */
 const canReview = computed(() => mode.value === 'word' && Boolean(currentWord.value))
 const decision = computed<Decision | null>(() => {
@@ -412,6 +421,13 @@ function attention(word: SignLibraryWord): string[] {
     out.push(`Conformance turns the hand by up to ${word.conformance.maxHandOrientationChangeDeg}° (wrist beyond its range in the raw take): compare Conformed with Raw`)
   }
   return out
+}
+
+function roundtripText(word: SignLibraryWord) {
+  const verdict = word.roundtrip
+  if (!verdict) return 'Not evaluated'
+  if (verdict.recognised) return `Recognized · p ${verdict.pTrue.toFixed(2)}${word.signClass === '2a' ? ' · weak evidence (the base hand comes from the lexicon entry of this word)' : ''}`
+  return `Read as "${glossLabel(verdict.readAs)}" · p ${verdict.pTrue.toFixed(2)} for this word`
 }
 
 function strokeStyle(segment: SequenceSegment) {
@@ -660,6 +676,10 @@ onBeforeUnmount(() => {
   border: 1px solid var(--line);
   border-radius: 14px;
   background: var(--panel);
+}
+
+.library-stats.has-roundtrip {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
 }
 
 .library-stats > div {
@@ -1105,7 +1125,8 @@ onBeforeUnmount(() => {
 }
 
 @media (max-width: 1050px) {
-  .library-stats {
+  .library-stats,
+  .library-stats.has-roundtrip {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
@@ -1135,7 +1156,8 @@ onBeforeUnmount(() => {
 }
 
 @media (max-width: 610px) {
-  .library-stats {
+  .library-stats,
+  .library-stats.has-roundtrip {
     grid-template-columns: 1fr 1fr;
   }
 

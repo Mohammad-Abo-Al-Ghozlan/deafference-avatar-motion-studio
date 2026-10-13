@@ -10,6 +10,8 @@ Rig: `deafference-avatar.glb` sha256 `18df37e0d48b…` (same GLB the pipeline ba
 
 Two-handed: 87. Pending Deaf review: 250. Approved: 0.
 
+Take choice: best-ranked take per word (no avatar recognizer round-trip for this select run).
+
 ## QA findings (number of words)
 
 **raw**

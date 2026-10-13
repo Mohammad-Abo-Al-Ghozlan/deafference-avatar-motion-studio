@@ -7,7 +7,7 @@
       </label>
       <div class="word-filters" role="group" aria-label="Filter words">
         <button
-          v-for="option in FILTERS"
+          v-for="option in filters"
           :key="option.id"
           type="button"
           class="word-filter"
@@ -37,6 +37,7 @@
           <span class="word-name">{{ glossLabel(word.gloss) }}</span>
           <span class="word-badges">
             <i v-if="word.hands === 'both'" class="badge two" title="Two-handed sign">2H</i>
+            <i v-if="word.roundtrip && !word.roundtrip.recognised" class="badge misread" :title="`The avatar recognizer reads this take as &quot;${glossLabel(word.roundtrip.readAs)}&quot;`">≠</i>
             <i v-if="attention(word).length" class="badge warn" :title="attention(word).join('; ')">!</i>
             <i v-if="reviews[word.gloss]" class="badge" :class="reviews[word.gloss].decision" :title="`Reviewed: ${reviews[word.gloss].decision}`">{{ reviews[word.gloss].decision === 'approved' ? '✓' : '✕' }}</i>
           </span>
@@ -53,7 +54,7 @@ import type { SignLibraryWord } from '../motion/library/format'
 import { glossLabel } from '../motion/library/lookup'
 import type { ReviewRecord } from '../motion/library/review'
 
-export type WordFilter = 'all' | 'two' | 'attention' | 'unreviewed' | 'reviewed'
+export type WordFilter = 'all' | 'two' | 'attention' | 'misread' | 'unreviewed' | 'reviewed'
 
 const props = defineProps<{
   words: readonly SignLibraryWord[]
@@ -70,6 +71,7 @@ const FILTERS: { id: WordFilter; label: string }[] = [
   { id: 'all', label: 'All' },
   { id: 'two', label: 'Two-handed' },
   { id: 'attention', label: 'Check' },
+  { id: 'misread', label: 'Misread' },
   { id: 'unreviewed', label: 'Unreviewed' },
   { id: 'reviewed', label: 'Reviewed' }
 ]
@@ -78,8 +80,12 @@ const query = ref('')
 const filter = ref<WordFilter>('all')
 const listElement = ref<HTMLUListElement | null>(null)
 
+/** "Misread" only exists when the pipeline's avatar recognizer judged the takes (round-trip). */
+const filters = computed(() => FILTERS.filter((f) => f.id !== 'misread' || props.words.some((w) => w.roundtrip)))
+
 const matches = (word: SignLibraryWord, which: WordFilter) => {
   if (which === 'two') return word.hands === 'both'
+  if (which === 'misread') return Boolean(word.roundtrip && !word.roundtrip.recognised)
   if (which === 'attention') return props.attention(word).length > 0
   if (which === 'unreviewed') return !props.reviews[word.gloss]
   if (which === 'reviewed') return Boolean(props.reviews[word.gloss])
@@ -254,6 +260,12 @@ defineExpose({ visibleGlosses })
 .badge.warn {
   color: #1d1200;
   background: var(--orange);
+}
+
+.badge.misread {
+  color: var(--orange);
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--orange);
 }
 
 .badge.approved {

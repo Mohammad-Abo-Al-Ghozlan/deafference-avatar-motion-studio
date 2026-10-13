@@ -10,7 +10,9 @@
  *      and BOTH versions (raw, conformed), the avatar's bones equal the
  *      library sampled at the presented time, computed in Node with the same
  *      MotionClip code from the files on disk;
- *   3. Deaf review: approving a word and exporting writes the pipeline's
+ *   3. with a pipeline recognizer run, the Misread filter lists exactly the takes it
+ *      misread and the detail panel names what it read them as;
+ *   3b. Deaf review: approving a word and exporting writes the pipeline's
  *      deaf_review_decisions.csv (columns, quoting, the take's sequence id);
  *   4. the lookup test plays the matched words back to back, review is
  *      disabled meanwhile, and switching version keeps the phrase being played;
@@ -23,6 +25,7 @@ import { gunzipSync } from 'node:zlib'
 import { MotionClip } from '../../src/motion/clip/MotionClip'
 import { sequenceMotionFile, wordMotionFile } from '../../src/motion/library/clips'
 import { int16View, validateLibraryIndex, type LibraryVariant, type SignLibraryIndex } from '../../src/motion/library/format'
+import { glossLabel } from '../../src/motion/library/lookup'
 import { parseArgs, repoPath } from '../lib/cli'
 import { loadGltfRig } from '../lib/gltfRig'
 import { buildThreeHierarchy } from '../lib/threeRig'
@@ -158,6 +161,26 @@ async function main() {
         expect(`${gloss} (${variant}): avatar pose == library at t=${target.toFixed(3)} s`, worst < TOLERANCE_DEG, detail)
         await page.locator('.library-avatar-wrap').screenshot({ path: `${out}/library-${gloss}-${variant}.png` })
       }
+    }
+
+    // Round-trip: with a pipeline recognizer run, the Misread filter lists exactly the takes it misread.
+    if (index.source.roundtripRun) {
+      const misread = index.words.filter((w) => w.roundtrip && !w.roundtrip.recognised)
+      const chip = page.locator('.word-filter', { hasText: 'Misread' })
+      const label = await chip.innerText()
+      await chip.click()
+      const shown = await page.locator('.word-row').count()
+      const badges = await page.locator('.word-row .badge.misread').count()
+      expect('round-trip: Misread filter lists exactly the misread takes', shown === misread.length && badges === misread.length && label.includes(String(misread.length)), { label, shown, badges, expected: misread.length })
+      if (misread.length) {
+        const sample = misread[0]
+        await page.locator(`.word-row[data-gloss="${sample.gloss}"]`).click()
+        const fact = await page.locator('.detail-facts div', { hasText: 'Recognizer (round-trip)' }).innerText()
+        expect('round-trip: the detail panel names what the recognizer read', fact.includes(glossLabel(sample.roundtrip!.readAs)), fact.replace(/\s+/g, ' '))
+      }
+      await page.locator('.word-filter', { hasText: 'All' }).click()
+    } else {
+      expect('round-trip: no Misread filter without a recognizer run', await page.locator('.word-filter', { hasText: 'Misread' }).count() === 0, 'hidden')
     }
 
     // Deaf review: approve one word and export the pipeline's deaf_review_decisions.csv.
