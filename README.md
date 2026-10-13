@@ -2,10 +2,11 @@
 
 A privacy-first Vue/Three.js app that transfers the motion of a recorded or live signer onto the supplied rigged 3D character (`public/models/deafference-avatar.glb`).
 
-The app has two tabs:
+The app has three tabs:
 
 - **Motion studio**: the sample clip (precomputed motion), upload, and live camera.
 - **Sign clips** (`#sign-clips`): two recorded signing clips, each shown in its own section next to the avatar replaying its precomputed motion. Both clips went through the same offline pipeline and QA as the sample clip. See [Sign clips tab](#sign-clips-tab).
+- **Sign library** (`#sign-library`): a test bench for the 250 isolated signs the asl-v2 data pipeline baked for this avatar. Every word plays on the avatar, raw and conformed to the studio's joint model, with per-word QA, a word-lookup test and Deaf review export. See [Sign library tab](#sign-library-tab).
 
 **This is motion retargeting, not translation.** It reproduces a performance that already exists in a video. It does not translate speech or text into signing, it is not a trained sign-language model, and its output has not been reviewed by a fluent Deaf signer. See [Limitations](#limitations).
 
@@ -14,7 +15,7 @@ The app has two tabs:
 ```bash
 npm install          # Node >= 20.19
 npm run dev          # http://localhost:5173
-npm test             # 41 unit tests (Node test runner)
+npm test             # 57 unit tests (Node test runner)
 npm run build        # vue-tsc + tsc (tools) + vite build
 npm run preview
 ```
@@ -77,6 +78,77 @@ npm run motion:export -- --clip <id>
 Then add the clip to `src/views/signClips.ts`.
 
 `make_playback.py` builds the constant-frame-rate playback MP4 from the cleaning stage's slot → source-frame map. Frame *k* of the MP4 is therefore exactly the source frame that motion frame *k* was solved from. Frames are re-encoded from raw yuv420p, with no colour conversion, and the audio is dropped, as for the sample clip. The script verifies the frame count and that every timestamp is *k / 30*. For both clips, every playback frame was also checked to be the closest match (PSNR ≥ 42.9 dB) to its mapped source frame. The original sample clip's playback MP4 came with the project; the new clips use this script.
+
+## Sign library tab
+
+The Sign library tab (`#sign-library`, `src/views/SignLibraryView.vue`) is a test bench for the **250 isolated signs** (GISLR glosses, one dataset take per word) that the asl-v2 data pipeline retargeted onto this avatar. The pipeline baked them for the same GLB (sha256 `18df37e0d48b…`), so its local bone rotations play on this rig unchanged. The tab plays them with the studio's `MotionClip` player in the shared WebGL context, and the importer checks every word with the studio's full-clip QA.
+
+**It is a lookup library, not translation.** Each word is an isolated sign. The lookup test plays known English words back to back in English word order, with an ease to the idle pose between them. There is no ASL grammar, facial grammar or coarticulation, and **no clip is Deaf-approved**.
+
+What the tab offers:
+
+- **Word test.** Search the 250 words, or filter them: two-handed, *Check* (QA findings or a large conformance change), unreviewed, reviewed. Play/pause, scrub, loop, previous/next, and 0.25× to 1× speed. The phase track marks the sign itself (the stroke) between the ease from and back to the idle pose.
+- **Conformed / Raw.** Switch at the same position between the pipeline's bake as delivered (*raw*) and its projection onto the studio's joint model (*conformed*, the default). See below.
+- **Play every word.** Plays the words in the list one after another (≈ 7 min at 1×).
+- **Lookup test.** Type English words; matched words play back to back, and unknown words are listed as not in the library. Compound glosses map their English forms (`src/motion/library/lookup.ts`): *thank you* → `thankyou`, *ice cream* → `icecream`, *he / she / it* → `hesheit`.
+- **Deaf review.** A reviewer approves or rejects the take on screen, with notes. Decisions are saved in that browser and exported as the pipeline's `deaf_review_decisions.csv` (same columns as the pipeline's `viewer/clip_viewer.html`). Put the file in `s3://<bucket>/v2/05_library/<avatar>/reviews/` and rerun `python -m aslv2 library`. Approved takes are chosen first, and a rejected take is replaced by the next-ranked candidate. A decision belongs to the take (sign + sequence id), so a decision about an older take is shown as stale and not exported. Review works one word at a time and is disabled while a phrase plays. Shortcuts outside text fields: Space play/pause, N next, P previous, A approve, X reject.
+
+### Raw vs conformed
+
+The raw bake fails the studio's anatomical QA on every word. The failures are mostly finger roll ("corkscrew") and thumb joints off their hinge, followed by finger and wrist ranges. `src/motion/library/conform.ts` (`AnatomicalConformer`) projects each word onto the joint model that `AvatarSolver` builds poses with:
+
+1. **Elbow swivel.** A Viterbi over the whole word rotates the arm about the shoulder→wrist axis. This keeps the hand's position **and** orientation in space exactly as given (location and palm orientation, what a viewer reads) while choosing an elbow position that keeps the wrist in range. The first and last frames stay at swivel 0, so every word still starts and ends at the shared idle pose.
+2. **Elbow.** A pure hinge, with flexion clamped to [3°, 148°].
+3. **Wrist.** Per-axis limits on whatever the swivel could not absorb.
+4. **Long fingers.** The MCP keeps flexion and abduction only (no axial roll), with a flexion-dependent abduction range and adjacent fingers kept in order. PIP and DIP are pure hinges.
+5. **Thumb.** MCP and IP are pure hinges within range.
+
+The conformance is deterministic. The unit tests recompute it from the committed pipeline output and check that it is a projection: applying it twice changes < 0.15°.
+
+### Data and commands
+
+```bash
+# 1. Copy the pipeline's library folder, s3://<bucket>/v2/05_library/<avatar>/<run>/:
+#    baked_signs.json → motion/sign-library/source/baked_signs.json.gz
+#    library.json     → motion/sign-library/source/library.json.gz
+#    (gzip -9 -n, or pass --baked / --library with plain .json paths)
+npm run library:import    # validate, conform, quantise, QA → public/motion/sign-library/ + qa-report
+npm test                  # includes tests/signLibrary.test.ts
+npm run build && npm run e2e:library [-- --url https://<deployment>]
+```
+
+The importer refuses input that was baked for a different GLB, comes from mismatched select runs, or lists different words in its two files. It exits non-zero if a conformed word fails QA for anything except the tolerated findings (`TOLERATED_QA_FINDINGS` in `src/motion/library/format.ts`). Output:
+
+| File | Content |
+|---|---|
+| `public/motion/sign-library/sign-library.json` | Index (187 KB): words, timing (ease in / sign / ease out), provenance (dataset take, signer, rank, selection), per-variant QA failures, conformance statistics, review status |
+| `public/motion/sign-library/sign-library.bin.gz` | 13,076 frames × 47 bones of local quaternions, Int16 (error < 0.004°), raw and conformed blocks (4.6 MB) |
+| `motion/sign-library/qa-report.md`, `qa-report.json.gz` | QA summary, and per-word metrics of both variants |
+| `motion/sign-library/source/` | The pipeline output the files above were built from (select run `20261012T230856Z_0eb172`) |
+
+`tests/signLibrary.test.ts` (16 tests, about 8 s) checks the following:
+
+- The shipped files are the import of the committed source (sha256), and the raw frames equal the bake within quantisation error for every word, frame and bone.
+- The conformed frames are reproducible, and every word starts and ends at the same idle pose in both variants.
+- The stored QA equals the QA recomputed on the decoded data.
+- The player, the clock, sequences, lookup, the review CSV and the loader behave correctly, including when a host decodes the `.gz` on the fly.
+
+`npm run e2e:library` loads the tab in headless Chromium. For 8 words × 2 variants it checks that the avatar's bones equal the library at the presented time. It also approves a word and checks the exported CSV byte for byte, plays the lookup test, and checks that switching variant keeps the phrase that is playing. It saves screenshots to `evidence/e2e/library-*.png`. With `--url` it runs against a deployment.
+
+### QA results (250 words)
+
+| | Studio QA pass | Findings (words) |
+|---|---|---|
+| Raw (pipeline bake) | 0 / 250 | thumb off-hinge 240, finger twist 232, finger ranges 138, wrist limits 112, elbow range 18, finger crossing 14, rest-pose hand 9, one-frame finger spike 1 |
+| Conformed | **241 / 250** | rest-pose hand 9 (tolerated, see below) |
+
+What the conformance changed: the elbow swivelled in 110 words (max 60°), and the wrist position moved at most 22 mm. Hand orientation, worst frame per word, changed by a median of 0° and a max of 55°. Fingertip displacement, worst frame per word, had a median of 17 mm and a max of 105 mm. Details per word: `motion/sign-library/qa-report.md`, and the tab's detail panel.
+
+Findings to check by eye, listed under the *Check* filter:
+
+- **No finger data, 9 words** (`beside`, `black`, `farm`, `food`, `give`, `grandma`, `jump`, `loud`, `toy`). The dominant hand stays at the rig's rest handshape during the sign, because the pipeline had no finger data for that take. These words need another take.
+- **Hand turned ≥ 15° by the wrist limits, 12 words** (`beside` 55°, `empty` 42°, `on` 34°, `read` 31°, `chair` 29°, `old` 28°, `that` 25°, `every` 21°, `pencil` 19°, `night` 17°, `puppy` 15°, `helicopter` 15°). The raw take bends the wrist beyond its anatomical range. Compare Conformed with Raw: the palm orientation may matter for the meaning.
+- **Two-handed words, 87.** Every second hand is synthesized, never recorded. 52 are a mirror of the dominant arm and hand (symmetric signs), and 35 are a static base hand from a hearing-authored lexicon (asymmetric signs). The pipeline's base-hand placement (`2a`) produces impossible wrist angles: the raw `night` left wrist reaches 74° radial deviation and `beside` 81°, against a 28° limit. The conformance absorbs most of this by swivelling the elbow out, and clamps the rest, which turns the base hand (`beside` 55°, `night` 17°). The proper fix belongs in the pipeline (aslv2 `motion/passive.py`).
 
 ## Pipeline
 
@@ -196,6 +268,7 @@ Rendering is frame-stepped and deterministic: output frame *k* is the pose at *t
 | `motion/qassem-story/qa-report.{json,md}` | Numerical QA over the full clip, including the before/after comparison |
 | `motion/sign-clip-{1,2}/…` | The same set of files for each sign clip, plus `playback-report.json` (slot → source-frame map and the verified playback encode) |
 | `public/samples/sign-clip-{1,2}.mp4`, `…-poster.jpg` | Constant-frame-rate playback videos (no audio) and first-frame posters used by the Sign clips tab |
+| `public/motion/sign-library/…`, `motion/sign-library/…` | Sign library index, quaternion data (raw + conformed), QA report and the pipeline output they were imported from; see [Sign library tab](#sign-library-tab) |
 | `evidence/` | Legacy and live replays, live QA reports, E2E report and screenshots, videos, contact sheets |
 
 `avatar-motion.json` schema (v1): `{ schema, schemaVersion, clipId, generator, rig{file,sha256,profile,joints}, source{video,sha256,playbackVideo,playbackSha256}, clean{file,sha256}, fps, frameCount, durationSec, space, timeline{sourceFrame[],sourceTime[]}, tracks[{bone, path: rotation|translation, values[]}], quality{handState{left,right}, legend, uncertainIntervals[]}, notes[] }`. Frame *k* is at *t = k / fps* on the video timeline. `quality.handState` holds one character per frame: T tracked, I interpolated, H holding, F easing to relaxed, A absent.
@@ -259,6 +332,7 @@ The signer's left hand is mostly lowered or below the frame, so for those period
 - **Facial non-manual markers are restrained.** The rig's jaw, eyelid, brow and mouth-corner bones carry them. The avatar has no morph targets, so fine mouth shapes are not reproducible.
 - **Not linguistic output.** The clip's title is Arabic (قصة قاسم) and its sign language has not been identified, and the same holds for the two sign clips. Nothing here claims correct ASL or any other sign language. **A fluent Deaf signer must review any animation before it is presented as signing.**
 - **Sign clips: handshape limits.** Visual review of full-length close-ups (`evidence/video/sign-clip-*-right-hand-closeup.mp4`) shows the usual monocular limits. Tight fists render as loosely curled hands, an edge-on thumbs-up can read as extended fingers, and a hand pointing straight at the camera loses depth. Calibration constants are re-estimated per clip (hand depth scale L/R: clip 1 2.3/2.2, clip 2 1.95/2.2); this is calibration, not training.
+- **Sign library: isolated, synthesized, unreviewed.** Each word is one take of an isolated sign by one dataset signer, normalised to right-hand dominance. Second hands of two-handed signs are synthesized. The lookup test is dictionary lookup in English word order, not translation. Where the conformance clamps a wrist, the palm orientation in space changes (up to 55°, `beside`). No word may be presented to users as correct signing before a fluent Deaf signer approves it.
 - **Test environment blockers.** In the headless test environment:
   - Holistic runs at about 3 s per frame on SwiftShader, so no real-time live baseline was recorded. The "before" footage is a frame-stepped replay of the unchanged original solver.
   - H.264 is unavailable in Playwright's Chromium, hence the VP9 test transcode.
