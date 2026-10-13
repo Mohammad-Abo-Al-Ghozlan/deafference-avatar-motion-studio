@@ -20,9 +20,10 @@
 <script setup lang="ts">
 /**
  * Precomputed-motion avatar view: plays `clip` in lockstep with `media` (the
- * pose of the video frame on screen). Unlike AvatarStage it has no live
- * tracker and renders through the page's shared WebGL context, so several
- * views can be on screen without one avatar texture upload each.
+ * pose of the video frame on screen), or with `clock` when there is no
+ * video. Unlike AvatarStage it has no live tracker and renders through the
+ * page's shared WebGL context, so several views can be on screen without one
+ * avatar texture upload each.
  */
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import type { Object3D, PerspectiveCamera, Scene } from 'three'
@@ -41,11 +42,14 @@ export interface ClipViewStatus {
 const props = withDefaults(defineProps<{
   clip: MotionClip | null
   media: HTMLVideoElement | null
+  /** Time source used instead of `media` (e.g. a PlaybackClock for clips without a video). */
+  clock?: { time(): number } | null
   strength?: number
   label?: string
   /** Key of the read-only E2E inspection hook (installed only with ?debug=1). */
   debugId?: string
 }>(), {
+  clock: null,
   strength: 1,
   label: 'Animated Deafference signing avatar',
   debugId: ''
@@ -71,9 +75,9 @@ let binding: MotionBinding | null = null
 let disposed = false
 let lastStatusKey = ''
 let lastTime: number | null = null
-const clock = new MediaFrameClock()
+const mediaClock = new MediaFrameClock()
 
-watch(() => props.media, (video) => clock.attach(video), { immediate: true })
+watch(() => props.media, (video) => mediaClock.attach(video), { immediate: true })
 watch(() => props.clip, () => bindClip())
 
 function bindClip() {
@@ -89,7 +93,7 @@ function bindClip() {
 
 function update() {
   if (binding && props.clip) {
-    const time = clock.time()
+    const time = props.clock ? props.clock.time() : mediaClock.time()
     lastTime = time
     props.clip.applyTo(binding, time)
     binding.applyStrength(props.strength)
@@ -145,7 +149,7 @@ onMounted(async () => {
 
 onBeforeUnmount(() => {
   disposed = true
-  clock.dispose()
+  mediaClock.dispose()
   removeView?.()
   controls?.dispose()
   // The avatar clone shares geometry, materials and textures with the

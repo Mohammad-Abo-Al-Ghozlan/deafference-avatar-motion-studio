@@ -6,4 +6,4 @@ export interface ViewStatus {
   error?: boolean
 }
 
-export type AppView = 'studio' | 'clips'
+export type AppView = 'studio' | 'clips' | 'library'

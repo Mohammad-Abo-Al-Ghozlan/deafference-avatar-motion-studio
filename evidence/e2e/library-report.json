@@ -1,0 +1,118 @@
+{
+  "finishedAt": "2026-10-13T00:38:07.252Z",
+  "url": "vite preview",
+  "checks": {
+    "tab selected and labelled": {
+      "ok": true,
+      "detail": "Sign library\n250 WORDS · TEST BENCH"
+    },
+    "word list shows every library word": {
+      "ok": true,
+      "detail": "250 rows / 250 words"
+    },
+    "status pill reports the library": {
+      "ok": true,
+      "detail": "Playing hello"
+    },
+    "hello (raw): avatar pose == library at t=0.883 s": {
+      "ok": true,
+      "detail": "max 0.00000 deg over 8 bones"
+    },
+    "hello (conformed): avatar pose == library at t=0.884 s": {
+      "ok": true,
+      "detail": "max 0.00000 deg over 8 bones"
+    },
+    "thankyou (raw): avatar pose == library at t=0.867 s": {
+      "ok": true,
+      "detail": "max 0.00000 deg over 8 bones"
+    },
+    "thankyou (conformed): avatar pose == library at t=0.867 s": {
+      "ok": true,
+      "detail": "max 0.00000 deg over 8 bones"
+    },
+    "book (raw): avatar pose == library at t=0.850 s": {
+      "ok": true,
+      "detail": "max 0.00000 deg over 8 bones"
+    },
+    "book (conformed): avatar pose == library at t=0.851 s": {
+      "ok": true,
+      "detail": "max 0.00000 deg over 8 bones"
+    },
+    "after (raw): avatar pose == library at t=0.634 s": {
+      "ok": true,
+      "detail": "max 0.00000 deg over 8 bones"
+    },
+    "after (conformed): avatar pose == library at t=0.634 s": {
+      "ok": true,
+      "detail": "max 0.00000 deg over 8 bones"
+    },
+    "TV (raw): avatar pose == library at t=0.868 s": {
+      "ok": true,
+      "detail": "max 0.00000 deg over 8 bones"
+    },
+    "TV (conformed): avatar pose == library at t=0.868 s": {
+      "ok": true,
+      "detail": "max 0.00000 deg over 8 bones"
+    },
+    "night (raw): avatar pose == library at t=0.918 s": {
+      "ok": true,
+      "detail": "max 0.00000 deg over 8 bones"
+    },
+    "night (conformed): avatar pose == library at t=0.918 s": {
+      "ok": true,
+      "detail": "max 0.00000 deg over 8 bones"
+    },
+    "mom (raw): avatar pose == library at t=0.901 s": {
+      "ok": true,
+      "detail": "max 0.00000 deg over 8 bones"
+    },
+    "mom (conformed): avatar pose == library at t=0.901 s": {
+      "ok": true,
+      "detail": "max 0.00000 deg over 8 bones"
+    },
+    "drink (raw): avatar pose == library at t=0.868 s": {
+      "ok": true,
+      "detail": "max 0.00000 deg over 8 bones"
+    },
+    "drink (conformed): avatar pose == library at t=0.868 s": {
+      "ok": true,
+      "detail": "max 0.00000 deg over 8 bones"
+    },
+    "review: approve + export writes the pipeline CSV": {
+      "ok": true,
+      "detail": {
+        "file": "deaf_review_decisions.csv",
+        "csv": "﻿sign,rank,sequence_id,participant_id,decision,reviewer,notes,clip_file\r\nhello,1,275473347,34503,approved,E2E reviewer,\"e2e, \"\"check\"\"\",1_275473347.json\r\n"
+      }
+    },
+    "lookup test plays the matched words back to back": {
+      "ok": true,
+      "detail": {
+        "matched": 3,
+        "glosses": [
+          "hello",
+          "thank you",
+          "mom"
+        ],
+        "frameCount": 154,
+        "expectedFrames": 154
+      }
+    },
+    "review is disabled while a phrase plays": {
+      "ok": true,
+      "detail": "Approve disabled in phrase mode"
+    },
+    "version switch rebuilds the phrase being played": {
+      "ok": true,
+      "detail": {
+        "clipId": "sequence:hello+thankyou+mom:raw",
+        "mode": "phrase"
+      }
+    },
+    "no console errors": {
+      "ok": true,
+      "detail": []
+    }
+  },
+  "failures": []
+}

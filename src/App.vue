@@ -39,7 +39,8 @@
     <div id="view-panel" role="tabpanel" :aria-labelledby="`tab-${view}`">
       <!-- v-if, not v-show: each view owns WebGL contexts and media that must be released when hidden. -->
       <StudioView v-if="view === 'studio'" @status="status = $event" />
-      <SignClipsView v-else @status="status = $event" />
+      <SignClipsView v-else-if="view === 'clips'" @status="status = $event" />
+      <SignLibraryView v-else @status="status = $event" />
     </div>
 
     <footer class="footer">
@@ -54,12 +55,14 @@ import { defineAsyncComponent, nextTick, onBeforeUnmount, onMounted, ref } from 
 import StudioView from './views/StudioView.vue'
 import type { AppView, ViewStatus } from './types/ui'
 
-// Loaded on first use: the default studio view does not pay for it.
+// Loaded on first use: the default studio view does not pay for them.
 const SignClipsView = defineAsyncComponent(() => import('./views/SignClipsView.vue'))
+const SignLibraryView = defineAsyncComponent(() => import('./views/SignLibraryView.vue'))
 
 const tabs: { view: AppView; label: string; hint: string; hash: string }[] = [
   { view: 'studio', label: 'Motion studio', hint: 'Sample · upload · camera', hash: '#studio' },
-  { view: 'clips', label: 'Sign clips', hint: '2 recorded sections', hash: '#sign-clips' }
+  { view: 'clips', label: 'Sign clips', hint: '2 recorded sections', hash: '#sign-clips' },
+  { view: 'library', label: 'Sign library', hint: '250 words · test bench', hash: '#sign-library' }
 ]
 
 /** Only these hashes select a view; other anchors (#top, #section-1, ...) just scroll. */
