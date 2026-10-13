@@ -24,7 +24,8 @@
     "motion:live-replay": "tsx tools/live-replay.ts",
     "motion:legacy-replay": "tsx tools/legacy-motion.ts",
     "evidence:record": "tsx tools/evidence/record.ts",
-    "e2e": "tsx tools/e2e/app-smoke.ts"
+    "e2e": "tsx tools/e2e/app-smoke.ts",
+    "library:import": "tsx tools/import-sign-library.ts"
   },
   "dependencies": {
     "@mediapipe/holistic": "0.5.1675471629",
